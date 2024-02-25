@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2BE2D9EC-F0F8-4792-BE0F-74F4D957F4F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportManagement.Api", "src\AirportManagement.Api\AirportManagement.Api.csproj", "{C14B9392-F98D-4133-9A4F-B87CF791DCA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportManagement.Application", "src\AirportManagement.Application\AirportManagement.Application.csproj", "{7412D842-5B16-4A0A-9C5D-E178581C96F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportManagement.Contracts", "src\AirportManagement.Contracts\AirportManagement.Contracts.csproj", "{704BC336-08A2-4404-982A-EC59BE6910D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportManagement.Domain", "src\AirportManagement.Domain\AirportManagement.Domain.csproj", "{563909AF-E52A-4C25-984D-A77B94B26E2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportManagement.Infrastructure", "src\AirportManagement.Infrastructure\AirportManagement.Infrastructure.csproj", "{79098F4B-8D1C-4C67-920F-7C1F702539E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C14B9392-F98D-4133-9A4F-B87CF791DCA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C14B9392-F98D-4133-9A4F-B87CF791DCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C14B9392-F98D-4133-9A4F-B87CF791DCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C14B9392-F98D-4133-9A4F-B87CF791DCA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7412D842-5B16-4A0A-9C5D-E178581C96F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7412D842-5B16-4A0A-9C5D-E178581C96F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7412D842-5B16-4A0A-9C5D-E178581C96F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7412D842-5B16-4A0A-9C5D-E178581C96F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{704BC336-08A2-4404-982A-EC59BE6910D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{704BC336-08A2-4404-982A-EC59BE6910D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{704BC336-08A2-4404-982A-EC59BE6910D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{704BC336-08A2-4404-982A-EC59BE6910D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{563909AF-E52A-4C25-984D-A77B94B26E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{563909AF-E52A-4C25-984D-A77B94B26E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{563909AF-E52A-4C25-984D-A77B94B26E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{563909AF-E52A-4C25-984D-A77B94B26E2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79098F4B-8D1C-4C67-920F-7C1F702539E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79098F4B-8D1C-4C67-920F-7C1F702539E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79098F4B-8D1C-4C67-920F-7C1F702539E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79098F4B-8D1C-4C67-920F-7C1F702539E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C14B9392-F98D-4133-9A4F-B87CF791DCA7} = {2BE2D9EC-F0F8-4792-BE0F-74F4D957F4F8}
+		{7412D842-5B16-4A0A-9C5D-E178581C96F0} = {2BE2D9EC-F0F8-4792-BE0F-74F4D957F4F8}
+		{704BC336-08A2-4404-982A-EC59BE6910D1} = {2BE2D9EC-F0F8-4792-BE0F-74F4D957F4F8}
+		{563909AF-E52A-4C25-984D-A77B94B26E2F} = {2BE2D9EC-F0F8-4792-BE0F-74F4D957F4F8}
+		{79098F4B-8D1C-4C67-920F-7C1F702539E4} = {2BE2D9EC-F0F8-4792-BE0F-74F4D957F4F8}
+	EndGlobalSection
+EndGlobal
