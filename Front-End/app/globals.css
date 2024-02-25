@@ -36,6 +36,28 @@ body {
   text-decoration: none;
   cursor: pointer;  
   font-size: 14px;
+  background-color: #f6f6f9;
+}
+.insideTab li 
+{
+  overflow: hidden;  
+}
+.insideTab a
+{
+  display: inline-block;
+  width: 100%;
+}
+.insideTab li:hover a:hover
+{
+  background-color: #614ba6;
+  color: white;  
+}
+.topTabs li
+{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  text-wrap: nowrap;
+  scrollbar-width: none;
 }
 .dropdownLinks
 {
@@ -45,6 +67,12 @@ body {
 {
   background-color: #614ba6;
   color: white;
+}
+.sideBarList li
+{
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: slategrey;
 }
 
 @layer utilities {

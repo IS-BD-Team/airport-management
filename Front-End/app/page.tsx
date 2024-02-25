@@ -2,6 +2,7 @@ import Image from "next/image";
 import TopMenu from "./topMenu";
 import Header from "./Header";
 import MainMenu from "./MainMenu";
+import SideBar from "./SideBar";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -113,6 +114,7 @@ export default function Home() {
       <TopMenu/>
       <Header/>
       <MainMenu/>
+      <SideBar/>
     </main>
   );
 }

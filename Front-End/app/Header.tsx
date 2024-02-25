@@ -11,7 +11,7 @@ export default () => {
             </div>
             <div className="flex flex-row">
                 <label htmlFor="search">Search:</label>
-                <input type="text" name="search" className="mr-2" />
+                <input type="text" name="search" className="mr-2 text-black px-1" />
                 <div className="relative">
                 <div onClick={() => { SetDropdown(!showDropDown) }} className="cursor-pointer mr-3
                 bg-white text-black">
