@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+*{
+  box-sizing: border-box;
+}
 /* (TODO comprobar esto despues)
 :root {
   --foreground-rgb: 0, 0, 0;
