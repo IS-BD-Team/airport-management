@@ -17,7 +17,13 @@
   }
 }*/
 
+html {
+  height: 100vh;
+}
+
 body {
+  overflow: hidden;
+  height: 100%;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
