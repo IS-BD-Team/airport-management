@@ -1,5 +1,4 @@
-export default ()=>
-{
+export default function TopMenu(){
     return(
         <div className="lg:w-full lg:flex lg:justify-between lg:text-[12px] 
         bg-[#002951] text-white px-2 hidden">

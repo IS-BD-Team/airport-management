@@ -1,13 +1,13 @@
 'use client'
 import { useState } from "react";
-export default () => {
+export default function Header(){
     const [showDropDown, SetDropdown] = useState(false);
 
     return (
         <div className="lg:w-full lg:flex lg:justify-between hidden pl-3 py-3 h-12 align-middle
         text-white bg-[#005b7f]">
             <div className="text-xl">
-                Caribbean MT
+                Aeropuertos
             </div>
             <div className="flex flex-row">
                 <label htmlFor="search">Search:</label>
@@ -37,7 +37,6 @@ export default () => {
                         </div>
                     </div>}
                 </div>
-
             </div>
         </div>
     )

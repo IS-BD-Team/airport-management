@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-export default () => {
+export default function MainMenu(){
     const [toogle, setToogle] = useState(false);
     return (
         <div className="w-full bg-[#f6f6f9] h-10 items-center flex flex-row">
