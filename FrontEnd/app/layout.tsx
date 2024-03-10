@@ -16,7 +16,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" >
+        <html lang="en">
             <head>
                 <link rel="icon" href="./favicon.png" />
             </head>
@@ -24,8 +24,10 @@ export default function RootLayout({
                 <header>
                     <Header />
                 </header>
-                <SideBar/>
-                {children}
+                <div className="flex h-full">
+                    <SideBar />
+                    <main className="w-[85vw] p-5">{children}</main>
+                </div>
             </body>
         </html>
     );
