@@ -61,3 +61,9 @@ body {
     text-wrap: balance;
   }
 }
+tbody tr:nth-child(odd){
+  background-color: #d1d3e026;
+}
+tbody tr:hover{
+  background-color: #1a111151;
+}
