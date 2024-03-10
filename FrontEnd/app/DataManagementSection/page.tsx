@@ -13,6 +13,18 @@ export default function DataManagement(props: DataManagementProps) {
         {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
         {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
         {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
     ]
 
     return (
