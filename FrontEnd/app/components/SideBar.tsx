@@ -8,7 +8,7 @@ import SideBarItem from "./SideBarItem";
 
 export default function SideBar(){
     return (
-        <aside className="w-[15vw] absolute h-full border-r-2">
+        <aside className="w-[15vw] h-full border-r-2">
             <ul className="w-full p-2">
                 <SideBarItem text="Aeropuertos" icon={aeropuertos}/>
                 <SideBarItem text="Instalaciones" icon={instalaciones}/>
