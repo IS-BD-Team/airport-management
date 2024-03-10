@@ -1,37 +1,38 @@
+import { TestingType } from "../utils/types";
+import CustomTable from "./components/CustomTable";
+
 type DataManagementProps = {
     section: string;
-}
+};
 
-export default function DataManagement(props: DataManagementProps){
+
+
+export default function DataManagement(props: DataManagementProps) {
+    const data = [
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+        {nombre: "Emrys", grupo:"C311", num:"NaN", description:"a", fecha: "12/12/12"},
+    ]
+
     return (
-        <main className="w-[85vw]">
-            <h1>{props.section}</h1>
+        <div>
+            <header className="flex justify-between">
+                <h2 className="text-2xl font-bold">
+                    {/*props.section*/}
+                    Secciones
+                </h2>
+                <button className="bg-gray-200 px-3 py-1 rounded-md">
+                    + Add
+                </button>
+            </header>
+
+            <fieldset>
+                <legend>Filtros</legend>
+            </fieldset>
             <section>
-                Filtros
+                <CustomTable data={data} columnWidths={["20%", "10%", "10%", "50%", "10%"]}/>
             </section>
-            <section>
-                Tabla de datos
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Columna 1</th>
-                            <th>Columna 2</th>
-                            <th>Columna 3</th>
-                            <th>Columna 4</th>
-                            <th>Columna 5</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Valor 1</td>
-                            <td>Valor 2</td>
-                            <td>Valor 3</td>
-                            <td>Valor 4</td>
-                            <td>Valor 5</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
+        </div>
     );
 }
