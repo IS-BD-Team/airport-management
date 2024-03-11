@@ -1,14 +1,17 @@
 'use client'
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Add logic to process login here
     console.log('Login with:', username, password);
+    router.push('../dashboard')
   };
 
   return (
