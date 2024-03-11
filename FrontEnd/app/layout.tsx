@@ -21,13 +21,7 @@ export default function RootLayout({
                 <link rel="icon" href="./favicon.png" />
             </head>
             <body className={inter.className}>
-                <header>
-                    <Header />
-                </header>
-                <div className="flex h-[calc(100%_-_40px)] lg:h-[calc(100%_-_106px)]">
-                    <SideBar />
-                    <main className="w-[85vw] p-5 overflow-y-auto">{children}</main>
-                </div>
+                {children}
             </body>
         </html>
     );
