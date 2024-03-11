@@ -1,4 +1,5 @@
 import { Aeropuerto, Instalacion, Cliente, Servicio, TestingType } from "@/app/utils/types";
+import Link from "next/link";
 
 type CustomTableProps = {   
     data: Aeropuerto[] | Instalacion[] | Cliente[] | Servicio[] | TestingType[];
