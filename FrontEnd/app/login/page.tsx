@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     event.preventDefault();
     // Add logic to process login here
     console.log('Login with:', username, password);
-    router.push('../dashboard/DataManagementSection')
+    router.push('../dashboard/Home')
   };
 
   return (
