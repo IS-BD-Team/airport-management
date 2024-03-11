@@ -27,7 +27,7 @@ export default function DataManagement(props: DataManagementProps) {
     ]
 
     return (
-        <div>
+        <div className="m-5">
             <header className="flex justify-between">
                 <h2 className="text-2xl font-bold">
                     {/*props.section*/}
