@@ -1,4 +1,3 @@
-import { TestingType } from "../utils/types";
 import CustomTable from "./components/CustomTable";
 
 type DataManagementProps = {
