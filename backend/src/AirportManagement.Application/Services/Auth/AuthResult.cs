@@ -1,9 +1,8 @@
+using AirportManagement.Domain.Entities;
+
 namespace AirportManagement.Application.Services.Auth;
 
 public record AuthResult(
-    int Id,
-    string Email,
-    string FirstName,
-    string LastName,
+    User User,
     string Token
 );
