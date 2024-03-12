@@ -8,7 +8,6 @@ const Login: React.FC = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add logic to process login here
-    console.log('Login with:', username, password);
     router.push('../dashboard')
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email');

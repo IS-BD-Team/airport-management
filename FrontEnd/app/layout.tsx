@@ -24,7 +24,6 @@ export default function RootLayout({
                 <header>
                     <Header />
                 </header>
-                <SideBar/>
                 {children}
             </body>
         </html>
