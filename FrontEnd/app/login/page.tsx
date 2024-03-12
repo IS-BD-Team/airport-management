@@ -1,17 +1,19 @@
 'use client'
-import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { FormEvent } from 'react'
 
-const Login: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login: React.FC = () => {  
   const router = useRouter();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add logic to process login here
     console.log('Login with:', username, password);
     router.push('../dashboard')
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    router.push('../dashboard/Home');
   };
 
   return (
@@ -21,8 +23,6 @@ const Login: React.FC = () => {
         <input
           id="username"
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
           className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
       </div>
@@ -31,8 +31,6 @@ const Login: React.FC = () => {
         <input
           id="password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
       </div>
