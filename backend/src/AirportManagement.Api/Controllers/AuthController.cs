@@ -12,37 +12,42 @@ public class AuthController(IAuthService authService) : ControllerBase
 
     [HttpPost]
     [Route("register")]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var authResult = _authService.Register(
+        var authResult = await _authService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
             request.Password
         );
-        var authResponse = new AuthResponse(
-            authResult.Id,
-            authResult.FirstName,
-            authResult.LastName,
-            authResult.Email,
-            authResult.Token
-        );
-        return Ok(authResponse);
+
+        return authResult.MatchFirst(result =>
+                Ok(new AuthResponse
+                (
+                    result.User.Id,
+                    result.User.FirstName,
+                    result.User.Lastname,
+                    result.User.Email,
+                    result.Token
+                )),
+            error => Problem(error.Code, statusCode: error.NumericType));
     }
 
     [HttpGet]
     [Route("login")]
-    public IActionResult SignIn(LoginReqest request)
+    public async Task<IActionResult> SignIn(LoginReqest request)
     {
-        var loginResult = _authService.Login(request.email, request.password);
+        var loginResult = await _authService.Login(request.email, request.password);
 
-        var authResponse = new AuthResponse(
-            loginResult.Id,
-            loginResult.FirstName,
-            loginResult.LastName,
-            loginResult.Email,
-            loginResult.Token
-        );
-        return Ok(authResponse);
+        return loginResult.MatchFirst(result =>
+                Ok(new AuthResponse
+                (
+                    result.User.Id,
+                    result.User.FirstName,
+                    result.User.Lastname,
+                    result.User.Email,
+                    result.Token
+                )),
+            error => Problem(error.Code, statusCode: error.NumericType));
     }
 }

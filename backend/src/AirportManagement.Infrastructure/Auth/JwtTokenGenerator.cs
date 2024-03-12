@@ -3,24 +3,18 @@ using System.Security.Claims;
 using System.Text;
 using AirportManagement.Application.Common.Interfaces.Auth;
 using AirportManagement.Application.Common.Services;
+using AirportManagement.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AirportManagement.Infrastructure.Auth;
 
-public class JwtTokenGenerator : IJwtTokengenerator
+public class JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtOptions)
+    : IJwtTokengenerator
 {
-    private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly JwtSettings _jwtOptions = jwtOptions.Value;
 
-    private readonly JwtSettings _jwtOptions;
-
-    public JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtOptions)
-    {
-        _dateTimeProvider = dateTimeProvider;
-        _jwtOptions = jwtOptions.Value;
-    }
-
-    public string GenerateToken(int userId, string firsName, string lastName)
+    public string GenerateToken(User user)
     {
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
@@ -28,16 +22,16 @@ public class JwtTokenGenerator : IJwtTokengenerator
             SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-            new Claim(JwtRegisteredClaimNames.GivenName, firsName),
-            new Claim(JwtRegisteredClaimNames.FamilyName, lastName),
-            new Claim(JwtRegisteredClaimNames.Jti, userId.ToString())
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
+            new Claim(JwtRegisteredClaimNames.FamilyName, user.Lastname),
+            new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString())
         };
 
         var securityToken = new JwtSecurityToken(
             _jwtOptions.Issuer,
             _jwtOptions.Audience,
-            expires: _dateTimeProvider.UtcNow.AddMinutes(_jwtOptions.ExpireMinutes),
+            expires: dateTimeProvider.UtcNow.AddMinutes(_jwtOptions.ExpireMinutes),
             claims: claims,
             signingCredentials: signingCredentials);
 
