@@ -1,9 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Ardalis.SmartEnum" Version="8.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Microsoft.EntityFrameworkCore.Abstractions">
+            <HintPath>..\..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore.abstractions\8.0.2\lib\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+        </Reference>
+    </ItemGroup>
 
 </Project>
