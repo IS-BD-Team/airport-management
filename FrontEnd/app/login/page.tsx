@@ -9,33 +9,25 @@ const Login: React.FC = () => {
   const handleSubmit = async(event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add logic to process login here
-    router.push('../dashboard')
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
-        
-    // const request = await fetch('/api/login', {
+    const email = event.currentTarget.userEmail.value;
+    const password = event.currentTarget.password.value;
+    // const response = await fetch('/api/login', {
     //   method: 'POST',
-    //   body: JSON.stringify({ email, password }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // });
-
-    // if (request.ok) {
-    //   const Coockies = request.headers.get('Set-Cookie');
-    //   console.log(Coockies);
-    //   const data = await request.json();
-    //   const token = data['token'];
-    //   const serialized = serialize('userToken',token,
-    //   {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({email, password}),
+    // })
+    // const data = await response.json();
+    // if (data.status === 'ok') {
+    //   const serialized = serialize('token', data.token, {
     //     httpOnly: true,
+    //     maxAge: 60 * 60 * 24 * 7,
     //     path: '/',
-    //   });
-    //   request.headers.append('Set-Cookie', serialized);
-    // } else {
-    //   console.error('Error al loguearse');
-    // }    
-    
-    router.push('../dashboard/Home');
+    //   })
+    //   document.cookie = serialized
+    // }
+    router.push('../dashboard/Home')
   };
 
   return (
