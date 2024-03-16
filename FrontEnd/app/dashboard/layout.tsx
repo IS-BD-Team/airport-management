@@ -12,7 +12,6 @@ export default function Layout({
         <>
             <header>
                 <TopMenu />
-                <Header />
                 <MainMenu />
             </header>
             <div className="flex h-[calc(100%_-_40px)] lg:h-[calc(100%_-_106px)]">
