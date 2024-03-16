@@ -36,6 +36,7 @@ const Login: React.FC = () => {
     // }    
     
     router.push('../dashboard/Home');
+
   };
 
   return (
