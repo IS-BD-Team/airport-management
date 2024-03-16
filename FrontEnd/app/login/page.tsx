@@ -9,33 +9,8 @@ const Login: React.FC = () => {
   const handleSubmit = async(event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add logic to process login here
-    router.push('../dashboard')
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get('email');
-    const password = formData.get('password');
-        
-    // const request = await fetch('/api/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ email, password }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // });
-
-    // if (request.ok) {
-    //   const Coockies = request.headers.get('Set-Cookie');
-    //   console.log(Coockies);
-    //   const data = await request.json();
-    //   const token = data['token'];
-    //   const serialized = serialize('userToken',token,
-    //   {
-    //     httpOnly: true,
-    //     path: '/',
-    //   });
-    //   request.headers.append('Set-Cookie', serialized);
-    // } else {
-    //   console.error('Error al loguearse');
-    // }    
     
-    router.push('../dashboard/Home');
+    router.push('../dashboard/Home')
   };
 
   return (
