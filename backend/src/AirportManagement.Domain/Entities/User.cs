@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AirportManagement.Domain.Entities;
 
-public class User(string firstName, string lastname, string email, string password)
+public class User(string firstName, string lastname, string email, string password, bool isSuperAdmin = false)
 {
     [Required] public int Id { get; set; }
 
@@ -13,4 +13,6 @@ public class User(string firstName, string lastname, string email, string passwo
     [Key] [Required] public string Email { get; set; } = email;
 
     [Required] public string Password { get; set; } = password;
+
+    public bool IsSuperAdmin { get; set; } = isSuperAdmin;
 }
