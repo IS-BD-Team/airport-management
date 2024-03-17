@@ -15,7 +15,6 @@ public class GetAirportsQueryHandler(IAirportsRepository airportsRepository)
 
         var enumerable = airports.ToList();
 
-        if (enumerable.Count == 0) return Error.NotFound("No airports were found.");
         var list = enumerable.ToList();
         return list;
     }
