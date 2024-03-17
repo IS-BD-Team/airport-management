@@ -16,7 +16,7 @@ export default function Layout({
             </header>
             <div className="flex h-[calc(100%_-_40px)] lg:h-[calc(100%_-_106px)]">
                 <SideBar />
-                <main className="w-[85vw] p-5 overflow-y-auto">{children}</main>
+                <main className="w-[85vw] overflow-y-auto">{children}</main>
             </div>
         </>
     );
