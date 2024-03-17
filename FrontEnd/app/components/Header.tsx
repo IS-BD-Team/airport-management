@@ -10,7 +10,7 @@ export default function Header(){
             <div className="text-xl">
                 Aeropuertos
             </div>
-            <div className="flex flex-row">
+            {/* <div className="flex flex-row">
                 <label htmlFor="search">Search:</label>
                 <input type="text" name="search" className="mr-2" />
                 <div className="relative">
@@ -38,7 +38,7 @@ export default function Header(){
                         </div>
                     </div>}
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
