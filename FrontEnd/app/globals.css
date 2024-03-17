@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+*{
+  box-sizing: border-box;
+}
 /* (TODO comprobar esto despues)
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -17,7 +19,13 @@
   }
 }*/
 
+html {
+  height: 100vh;
+}
+
 body {
+  overflow: hidden;
+  height: 100%;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -52,4 +60,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+tbody tr:nth-child(odd){
+  background-color: #d1d3e026;
+}
+tbody tr:hover{
+  background-color: #1a111151;
 }
