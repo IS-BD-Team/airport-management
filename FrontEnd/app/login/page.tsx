@@ -11,22 +11,22 @@ const Login: React.FC = () => {
     // Add logic to process login here
     const email = event.currentTarget.userEmail.value;
     const password = event.currentTarget.password.value;
-    // const response = await fetch('/api/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({email, password}),
-    // })
-    // const data = await response.json();
-    // if (data.status === 'ok') {
-    //   const serialized = serialize('token', data.token, {
-    //     httpOnly: true,
-    //     maxAge: 60 * 60 * 24 * 7,
-    //     path: '/',
-    //   })
-    //   document.cookie = serialized
-    // }
+    const response = await fetch("http://localhost:5258/auth/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email, password}),
+    })
+    const data = await response.json();
+    if (data.status === 'ok') {
+      const serialized = serialize('token', data.token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      })
+      document.cookie = serialized
+    }
     router.push('../dashboard/Home')
   };
 
