@@ -1,27 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
-    <UserSecretsId>bc81f51b-3a56-4b1e-a84a-e92f69ac8ff5</UserSecretsId>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <UserSecretsId>bc81f51b-3a56-4b1e-a84a-e92f69ac8ff5</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AirportManagement.Application\AirportManagement.Application.csproj" />
-    <ProjectReference Include="..\AirportManagement.Domain\AirportManagement.Domain.csproj" />
-    <ProjectReference Include="..\AirportManagement.Contracts\AirportManagement.Contracts.csproj" />
-    <ProjectReference Include="..\AirportManagement.Infrastructure\AirportManagement.Infrastructure.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\AirportManagement.Application\AirportManagement.Application.csproj"/>
+        <ProjectReference Include="..\AirportManagement.Domain\AirportManagement.Domain.csproj"/>
+        <ProjectReference Include="..\AirportManagement.Contracts\AirportManagement.Contracts.csproj"/>
+        <ProjectReference Include="..\AirportManagement.Infrastructure\AirportManagement.Infrastructure.csproj"/>
+    </ItemGroup>
 
 </Project>
