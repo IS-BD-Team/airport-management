@@ -25,9 +25,14 @@ const Login: React.FC = () => {
         maxAge: 60 * 60 * 24 * 7,
         path: '/',
       })
-      document.cookie = serialized
+      document.cookie = serialized;
+      router.push('../dashboard/Home')
     }
-    router.push('../dashboard/Home')
+    else
+    {
+      alert('Login failed');
+    }
+    
   };
 
   return (
