@@ -1,3 +1,4 @@
+using System.Text;
 using AirportManagement.Application.Common.Interfaces;
 using AirportManagement.Application.Common.Interfaces.Auth;
 using AirportManagement.Application.Common.Interfaces.Persistence.Airports;
@@ -8,29 +9,60 @@ using AirportManagement.Infrastructure.Auth;
 using AirportManagement.Infrastructure.Common.Persistence;
 using AirportManagement.Infrastructure.Services;
 using AirportManagement.Infrastructure.Users.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AirportManagement.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-        ConfigurationManager builderConfiguration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection serviceCollection,
+        ConfigurationManager configurationManager)
     {
-        services.AddDbContext<AirportManagementDbContext>(
+        serviceCollection.AddDbContext<AirportManagementDbContext>(
             options => options.UseSqlite("DataSource = AirportManagement.db"));
 
-        services.Configure<JwtSettings>(builderConfiguration.GetSection(JwtSettings.SectionName));
 
+        serviceCollection.AddAuth(configurationManager);
 
-        services.AddSingleton<IJwtTokengenerator, JwtTokenGenerator>();
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-        services.AddScoped<IAirportsRepository, AirportRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AirportManagementDbContext>());
-        return services;
+        serviceCollection.AddScoped<IAirportsRepository, AirportRepository>();
+        serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AirportManagementDbContext>());
+        return serviceCollection;
+    }
+
+    public static IServiceCollection AddAuth(
+        this IServiceCollection serviceCollection,
+        ConfigurationManager configurationManager)
+    {
+        var jwtSettings = new JwtSettings();
+        configurationManager.Bind(JwtSettings.SectionName, jwtSettings);
+
+        serviceCollection.AddSingleton(Options.Create(jwtSettings));
+        serviceCollection.AddSingleton<IJwtTokengenerator, JwtTokenGenerator>();
+
+        serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtSettings.Issuer,
+                ValidAudience = jwtSettings.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtSettings.Secret)
+                )
+            }
+        );
+
+        return serviceCollection;
     }
 }
