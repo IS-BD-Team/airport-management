@@ -14,8 +14,8 @@ export default function SideBar(){
                 <SideBarItem text="Instalaciones" icon={instalaciones}/>
                 <SideBarItem text="Servicios" icon={servicios}/>
                 <SideBarItem text="Reparciones" icon={reparaciones}/>
+                <SideBarItem text="Clientes" icon={aviones}/>
                 <SideBarItem text="Naves" icon={aviones}/>
-                <SideBarItem text="ETC..." icon={aviones}/>
             </ul>
         </aside>
     );
