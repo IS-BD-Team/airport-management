@@ -6,10 +6,7 @@ export default function Layout({
     children: React.ReactNode;
 }>) {
     return (
-        <>
-            <header>
-                <Header />
-            </header>
+        <>            
             <div>{children}</div>
         </>
     );
