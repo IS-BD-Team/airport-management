@@ -31,6 +31,7 @@ const Login: React.FC = () => {
       // })
       // console.log(serialized);
       document.cookie = `UserToken=${data.token};path='/';max-age=604800`;
+      document.cookie = `UserEmail=${data.email};path='/';max-age=604800`;
       console.log(document.cookie);
       router.push('../dashboard/Home')
     }

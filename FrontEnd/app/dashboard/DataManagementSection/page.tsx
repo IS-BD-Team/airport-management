@@ -6,121 +6,23 @@ import AddForm from "./components/AddForm";
 import { Instance } from "@/app/utils/types";
 
 export default function DataManagement() {
-    const data = [
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-        {
-            nombre: "Emrys",
-            grupo: "C311",
-            num: "NaN",
-            description: "a",
-            fecha: "12/12/12",
-        },
-    ];
 
+    const getAirportsData = async () => {
+        try {
+            const response = await fetch('http://localhost:5258/Airports/airports', {
+                method: 'GET',
+                headers: {
+                    'Authorization':''
+                }
+            })
+
+            return await response.json();
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const data = getAirportsData();
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
 
@@ -152,7 +54,7 @@ export default function DataManagement() {
                 </fieldset>
                 <section>
                     <CustomTable
-                        data={data}
+                        data={[]}
                         columnWidths={["20%", "10%", "10%", "50%", "10%"]}
                     />
                 </section>
