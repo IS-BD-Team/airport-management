@@ -2,6 +2,8 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import {serialize} from 'cookie';
+import Document from 'next/document';
+
 
 const Login: React.FC = () => {  
   const router = useRouter();
@@ -19,13 +21,17 @@ const Login: React.FC = () => {
       body: JSON.stringify({email, password}),
     })
     const data = await response.json();
-    if (data.status === 'ok') {
-      const serialized = serialize('token', data.token, {
-        httpOnly: true,
-        maxAge: 60 * 60 * 24 * 7,
-        path: '/',
-      })
-      document.cookie = serialized;
+    console.log(response);
+    console.log(data);
+    if (response.status === 200) {
+      // const serialized = serialize('UserToken', data.token, {
+      //   httpOnly: true,
+      //   maxAge: 60 * 60 * 24 * 7,
+      //   path: "/",
+      // })
+      // console.log(serialized);
+      document.cookie = `UserToken=${data.token};path='/';max-age=604800`;
+      console.log(document.cookie);
       router.push('../dashboard/Home')
     }
     else
