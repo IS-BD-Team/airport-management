@@ -3,12 +3,14 @@ using AirportManagement.Application.Airports.Commands.DeleteAirport;
 using AirportManagement.Application.Airports.Queries;
 using AirportManagement.Contracts.Airports;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class AirportsController(ISender mediator)
     : ControllerBase
 {
@@ -30,20 +32,18 @@ public class AirportsController(ISender mediator)
 
         var getAirportsResult = await mediator.Send(query);
 
-        if (getAirportsResult.IsError) return Problem();
-        var aux = getAirportsResult.Value
-            .Select(airport => new AirportResponse(airport.Id, airport.Name, airport.Address))
-            .ToList();
-        var aux2 = new AirportsResponse(aux);
-        return Ok(aux2);
-
-
-        // return getAirportsResult.MatchFirst(
-        //     airports => Ok(new AirportsResponse
-        //     (airports.Select(airport => (airport.Id, airport.Name, airport.Address))
-        //         .ToList())),
-        //     error => Problem(error.Code, statusCode: error.NumericType)
-        // );
+        return getAirportsResult.MatchFirst(
+            airports => Ok(new AirportsResponse
+            (
+                airports.Select(airport => new AirportResponse
+                (
+                    airport.Id,
+                    airport.Name,
+                    airport.Address
+                )).ToList()
+            )),
+            error => Problem(error.Code, statusCode: error.NumericType)
+        );
     }
 
     [HttpGet("{airportId:int}")]
