@@ -33,9 +33,9 @@ public class AuthController(IAuthService authService) : ControllerBase
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> SignIn(LoginReqest request)
+    public async Task<IActionResult> Login(LoginReqest request)
     {
         var loginResult = await _authService.Login(request.email, request.password);
 
