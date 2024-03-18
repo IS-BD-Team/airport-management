@@ -23,7 +23,15 @@ export default function DataManagement() {
             console.log(err)
         }
     }
-    const data = getAirportsData();
+    //const data = getAirportsData();
+    const data = [
+        {
+        "id": "1",
+        "nombre": "A",
+        "ubicacion": "a",
+        "posicionGeografica": "a"
+    },
+]
     const [toggleForm, setToogleForm] = useState(false);
     /*const data = [{
         id:"1",
