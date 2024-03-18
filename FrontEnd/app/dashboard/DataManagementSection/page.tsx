@@ -65,19 +65,16 @@ export default function DataManagement() {
                     </button>
                 </header>
 
-                {toggleForm && (
-                    <AddForm
-                        type={entity}
-                        handleToggleEvent={() => {
-                            setToogleForm(false);
-                        }}
-                    />
-                )}
+                {toggleForm && <AddForm type={entity} handleToggleEvent={()=>{
+                    setToogleForm(false)
+                    }}/>}
 
                 <fieldset>
                     <legend>Filtros</legend>
                 </fieldset>
                 <section>
+                    {data != null && <CustomTable
+                        data={data}
                     {data != null && <CustomTable
                         data={data}
                         columnWidths={["20%", "10%", "10%", "50%", "10%"]}
