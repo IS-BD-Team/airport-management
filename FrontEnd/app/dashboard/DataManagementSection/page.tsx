@@ -73,9 +73,7 @@ export default function DataManagement() {
                     <legend>Filtros</legend>
                 </fieldset>
                 <section>
-                    {data != null && <CustomTable
-                        data={data}
-                    {data != null && <CustomTable
+                    <CustomTable
                         data={data}
                         columnWidths={["20%", "10%", "10%", "50%", "10%"]}
                     />}
