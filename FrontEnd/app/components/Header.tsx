@@ -1,10 +1,11 @@
 'use client'
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Header() {
     const [showDropDown, SetDropdown] = useState(false);
     const path = usePathname();
+    const router = useRouter();
     // Obtener todas las cookies como una cadena de texto
     const cookies = document.cookie;
 
@@ -19,6 +20,12 @@ export default function Header() {
     const email = emailCookie ? emailCookie.split('=')[1] : null;
     const name = nameCookie ? nameCookie.split('=')[1] : null;
     const initial = name ? name[0] : "";
+    const logout = () => {
+        document.cookie = "UserName" + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        document.cookie = "UserEmail" + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        document.cookie = "UserToken" + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        router.push('/login');
+    }
 
     return (
         <div className="lg:w-full lg:flex lg:justify-between hidden pl-3 py-3 h-12 align-middle
@@ -47,7 +54,7 @@ export default function Header() {
                             <p className="hover:bg-slate-300 border-b border-b-slate-500">
                                 Email: {email}
                             </p>
-                            <button className="hover:bg-slate-300">
+                            <button className="hover:bg-slate-300" onClick={()=>logout()}>
                                 Logout
                             </button>
                         </div>
