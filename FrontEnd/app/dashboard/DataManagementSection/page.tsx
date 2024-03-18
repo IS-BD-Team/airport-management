@@ -30,6 +30,21 @@ export default function DataManagement() {
         nombre: "A",
         ubicacion: "a",
         posicionGeografica: "a",    
+    },{
+        id:"1",
+        nombre: "A",
+        ubicacion: "a",
+        posicionGeografica: "a",    
+    },{
+        id:"1",
+        nombre: "A",
+        ubicacion: "a",
+        posicionGeografica: "a",    
+    },{
+        id:"1",
+        nombre: "A",
+        ubicacion: "a",
+        posicionGeografica: "a",    
     }];
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
@@ -55,9 +70,8 @@ export default function DataManagement() {
                     </button>
                 </header>
 
-                {toggleForm && <AddForm type={entity} handleToggleEvent={(e)=>{
+                {toggleForm && <AddForm type={entity} handleToggleEvent={()=>{
                     setToogleForm(false)
-                    e.preventDefault()
                     }}/>}
 
                 <fieldset>
@@ -65,7 +79,7 @@ export default function DataManagement() {
                 </fieldset>
                 <section>
                     <CustomTable
-                        data={[]}
+                        data={data}
                         columnWidths={["20%", "10%", "10%", "50%", "10%"]}
                     />
                 </section>
