@@ -23,6 +23,7 @@ export default function CustomTable(props: CustomTableProps) {
                             {Object.values(row).map((val, j) => {
                                 return <td key={i + " " + j} className="p-[1vw]">{val}</td>;
                             })}
+                            
                         </tr>
                     );
                 })}

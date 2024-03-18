@@ -70,9 +70,8 @@ export default function DataManagement() {
                 {toggleForm && (
                     <AddForm
                         type={entity}
-                        handleToggleEvent={(e) => {
+                        handleToggleEvent={() => {
                             setToogleForm(false);
-                            e.preventDefault();
                         }}
                     />
                 )}
