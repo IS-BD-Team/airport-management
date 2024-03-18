@@ -1,7 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-import {serialize} from 'cookie';
 
 const Login: React.FC = () => {  
   const router = useRouter();
@@ -11,23 +10,39 @@ const Login: React.FC = () => {
     // Add logic to process login here
     const email = event.currentTarget.userEmail.value;
     const password = event.currentTarget.password.value;
-    // const response = await fetch('/api/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({email, password}),
-    // })
-    // const data = await response.json();
-    // if (data.status === 'ok') {
-    //   const serialized = serialize('token', data.token, {
-    //     httpOnly: true,
-    //     maxAge: 60 * 60 * 24 * 7,
-    //     path: '/',
-    //   })
-    //   document.cookie = serialized
-    // }
-    router.push('../dashboard/Home')
+
+    const response = await fetch("http://localhost:5258/auth/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email, password}),
+    })
+
+    const data = await response.json();
+    console.log(response);
+    console.log(data);
+
+    if (response.status === 200) {
+      // const serialized = serialize('UserToken', data.token, {
+      //   httpOnly: true,
+      //   maxAge: 60 * 60 * 24 * 7,
+      //   path: "/",
+      // })
+      // console.log(serialized);
+      document.cookie = `UserToken=${data.token};path='/';max-age=604800`;
+      document.cookie = `UserEmail=${data.email};path='/';max-age=604800`;
+      document.cookie = `UserName=${data.firstName};path='/';max-age=604800`;
+
+      console.log(document.cookie);
+      
+      router.push('../dashboard/Home')
+    }
+    else
+    {
+      alert('Login failed');
+    }
+    
   };
 
   return (

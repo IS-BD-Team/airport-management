@@ -49,12 +49,10 @@ var app = builder.Build();
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
-
-        app.UseAuthentication();
-        app.UseAuthorization();
         app.UseSwaggerUI();
     }
 
+    app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
     app.UseHttpsRedirection();
 
     app.UseAuthentication();
