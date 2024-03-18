@@ -4,48 +4,41 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { Instance } from "@/app/utils/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function DataManagement() {
+    const [toggleForm, setToogleForm] = useState(false);
+    const [data, setData] = useState(null);
+
+    const getAirports = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:5258/Airports/airports",
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("token"),
+                    },
+                }
+            );
+            console.log(response);
+            return response.json();
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const getAirportsData = async () => {
-        try {
-            const response = await fetch('http://localhost:5258/Airports/airports', {
-                method: 'GET',
-                headers: {
-                    'Authorization':''
-                }
-            })
+        const response = await getAirports();
+        console.log(response);
+        setData(response.data);
+    };
 
-            return await response.json();
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
-    //const data = getAirportsData();
-    const [toggleForm, setToogleForm] = useState(false);
-    const data = [{
-        id:"1",
-        nombre: "A",
-        ubicacion: "a",
-        posicionGeografica: "a",    
-    },{
-        id:"1",
-        nombre: "A",
-        ubicacion: "a",
-        posicionGeografica: "a",    
-    },{
-        id:"1",
-        nombre: "A",
-        ubicacion: "a",
-        posicionGeografica: "a",    
-    },{
-        id:"1",
-        nombre: "A",
-        ubicacion: "a",
-        posicionGeografica: "a",    
-    }];
+    useEffect(() => {
+        getAirportsData();
+    }, []);
+
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
 
@@ -59,7 +52,6 @@ export default function DataManagement() {
                 </header>
             </div>
         );
-        /*pedir a la bd */
     } else {
         return (
             <div className="m-5 relative">
