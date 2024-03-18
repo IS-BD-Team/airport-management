@@ -23,14 +23,14 @@ export default function DataManagement() {
             console.log(err)
         }
     }
-    //const data = getAirportsData();
+    const data = getAirportsData();
     const [toggleForm, setToogleForm] = useState(false);
-    const data = [{
+    /*const data = [{
         id:"1",
         nombre: "A",
         ubicacion: "a",
         posicionGeografica: "a",    
-    }];
+    }];*/
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
 
@@ -55,19 +55,21 @@ export default function DataManagement() {
                     </button>
                 </header>
 
-                {toggleForm && <AddForm type={entity} handleToggleEvent={(e)=>{
+                {toggleForm && <AddForm type={entity} handleToggleEvent={()=>{
                     setToogleForm(false)
-                    e.preventDefault()
                     }}/>}
 
                 <fieldset>
                     <legend>Filtros</legend>
                 </fieldset>
                 <section>
-                    <CustomTable
-                        data={[]}
+                    {data != null && <CustomTable
+                        data={data}
                         columnWidths={["20%", "10%", "10%", "50%", "10%"]}
-                    />
+                    />}
+                    {data == null && <h2 className="text-2xl font-bold">
+                        No hay datos
+                    </h2>}
                 </section>
             </div>
         );

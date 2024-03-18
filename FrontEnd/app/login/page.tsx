@@ -10,6 +10,7 @@ const Login: React.FC = () => {
     // Add logic to process login here
     const email = event.currentTarget.userEmail.value;
     const password = event.currentTarget.password.value;
+
     const response = await fetch("http://localhost:5258/auth/login", {
       method: 'POST',
       headers: {
@@ -17,9 +18,11 @@ const Login: React.FC = () => {
       },
       body: JSON.stringify({email, password}),
     })
+
     const data = await response.json();
     console.log(response);
     console.log(data);
+
     if (response.status === 200) {
       // const serialized = serialize('UserToken', data.token, {
       //   httpOnly: true,
@@ -30,7 +33,9 @@ const Login: React.FC = () => {
       document.cookie = `UserToken=${data.token};path='/';max-age=604800`;
       document.cookie = `UserEmail=${data.email};path='/';max-age=604800`;
       document.cookie = `UserName=${data.firstName};path='/';max-age=604800`;
+
       console.log(document.cookie);
+      
       router.push('../dashboard/Home')
     }
     else
