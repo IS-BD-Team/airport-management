@@ -22,7 +22,7 @@ export default function DataManagement() {
                     },
                 }
             );
-            console.log(response);
+            //console.log(response);
             return response.json();
         } catch (err) {
             console.log(err);
@@ -31,8 +31,9 @@ export default function DataManagement() {
 
     const getAirportsData = async () => {
         const response = await getAirports();
-        console.log(response);
-        setData(response.data);
+        /*console.log("setData")
+        console.log(response);*/
+        setData(response.airports);
     };
 
     useEffect(() => {
@@ -73,7 +74,7 @@ export default function DataManagement() {
                     <legend>Filtros</legend>
                 </fieldset>
                 <section>
-                    <CustomTable
+                    {data != null && <CustomTable
                         data={data}
                         columnWidths={["20%", "10%", "10%", "50%", "10%"]}
                     />}
