@@ -7,6 +7,7 @@ type CustomTableProps = {
 }
 
 export default function CustomTable(props: CustomTableProps) {
+    console.log(props.data);
     return (
         <table className="w-full">
             <thead className="border-b-[2px] border-solid border-[#e3e5ec] w-full" style={{backgroundColor: "#fff !important"}}>

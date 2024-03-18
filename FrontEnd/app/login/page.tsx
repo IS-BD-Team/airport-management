@@ -10,6 +10,7 @@ const Login: React.FC = () => {
     // Add logic to process login here
     const email = event.currentTarget.userEmail.value;
     const password = event.currentTarget.password.value;
+
     const response = await fetch("http://localhost:5258/auth/login", {
       method: "POST",
       headers: {
@@ -20,6 +21,7 @@ const Login: React.FC = () => {
     const data = await response.json();
     console.log(response);
     console.log(data);
+
     if (response.status === 200) {
       document.cookie = `UserEmail=${data.email};path='/';max-age=604800`;
       document.cookie = `UserName=${data.firstName};path='/';max-age=604800`;
