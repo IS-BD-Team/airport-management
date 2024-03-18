@@ -5,7 +5,7 @@ export default function MainMenu(){
     return (
         <div className="w-full bg-[#f6f6f9] h-10 items-center flex flex-row">
             <ul className="flex flex-row topTabs justify-between w-full">
-                <li onMouseEnter={()=>setToogle(true)} onMouseLeave={()=>setToogle(false)}>
+              {/*  <li onMouseEnter={()=>setToogle(true)} onMouseLeave={()=>setToogle(false)}>
                     <a id="new-object" href="#" 
                     > + </a>
                     {toogle && <ul className="absolute">
@@ -59,7 +59,7 @@ export default function MainMenu(){
                 </li>
                 <li>
                     <a href="/">Issue templates</a>
-                </li>
+                </li>*/}
             </ul>
         </div>
     )

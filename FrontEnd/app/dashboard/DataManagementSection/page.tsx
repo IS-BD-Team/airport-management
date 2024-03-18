@@ -76,7 +76,7 @@ export default function DataManagement() {
                 <section>
                     {data != null && <CustomTable
                         data={data}
-                        columnWidths={["20%", "10%", "10%", "50%", "10%"]}
+                        columnWidths={["20%", "10%", "60%", "10%"]}
                     />}
                     {data == null && <h2 className="text-2xl font-bold">
                         No hay datos
