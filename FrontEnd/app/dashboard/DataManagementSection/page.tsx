@@ -33,7 +33,22 @@ export default function DataManagement() {
     },
 ]
     const [toggleForm, setToogleForm] = useState(false);
-    /*const data = [{
+    const data = [{
+        id:"1",
+        nombre: "A",
+        ubicacion: "a",
+        posicionGeografica: "a",    
+    },{
+        id:"1",
+        nombre: "A",
+        ubicacion: "a",
+        posicionGeografica: "a",    
+    },{
+        id:"1",
+        nombre: "A",
+        ubicacion: "a",
+        posicionGeografica: "a",    
+    },{
         id:"1",
         nombre: "A",
         ubicacion: "a",
