@@ -1,4 +1,4 @@
-import aeropuertos from "../../public/aeropuerto (2).png";
+import aeropuertos from "../../public/aeropuerto.png";
 import instalaciones from "../../public/almacen.png";
 import servicios from "../../public/informacion.png";
 import reparaciones from "../../public/sistema.png";
