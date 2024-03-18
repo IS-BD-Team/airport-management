@@ -24,14 +24,6 @@ export default function DataManagement() {
         }
     }
     //const data = getAirportsData();
-    const data = [
-        {
-        "id": "1",
-        "nombre": "A",
-        "ubicacion": "a",
-        "posicionGeografica": "a"
-    },
-]
     const [toggleForm, setToogleForm] = useState(false);
     const data = [{
         id:"1",
@@ -53,7 +45,7 @@ export default function DataManagement() {
         nombre: "A",
         ubicacion: "a",
         posicionGeografica: "a",    
-    }];*/
+    }];
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
 
