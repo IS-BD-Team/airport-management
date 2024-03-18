@@ -78,15 +78,13 @@ export default function DataManagement() {
                     <legend>Filtros</legend>
                 </fieldset>
                 <section>
-                    {data != null && (
-                        <CustomTable
-                            data={data}
-                            columnWidths={["20%", "10%", "10%", "50%", "10%"]}
-                        />
-                    )}
-                    {data == null && (
-                        <h2 className="text-2xl font-bold text-center">No hay datos</h2>
-                    )}
+                    {data != null && <CustomTable
+                        data={data}
+                        columnWidths={["20%", "10%", "10%", "50%", "10%"]}
+                    />}
+                    {data == null && <h2 className="text-2xl font-bold">
+                        No hay datos
+                    </h2>}
                 </section>
             </div>
         );
