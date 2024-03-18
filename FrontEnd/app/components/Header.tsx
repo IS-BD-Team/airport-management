@@ -1,8 +1,10 @@
 'use client'
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
     const [showDropDown, SetDropdown] = useState(false);
+    const path = usePathname();
     // Obtener todas las cookies como una cadena de texto
     const cookies = document.cookie;
 
@@ -27,7 +29,7 @@ export default function Header() {
             <div className="flex flex-row">
                 {/* <label htmlFor="search">Search:</label>
                 <input type="text" name="search" className="mr-2" /> */}
-                <div className="relative animate-bounce w-6 h-6 mr-4 hover:animate-none">
+                {!path.includes('login')&&<div className="relative animate-bounce w-6 h-6 mr-4 hover:animate-none">
                     <div onClick={() => { SetDropdown(!showDropDown) }} className="cursor-pointer
                 bg-blue-500 text-black rounded-[9999px] w-6 h-6 text-center">
                         {initial}
@@ -53,7 +55,7 @@ export default function Header() {
                             <a href="/" className="dropdownLinks"><strong>All Projects</strong></a>
                         </div> */}
                     </div>}
-                </div>
+                </div>}
             </div>
         </div>
     )
