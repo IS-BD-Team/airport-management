@@ -1,9 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-import {serialize} from 'cookie';
-import Document from 'next/document';
-
 
 const Login: React.FC = () => {  
   const router = useRouter();

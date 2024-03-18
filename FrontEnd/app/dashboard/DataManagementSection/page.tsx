@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { Instance } from "@/app/utils/types";
+import { useState } from "react";
 
 export default function DataManagement() {
 
@@ -22,7 +23,14 @@ export default function DataManagement() {
             console.log(err)
         }
     }
-    const data = getAirportsData();
+    //const data = getAirportsData();
+    const [toggleForm, setToogleForm] = useState(false);
+    const data = [{
+        id:"1",
+        nombre: "A",
+        ubicacion: "a",
+        posicionGeografica: "a",    
+    }];
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
 
@@ -40,14 +48,17 @@ export default function DataManagement() {
     } else {
         return (
             <div className="m-5 relative">
-                <header className="flex justify-between">
+                <header className="flex justify-between border-b-[1px] border-[#666] pb-1 border-solid">
                     <h2 className="text-2xl font-bold">{entity}</h2>
-                    <button className="bg-gray-200 px-3 py-1 rounded-md">
+                    <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={()=>setToogleForm(true)}>
                         + Add
                     </button>
                 </header>
 
-                <AddForm type={entity} />
+                {toggleForm && <AddForm type={entity} handleToggleEvent={(e)=>{
+                    setToogleForm(false)
+                    e.preventDefault()
+                    }}/>}
 
                 <fieldset>
                     <legend>Filtros</legend>
@@ -62,3 +73,4 @@ export default function DataManagement() {
         );
     }
 }
+
