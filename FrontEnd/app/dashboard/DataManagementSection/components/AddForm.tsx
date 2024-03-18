@@ -7,7 +7,7 @@ import Image from "next/image";
 
 type AddFormProps = {
     type: string;
-    handleToggleEvent : (e: Event)=>void;
+    handleToggleEvent : ()=>void;
 };
 
 export default function AddForm(props: AddFormProps) {
