@@ -4,8 +4,7 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { Instance } from "@/app/utils/types";
-import { useEffect, useState } from "react";
-import { get } from "http";
+import { useState, useEffect } from "react";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
@@ -23,7 +22,7 @@ export default function DataManagement() {
                     },
                 }
             );
-
+            console.log(response);
             return response.json();
         } catch (err) {
             console.log(err);
@@ -33,7 +32,7 @@ export default function DataManagement() {
     const getAirportsData = async () => {
         const response = await getAirports();
         console.log(response);
-        setData(response);
+        setData(response.data);
     };
 
     useEffect(() => {
@@ -53,7 +52,6 @@ export default function DataManagement() {
                 </header>
             </div>
         );
-        /*pedir a la bd */
     } else {
         return (
             <div className="m-5 relative">
