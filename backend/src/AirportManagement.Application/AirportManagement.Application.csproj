@@ -19,7 +19,6 @@
 
 
     <ItemGroup>
-        <Folder Include="Airports\Commands\UpdateAirport\"/>
         <Folder Include="Users\Commands\DeleteUser\"/>
         <Folder Include="Users\Commands\UpdateUser\"/>
     </ItemGroup>
