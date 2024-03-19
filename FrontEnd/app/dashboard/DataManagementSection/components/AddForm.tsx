@@ -7,19 +7,46 @@ import Image from "next/image";
 
 type AddFormProps = {
     type: string;
-    handleToggleEvent : ()=>void;
+    handleToggleEvent: () => void;
 };
 
 export default function AddForm(props: AddFormProps) {
+    async function createInstance(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault(); 
+
+        const nombre = event.currentTarget["Nombre"].value; 
+        const ubicacion = event.currentTarget["Ubicacion"].value; 
+        const posicion = event.currentTarget["Posicion"].value; 
+
+        try {
+            const response = await fetch(
+                "http://localhost:5258/airports/id",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization:
+                            "Bearer " + localStorage.getItem("token"),
+                    },
+                    body: JSON.stringify({ nombre, ubicacion, posicion }),
+                }
+            );
+            console.log(response);
+            // return response.json();
+        } catch (err) {
+            console.log(err);
+        }
+    }
     switch (props.type) {
         case "Aeropuertos":
             return (
                 <form
                     action="none"
                     className="mt-6 relative rounded-lg px-[1%] py-[2%] flex flex-col w-[33%] m-auto shadow-[0px_5px_10px_rgba(0,0,0,0.3)]"
+                    onSubmit={createInstance}
                 >
                     <button className="absolute right-5 text-[#e3e5ec] hover:text-black" onClick={props.handleToggleEvent}>X</button>
-                    <caption className="font-bold flex flex-row justify-center mb-6">Nuevo Aeropuerto <Image alt="aeropuertos_icon" className="ml-6 h-6 w-6" src={aeropuertos}/></caption>
+                    <caption className="font-bold flex flex-row justify-center mb-6">Nuevo Aeropuerto <Image alt="aeropuertos_icon" className="ml-6 h-6 w-6" src={aeropuertos} /></caption>
                     <label htmlFor="Nombre">Nombre</label>
                     <input className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]" name="Nombre" type="text" />
                     <label htmlFor="Ubicacion">Ubicación</label>
@@ -36,7 +63,7 @@ export default function AddForm(props: AddFormProps) {
                     className="mt-6 relative rounded-lg px-[1%] py-[2%] flex flex-col w-[33%] m-auto shadow-[0px_5px_10px_rgba(0,0,0,0.3)]"
                 >
                     <button className="absolute right-5 text-[#e3e5ec] hover:text-black" onClick={props.handleToggleEvent}>X</button>
-                    <caption className="font-bold flex flex-row justify-center mb-6">Nueva Instalación<Image alt="instalaciones_icon" className="ml-6 h-6 w-6" src={instalaciones}/></caption>
+                    <caption className="font-bold flex flex-row justify-center mb-6">Nueva Instalación<Image alt="instalaciones_icon" className="ml-6 h-6 w-6" src={instalaciones} /></caption>
                     <label htmlFor="Nombre">Nombre</label>
                     <input className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]" name="Nombre" type="text" />
                     <label htmlFor="Tipo">Tipo</label>
@@ -53,7 +80,7 @@ export default function AddForm(props: AddFormProps) {
                     className="mt-6 relative rounded-lg px-[1%] py-[2%] flex flex-col w-[33%] m-auto shadow-[0px_5px_10px_rgba(0,0,0,0.3)]"
                 >
                     <button className="absolute right-5 text-[#e3e5ec] hover:text-black" onClick={props.handleToggleEvent}>X</button>
-                    <caption className="font-bold flex flex-row justify-center mb-6">Nuevo Servicio<Image alt="servicios_icon" className="ml-6 h-6 w-6" src={servicios}/></caption>
+                    <caption className="font-bold flex flex-row justify-center mb-6">Nuevo Servicio<Image alt="servicios_icon" className="ml-6 h-6 w-6" src={servicios} /></caption>
                     <label htmlFor="Descripcion">Descripcion</label>
                     <input className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]" name="Descripcion" type="text" />
                     <label htmlFor="Precio">Precio</label>
@@ -68,7 +95,7 @@ export default function AddForm(props: AddFormProps) {
                     className="mt-6 relative rounded-lg px-[1%] py-[2%] flex flex-col w-[33%] m-auto shadow-[0px_5px_10px_rgba(0,0,0,0.3)]"
                 >
                     <button className="absolute right-5 text-[#e3e5ec] hover:text-black" onClick={props.handleToggleEvent}>X</button>
-                    <caption className="font-bold flex flex-row justify-center mb-6">Nueva Reparacion<Image alt="reparaciones_icon" className="ml-6 h-6 w-6" src={reparaciones}/></caption>
+                    <caption className="font-bold flex flex-row justify-center mb-6">Nueva Reparacion<Image alt="reparaciones_icon" className="ml-6 h-6 w-6" src={reparaciones} /></caption>
                     <label htmlFor="Descripcion">Descripcion</label>
                     <input className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]" name="Descripcion" type="text" />
                     <label htmlFor="Precio">Precio</label>
@@ -85,7 +112,7 @@ export default function AddForm(props: AddFormProps) {
                     className="mt-6 relative rounded-lg px-[1%] py-[2%] flex flex-col w-[33%] m-auto shadow-[0px_5px_10px_rgba(0,0,0,0.3)]"
                 >
                     <button className="absolute right-5 text-[#e3e5ec] hover:text-black" onClick={props.handleToggleEvent}>X</button>
-                    <caption className="font-bold flex flex-row justify-center mb-6">Nuevo Cliente<Image alt="reparaciones_icon" className="ml-6 h-6 w-6" src={aviones}/></caption>
+                    <caption className="font-bold flex flex-row justify-center mb-6">Nuevo Cliente<Image alt="reparaciones_icon" className="ml-6 h-6 w-6" src={aviones} /></caption>
                     <label htmlFor="Nombre">Nombre</label>
                     <input className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]" name="Nombre" type="text" />
                     <label htmlFor="Nacionalidad">Nacionalidad</label>
@@ -104,7 +131,7 @@ export default function AddForm(props: AddFormProps) {
                     className="mt-6 relative rounded-lg px-[1%] py-[2%] flex flex-col w-[33%] m-auto shadow-[0px_5px_10px_rgba(0,0,0,0.3)]"
                 >
                     <button className="absolute right-5 text-[#e3e5ec] hover:text-black">X</button>
-                    <caption className="font-bold flex flex-row justify-center mb-6">Nueva Nave<Image alt="naves_icon" className="ml-6 h-6 w-6" src={aviones}/></caption>
+                    <caption className="font-bold flex flex-row justify-center mb-6">Nueva Nave<Image alt="naves_icon" className="ml-6 h-6 w-6" src={aviones} /></caption>
                     <label htmlFor="Matricula">Matricula</label>
                     <input className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]" name="Matricula" type="text" />
                     <label htmlFor="Plazas">Plazas</label>

@@ -13,6 +13,25 @@ type CustomTableProps = {
 export default function CustomTable(props: CustomTableProps) {
     console.log("inside CustomTable");
     console.log(props.data);
+    const deleteInstance = async (id:string)=>{
+        
+        try {
+            const response = await fetch(
+                `http://localhost:5258//airports/${id}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("token"),
+                    },
+                }
+            );
+            //console.log(response);
+            return response.json();
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <table className="w-full">
             <thead className="border-b-[2px] border-solid border-[#e3e5ec] w-full" style={{backgroundColor: "#fff !important"}}>
@@ -34,7 +53,8 @@ export default function CustomTable(props: CustomTableProps) {
                                 <Link href={"/dashboard/InstanceViewSection?id=" + Object.values(row)[0]}>
                                 <button className="hover:bg-[#005b7f] rounded-lg mr-2"><Image src={ojo} alt="ver_icon" className="hover:invert p-2 h-10 w-10"></Image></button>
                                 </Link>
-                                <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10" ></Image></button>
+                                <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10" 
+                                onClick={()=>deleteInstance(Object.values(row)[0])}></Image></button>
                             </td>
                         </tr>
                     );
