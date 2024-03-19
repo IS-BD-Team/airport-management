@@ -17,11 +17,6 @@ public class AirportRepository(AirportManagementDbContext dbContext) : IAirports
         return await dbContext.Airports.FindAsync(airportId);
     }
 
-    public Task<Airport?> UpdateAsync(int airportId)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<IEnumerable<Airport>> GetAllAsync()
     {
         return await dbContext.Airports.ToListAsync();
@@ -34,6 +29,26 @@ public class AirportRepository(AirportManagementDbContext dbContext) : IAirports
         {
             dbContext.Airports.Remove(airport);
             return airport;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="airportId"></param>
+    /// <param name="airport"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<Airport?> UpdateAsync(int airportId, Airport airport)
+    {
+        var existingAirport = await dbContext.Airports.FindAsync(airportId);
+        if (existingAirport != null)
+        {
+            existingAirport.Name = airport.Name;
+            existingAirport.Address = airport.Address;
+            await dbContext.SaveChangesAsync();
+            return existingAirport;
         }
 
         return null;
