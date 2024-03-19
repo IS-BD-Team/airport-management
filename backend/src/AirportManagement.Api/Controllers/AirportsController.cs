@@ -18,11 +18,11 @@ public class AirportsController(ISender mediator)
     [HttpPost]
     public async Task<IActionResult> CreateAirport(CreateAirportRequest request)
     {
-        var command = new CreateAirportCommand(request.Name, request.Address);
+        var command = new CreateAirportCommand(request.Name, request.Address, request.GeographicLocation);
 
         var createAirportResult = await mediator.Send(command);
         return createAirportResult.MatchFirst(airport =>
-                Ok(new AirportResponse(airport.Id, airport.Name, airport.Address)),
+                Ok(new AirportResponse(airport.Id, airport.Name, airport.Address, airport.GeographicLocation)),
             _ => Problem());
     }
 
@@ -40,7 +40,8 @@ public class AirportsController(ISender mediator)
                 (
                     airport.Id,
                     airport.Name,
-                    airport.Address
+                    airport.Address,
+                    airport.GeographicLocation
                 )).ToList()
             )),
             error => Problem(error.Code, statusCode: error.NumericType)
@@ -55,7 +56,7 @@ public class AirportsController(ISender mediator)
         var getAirportResult = await mediator.Send(query);
 
         return getAirportResult.MatchFirst(
-            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address)),
+            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address, airport.GeographicLocation)),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }
@@ -68,7 +69,7 @@ public class AirportsController(ISender mediator)
         var deleteAirportResult = await mediator.Send(command);
 
         return deleteAirportResult.MatchFirst(
-            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address)),
+            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address, airport.GeographicLocation)),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }
@@ -76,12 +77,12 @@ public class AirportsController(ISender mediator)
     [HttpPut("{airportId:int}")]
     public async Task<IActionResult> UpdateAirport(int airportId, CreateAirportRequest request)
     {
-        var command = new UpdateAirportCommand(airportId, request.Name, request.Address);
+        var command = new UpdateAirportCommand(airportId, request.Name, request.Address, request.GeographicLocation);
 
         var updateAirportResult = await mediator.Send(command);
 
         return updateAirportResult.MatchFirst(
-            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address)),
+            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address, airport.GeographicLocation)),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }
