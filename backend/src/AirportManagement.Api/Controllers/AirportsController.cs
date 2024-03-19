@@ -1,5 +1,6 @@
 using AirportManagement.Application.Airports.Commands.CreateAirport;
 using AirportManagement.Application.Airports.Commands.DeleteAirport;
+using AirportManagement.Application.Airports.Commands.UpdateAirport;
 using AirportManagement.Application.Airports.Queries;
 using AirportManagement.Contracts.Airports;
 using MediatR;
@@ -67,6 +68,19 @@ public class AirportsController(ISender mediator)
         var deleteAirportResult = await mediator.Send(command);
 
         return deleteAirportResult.MatchFirst(
+            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address)),
+            error => Problem(error.Code, statusCode: error.NumericType)
+        );
+    }
+
+    [HttpPut("{airportId:int}")]
+    public async Task<IActionResult> UpdateAirport(int airportId, CreateAirportRequest request)
+    {
+        var command = new UpdateAirportCommand(airportId, request.Name, request.Address);
+
+        var updateAirportResult = await mediator.Send(command);
+
+        return updateAirportResult.MatchFirst(
             airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address)),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
