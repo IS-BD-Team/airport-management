@@ -14,13 +14,13 @@ export default function AddForm(props: AddFormProps) {
     async function createInstance(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault(); 
 
-        const nombre = event.currentTarget["Nombre"].value; 
-        const ubicacion = event.currentTarget["Ubicacion"].value; 
+        const name = event.currentTarget["Nombre"].value; 
+        const address = event.currentTarget["Ubicacion"].value; 
         const posicion = event.currentTarget["Posicion"].value; 
 
         try {
             const response = await fetch(
-                "http://localhost:5258/airports/id",
+                "http://localhost:5258/airports",
                 {
                     method: "POST",
                     headers: {
@@ -28,7 +28,7 @@ export default function AddForm(props: AddFormProps) {
                         Authorization:
                             "Bearer " + localStorage.getItem("token"),
                     },
-                    body: JSON.stringify({ nombre, ubicacion, posicion }),
+                    body: JSON.stringify({ name, address}),
                 }
             );
             console.log(response);

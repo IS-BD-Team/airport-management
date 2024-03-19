@@ -17,17 +17,17 @@ export default function CustomTable(props: CustomTableProps) {
         
         try {
             const response = await fetch(
-                `http://localhost:5258//airports/${id}`,
+                `http://localhost:5258/Airports/${id}`,
                 {
-                    method: "GET",
+                    method: "DELETE",
                     headers: {
                         Authorization:
                             "Bearer " + localStorage.getItem("token"),
                     },
                 }
             );
-            //console.log(response);
-            return response.json();
+            console.log(response);
+            // return response.json();
         } catch (err) {
             console.log(err);
         }
