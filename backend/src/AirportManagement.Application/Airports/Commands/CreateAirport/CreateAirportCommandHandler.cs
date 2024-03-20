@@ -11,7 +11,7 @@ public class CreateAirportCommandHandler(IAirportsRepository airportsRepository,
 {
     public async Task<ErrorOr<Airport>> Handle(CreateAirportCommand request, CancellationToken cancellationToken)
     {
-        var airport = new Airport(request.Name, request.Address);
+        var airport = new Airport(request.Name, request.Address, request.GeographicLocation);
 
         await airportsRepository.AddAirportAsync(airport);
         await unitOfWork.CommitChangesAsync();
