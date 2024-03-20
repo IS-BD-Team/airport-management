@@ -42,9 +42,8 @@ export default function InstanceViewSection() {
     const editAirport = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
 
-        const name = event.currentTarget["Nombre"].value; 
-        const address = event.currentTarget["Ubicacion"].value; 
-        const posicion = event.currentTarget["Posicion"].value;
+        const name = event.currentTarget["name"].value; 
+        const address = event.currentTarget["address"].value;
         
         const response = await fetch(
             `http://localhost:5258/Airports/${id}`,
@@ -55,7 +54,7 @@ export default function InstanceViewSection() {
                     Authorization:
                         "Bearer " + localStorage.getItem("token"),
                 },
-                body: JSON.stringify({ name, address}),
+                body: JSON.stringify({name, address}),
             }
         );
     };

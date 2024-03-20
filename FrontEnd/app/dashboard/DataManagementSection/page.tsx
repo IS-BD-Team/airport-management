@@ -3,7 +3,6 @@
 import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
-import { Instance } from "@/app/utils/types";
 import { useState, useEffect } from "react";
 
 export default function DataManagement() {
@@ -38,7 +37,7 @@ export default function DataManagement() {
 
     useEffect(() => {
         getAirportsData();
-    }, []);
+    }, [data]);
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
