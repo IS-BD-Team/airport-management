@@ -2,10 +2,12 @@ using System.Text;
 using AirportManagement.Application.Common.Interfaces;
 using AirportManagement.Application.Common.Interfaces.Auth;
 using AirportManagement.Application.Common.Interfaces.Persistence.Airports;
+using AirportManagement.Application.Common.Interfaces.Persistence.Clients;
 using AirportManagement.Application.Common.Interfaces.Persistence.Users;
 using AirportManagement.Application.Common.Services;
 using AirportManagement.Infrastructure.Airports.Persistence;
 using AirportManagement.Infrastructure.Auth;
+using AirportManagement.Infrastructure.Clients.Persistence;
 using AirportManagement.Infrastructure.Common.Persistence;
 using AirportManagement.Infrastructure.Services;
 using AirportManagement.Infrastructure.Users.Persistence;
@@ -34,6 +36,7 @@ public static class DependencyInjection
 
         serviceCollection.AddScoped<IAirportsRepository, AirportRepository>();
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IClientRepository, ClientRepository>();
         serviceCollection.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AirportManagementDbContext>());
         return serviceCollection;
     }
