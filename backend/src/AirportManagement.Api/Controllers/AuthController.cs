@@ -1,5 +1,6 @@
 using AirportManagement.Application.Services.Auth;
 using AirportManagement.Contracts.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirportManagement.Api.Controllers;
@@ -9,6 +10,14 @@ namespace AirportManagement.Api.Controllers;
 public class AuthController(IAuthService authService) : ControllerBase
 {
     private readonly IAuthService _authService = authService;
+
+    [HttpGet]
+    [Route("check")]
+    [Authorize]
+    public IActionResult Check()
+    {
+        return Ok();
+    }
 
     [HttpPost]
     [Route("register")]

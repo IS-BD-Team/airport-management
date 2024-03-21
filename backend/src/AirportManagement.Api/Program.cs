@@ -52,8 +52,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin().Allo
-    wAnyHeader().AllowAnyMethod());
+    app.UseCors(policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
     app.UseHttpsRedirection();
 
     app.UseAuthentication();
