@@ -4,7 +4,7 @@ namespace AirportManagement.Domain.Airports;
 
 public class Airport(string name, string address, string geographicLocation)
 {
-    [Key] public int Id { get; set; }
+    [Key] public int Id { get; init; }
 
     [Required] public string Name { get; set; } = name;
     [Required] public string Address { get; set; } = address;
