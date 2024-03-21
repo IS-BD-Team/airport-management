@@ -25,13 +25,9 @@ public class AirportRepository(AirportManagementDbContext dbContext) : IAirports
     public async Task<Airport?> DeleteAsync(int airportId)
     {
         var airport = await dbContext.Airports.FindAsync(airportId);
-        if (airport != null)
-        {
-            dbContext.Airports.Remove(airport);
-            return airport;
-        }
+        if (airport != null) dbContext.Airports.Remove(airport);
 
-        return null;
+        return airport;
     }
 
     /// <summary>
@@ -47,7 +43,7 @@ public class AirportRepository(AirportManagementDbContext dbContext) : IAirports
         {
             existingAirport.Name = airport.Name;
             existingAirport.Address = airport.Address;
-            await dbContext.SaveChangesAsync();
+            existingAirport.GeographicLocation = airport.GeographicLocation;
             return existingAirport;
         }
 
