@@ -7,13 +7,13 @@ public class Client(string name, string ci, string country, ArrivalRole arrivalR
 {
     [Key] public int Id { get; set; }
 
-    [Required] public string Name { get; private set; } = name;
+    [Required] public string Name { get; set; } = name;
 
-    [Required] public string Ci { get; private set; } = ci;
+    [Required] public string Ci { get; set; } = ci;
 
-    [Required] public string Country { get; private set; } = country;
+    [Required] public string Country { get; set; } = country;
 
-    [Required] public ClientType ClientType { get; private set; } = clientType;
+    [Required] public ClientType ClientType { get; set; } = clientType;
 
     [Required] public ArrivalRole ArrivalRole { get; set; } = arrivalRole;
 
