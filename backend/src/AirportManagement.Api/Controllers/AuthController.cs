@@ -44,9 +44,9 @@ public class AuthController(IAuthService authService) : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> Login(LoginReqest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        var loginResult = await _authService.Login(request.email, request.password);
+        var loginResult = await _authService.Login(request.Email, request.Password);
 
         return loginResult.MatchFirst(result =>
                 Ok(new AuthResponse
