@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { allFormConfigs } from "./utils";
+import { allFormConfigs } from "../../../utils/formConfigs";
 import AddFormInput from "./AddFormInput";
 
 type AddFormProps = {
@@ -12,7 +12,6 @@ export default function AddForm(props: AddFormProps) {
     switch (props.type) {
         case "Administradores":
             formConfig = allFormConfigs.Administradores;
-            console.log("yupi")
             break;
         case "Aeropuertos":
             formConfig = allFormConfigs.Aeropuertos;

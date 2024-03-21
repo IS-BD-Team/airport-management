@@ -69,7 +69,6 @@ export const allFormConfigs = {
             { name: "Clasificación", label: "Clasificación", type: "select" },
             { name: "Cant. de Plazas", label: "CantDePlazas", type: "number" },
             { name: "Cant. de Tripulantes", label: "CantDeTripulantes", type: "number" },
-            { name: "Capacidad", label: "Capacidad", type: "number" },
         ],
     },
     default: {
