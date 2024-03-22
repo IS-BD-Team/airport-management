@@ -4,10 +4,15 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { FaRegArrowAltCircleDown } from "react-icons/fa";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
     const [data, setData] = useState(null);
+    const searchParams = useSearchParams();
+    const entity = searchParams.get("entity");
+    const [toogleFilters, setFilters] = useState(false);
 
     // const getAirports = async () => {
     //     try {
@@ -39,7 +44,7 @@ export default function DataManagement() {
 
     useEffect(() => {
         getAirportsData();
-    }, []);
+    }, [entity]);
 
     // const data:Aeropuerto[] = [
     //     {
@@ -66,10 +71,7 @@ export default function DataManagement() {
     //         id: "test4",
     //         posicionGeografica: "test4",
     //     }
-    // ]
-
-    const searchParams = useSearchParams();
-    const entity = searchParams.get("entity");
+    // ]    
 
     if (entity == null) {
         return (
@@ -94,12 +96,38 @@ export default function DataManagement() {
                     </button>
                 </header>
 
-                {toggleForm && <AddForm type={entity} handleToggleEvent={()=>{
+                {toggleForm && <AddForm type={entity} handleToggleEvent={() => {
                     setToogleForm(false)
-                    }}/>}
+                }} />}
 
-                <fieldset>
-                    <legend>Filtros</legend>
+                <fieldset id="filters" className="my-4">
+                    <div className="flex flex-row gap-1 py-[auto] transition-all hover:gap-2 w-fit">
+                        <h2 className="text-2xl cursor-pointer">
+                            Filters
+                        </h2>
+                        <button onClick={() => setFilters(!toogleFilters)}>
+                            {!toogleFilters && <FaRegArrowAltCircleRight />}
+                            {toogleFilters && <FaRegArrowAltCircleDown />}
+                        </button>
+                    </div>
+                    {toogleFilters &&
+                        <div>
+                            <div>
+                                <button className="bg-gray-200 rounded-md float-right px-1"> Add filter </button>
+                                <select name="filtersSelect" id="filtersSelect" className="float-right mx-1
+                                border-2">
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                    <option value="4">Option 4</option>
+                                    <option value="5">Option 5</option>
+                                </select>
+                                <label htmlFor="filtersSelect" className="float-right">Select a filter</label>
+                            </div>
+                            <div id="filterTable">
+
+                            </div>
+                        </div>}
                 </fieldset>
                 <section>
                     {data != null && <CustomTable

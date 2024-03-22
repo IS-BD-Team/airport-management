@@ -14,7 +14,7 @@ export default function Sort(data: [],
         let i = 0;
         let j = 0;
         while (i < left.length && j < right.length) {
-            if (left[i][columnIndex] < right[j][columnIndex]) {
+            if ((left[i][columnIndex] as string).toLowerCase() < (right[j][columnIndex] as string).toLowerCase()) {
                 temp.push(left[i]);
                 i++;
             } else {

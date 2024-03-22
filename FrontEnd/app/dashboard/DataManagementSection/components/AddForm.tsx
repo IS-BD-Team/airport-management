@@ -53,7 +53,7 @@ export default function AddForm(props: AddFormProps) {
                 body: JSON.stringify({ name, address, geographicLocation }),
             });
             console.log(response);
-            // router.push('/dashboard/DataManagementSection')
+            router.push('/dashboard/DataManagementSection')
             // return response.json();
         } catch (err) {
             console.log(err);

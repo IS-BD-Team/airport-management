@@ -6,6 +6,7 @@ import editar from "@/public/editar.png";
 import eliminar from "@/public/eliminar.png";
 import Sort from "@/app/utils/sort";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type CustomTableProps = {
     data: Aeropuerto[] | Instalacion[] | Cliente[] | Servicio[] | TestingType[];
@@ -16,6 +17,7 @@ export default function CustomTable(prop: CustomTableProps) {
     console.log("inside CustomTable");
     console.log(prop.data);
     const [props, SetProps] = useState(prop);
+    const router = useRouter();
     const deleteInstance = async (id: string) => {
 
         try {
@@ -30,6 +32,7 @@ export default function CustomTable(prop: CustomTableProps) {
                 }
             );
             console.log(response);
+            router.push('/dashboard/DataManagementSection')
             // return response.json();
         } catch (err) {
             console.log(err);
@@ -42,7 +45,7 @@ export default function CustomTable(prop: CustomTableProps) {
                 <tr>
                     {props.data.length>0&& Object.keys(props.data[0]).map((item, index) => {
                         return <th style={{ width: props.columnWidths[index] }}
-                            className="text-left p-[1vw] " key={index}
+                            className="text-left p-[1vw] cursor-pointer" key={index}
                             onClick={() =>{
                                 SetProps({
                                     ...props,
