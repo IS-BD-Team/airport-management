@@ -6,12 +6,14 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import editar from "@/public/editar.png";
+import { useRouter } from "next/navigation";
 
 export default function InstanceViewSection() {
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
     const id = searchParams.get("id");
     const [edit, setEdit] = useState(false);
+    const router = useRouter();
 
     const [data, setData] = useState({
         id: "",
@@ -41,9 +43,10 @@ export default function InstanceViewSection() {
 
     const editAirport = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
-
+        console.log(event.currentTarget);
         const name = event.currentTarget["name"].value; 
-        const address = event.currentTarget["address"].value;
+        const address = event.currentTarget['address'].value;
+        const geographicLocation = event.currentTarget['geographicLocation'].value;
         
         const response = await fetch(
             `http://localhost:5258/Airports/${id}`,
@@ -54,9 +57,10 @@ export default function InstanceViewSection() {
                     Authorization:
                         "Bearer " + localStorage.getItem("token"),
                 },
-                body: JSON.stringify({name, address}),
+                body: JSON.stringify({name, address, geographicLocation}),
             }
         );
+        router.push('/dashboard/DataManagementSection')
     };
 
 
