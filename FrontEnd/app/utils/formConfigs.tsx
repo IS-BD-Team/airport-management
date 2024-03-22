@@ -1,10 +1,10 @@
-import aeropuertos from "../../../../public/aeropuerto.png";
-import instalaciones from "../../../../public/almacen.png";
-import servicios from "../../../../public/informacion.png";
-import reparaciones from "../../../../public/sistema.png";
-import aviones from "../../../../public/avion.png";
-import clientes from "../../../../public/cliente.png";
-import administradores from "../../../../public/adminstrador.png";
+import aeropuertos from "../../public/aeropuerto.png";
+import instalaciones from "../../public/almacen.png";
+import servicios from "../../public/informacion.png";
+import reparaciones from "../../public/sistema.png";
+import aviones from "../../public/avion.png";
+import clientes from "../../public/cliente.png";
+import administradores from "../../public/adminstrador.png";
 
 export const allFormConfigs = {
     Administradores: {
