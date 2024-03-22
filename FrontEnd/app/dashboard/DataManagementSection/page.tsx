@@ -113,9 +113,9 @@ export default function DataManagement() {
                     {toogleFilters &&
                         <div>
                             <div>
-                                <button className="bg-gray-200 rounded-md float-right px-1"> Add filter </button>
                                 <select name="filtersSelect" id="filtersSelect" className="float-right mx-1
                                 border-2">
+                                    <option value="">&nbsp;</option>
                                     <option value="1">Option 1</option>
                                     <option value="2">Option 2</option>
                                     <option value="3">Option 3</option>
