@@ -9,8 +9,6 @@ namespace AirportManagement.Api.Controllers;
 [Route("auth")]
 public class AuthController(IAuthService authService) : ControllerBase
 {
-    private readonly IAuthService _authService = authService;
-
     [HttpGet]
     [Route("check")]
     [Authorize]
@@ -23,7 +21,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     [Route("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var authResult = await _authService.Register(
+        var authResult = await authService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
@@ -46,7 +44,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     [Route("login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
-        var loginResult = await _authService.Login(request.Email, request.Password);
+        var loginResult = await authService.Login(request.Email, request.Password);
 
         return loginResult.MatchFirst(result =>
                 Ok(new AuthResponse
