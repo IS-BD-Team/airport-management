@@ -5,7 +5,7 @@ namespace AirportManagement.Domain.Clients;
 
 public class Client(string name, string ci, string country, ArrivalRole arrivalRole, ClientType clientType)
 {
-    [Key] public int Id { get; set; }
+    [Key] public int Id { get; init; }
 
     [Required] public string Name { get; set; } = name;
 
