@@ -1,6 +1,7 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Users;
 using AirportManagement.Domain.Entities;
 using AirportManagement.Infrastructure.Common.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirportManagement.Infrastructure.Users.Persistence;
 
@@ -14,5 +15,10 @@ public class UserRepository(AirportManagementDbContext dbContext) : IUserReposit
     public async Task<User?> GetByEmailAsync(string email)
     {
         return await dbContext.Users.FindAsync(email);
+    }
+
+    public async Task<User?> GetByIdAsync(Guid userId)
+    {
+        return await dbContext.Users.Where(user => user.Id == userId).FirstAsync();
     }
 }
