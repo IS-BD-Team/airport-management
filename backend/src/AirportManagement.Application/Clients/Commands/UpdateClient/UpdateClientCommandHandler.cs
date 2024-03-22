@@ -9,14 +9,14 @@ namespace AirportManagement.Application.Clients.Commands.UpdateClient;
 public class UpdateClientCommandHandler(IClientRepository clientRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateClientCommand, ErrorOr<Client>>
 {
-    private readonly IClientRepository _clientRepository = clientRepository;
-
     public async Task<ErrorOr<Client>> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
     {
-        var newClientData = new Client(request.Name, request.Ci, request.Country, request.ArrivalRole,
-            request.ClientType);
+        var arrivalRole = ArrivalRole.FromName(request.ArrivalRole);
+        var clientType = ClientType.FromName(request.ClientType);
 
-        var client = await _clientRepository.UpdateAsync(request.Id, newClientData);
+        var newClientData = new Client(request.Name, request.Ci, request.Country, arrivalRole, clientType);
+
+        var client = await clientRepository.UpdateAsync(request.Id, newClientData);
 
         if (client is null) return Error.NotFound($"Client with id: {request.Id} was not found");
 
