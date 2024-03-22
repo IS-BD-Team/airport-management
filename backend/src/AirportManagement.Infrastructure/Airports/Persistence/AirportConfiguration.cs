@@ -11,7 +11,5 @@ public class AirportConfiguration : IEntityTypeConfiguration<Airport>
         builder.HasKey(airport => airport.Id);
 
         builder.HasIndex(airport => airport.Id);
-
-        builder.Property(s => s.Id).ValueGeneratedNever();
     }
 }
