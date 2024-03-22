@@ -4,70 +4,69 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
-import { Aeropuerto } from "@/app/utils/types";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
-    // const [data, setData] = useState(null);
+    const [data, setData] = useState(null);
 
-    // const getAirports = async () => {
-    //     try {
-    //         const response = await fetch(
-    //             "http://localhost:5258/Airports/airports",
-    //             {
-    //                 method: "GET",
-    //                 headers: {
-    //                     Authorization:
-    //                         "Bearer " + localStorage.getItem("token"),
-    //                 },
-    //             }
-    //         );
-    //         //console.log(response);
-    //         return response.json();
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
-
-    // const getAirportsData = async () => {
-    //     const response = await getAirports();
-    //     console.log(response)
-    //     /*console.log("setData")
-    //     console.log(response);*/
-    //     setData(response.airports);
-    //     console.log(data);
-    // };
-
-    // useEffect(() => {
-    //     getAirportsData();
-    // }, [data]);
-
-    const data:Aeropuerto[] = [
-        {
-            nombre: "test5",
-            direccion: "test5",
-            id: "test5",
-            posicionGeografica: "test5",
-        },
-        {
-            nombre: "test2",
-            direccion: "test2",
-            id: "test2",
-            posicionGeografica: "test2",
-        },
-        {
-            nombre: "test3",
-            direccion: "test3",
-            id: "test3",
-            posicionGeografica: "test3",
-        },
-        {
-            nombre: "test4",
-            direccion: "test4",
-            id: "test4",
-            posicionGeografica: "test4",
+    const getAirports = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:5258/Airports/airports",
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("token"),
+                    },
+                }
+            );
+            //console.log(response);
+            return response.json();
+        } catch (err) {
+            console.log(err);
         }
-    ]
+    };
+
+    const getAirportsData = async () => {
+        const response = await getAirports();
+        console.log(response)
+        /*console.log("setData")
+        console.log(response);*/
+        setData(response.airports);
+        console.log(data);
+    };
+
+    useEffect(() => {
+        getAirportsData();
+    }, []);
+
+    // const data:Aeropuerto[] = [
+    //     {
+    //         nombre: "test5",
+    //         direccion: "test5",
+    //         id: "test5",
+    //         posicionGeografica: "test5",
+    //     },
+    //     {
+    //         nombre: "test2",
+    //         direccion: "test2",
+    //         id: "test2",
+    //         posicionGeografica: "test2",
+    //     },
+    //     {
+    //         nombre: "test3",
+    //         direccion: "test3",
+    //         id: "test3",
+    //         posicionGeografica: "test3",
+    //     },
+    //     {
+    //         nombre: "test4",
+    //         direccion: "test4",
+    //         id: "test4",
+    //         posicionGeografica: "test4",
+    //     }
+    // ]
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");

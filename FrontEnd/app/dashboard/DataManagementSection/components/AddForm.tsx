@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { allFormConfigs } from "../../../utils/formConfigs";
 import AddFormInput from "./AddFormInput";
+import { useRouter } from "next/navigation";
 
 type AddFormProps = {
     type: string;
@@ -8,6 +9,7 @@ type AddFormProps = {
 };
 export default function AddForm(props: AddFormProps) {
     console.log(props.type);
+    const router = useRouter();
     let formConfig;
     switch (props.type) {
         case "Administradores":
@@ -37,10 +39,9 @@ export default function AddForm(props: AddFormProps) {
 
     async function createInstance(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-
         const name = event.currentTarget["Nombre"].value;
-        const address = event.currentTarget["Ubicacion"].value;
-        const posicion = event.currentTarget["Posicion"].value;
+        const address = event.currentTarget["Ubicación"].value;
+        const geographicLocation = event.currentTarget["Posición"].value;
 
         try {
             const response = await fetch("http://localhost:5258/airports", {
@@ -49,9 +50,10 @@ export default function AddForm(props: AddFormProps) {
                     "Content-Type": "application/json",
                     Authorization: "Bearer " + localStorage.getItem("token"),
                 },
-                body: JSON.stringify({ name, address }),
+                body: JSON.stringify({ name, address, geographicLocation }),
             });
             console.log(response);
+            // router.push('/dashboard/DataManagementSection')
             // return response.json();
         } catch (err) {
             console.log(err);
