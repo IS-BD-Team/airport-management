@@ -4,18 +4,20 @@ import Image from "next/image";
 import ojo from "@/public/ojo.png";
 import editar from "@/public/editar.png";
 import eliminar from "@/public/eliminar.png";
+import Sort from "@/app/utils/sort";
+import { useState } from "react";
 
-type CustomTableProps = {   
+type CustomTableProps = {
     data: Aeropuerto[] | Instalacion[] | Cliente[] | Servicio[] | TestingType[];
     columnWidths: string[];
 }
 
-export default function CustomTable(props: CustomTableProps) {
+export default function CustomTable(prop: CustomTableProps) {
     console.log("inside CustomTable");
-    console.log(props.data);
+    console.log(prop.data);
+    const [props, SetProps] = useState(prop);
+    const deleteInstance = async (id: string) => {
 
-    const deleteInstance = async (id:string)=>{
-        
         try {
             const response = await fetch(
                 `http://localhost:5258/Airports/${id}`,
@@ -33,15 +35,24 @@ export default function CustomTable(props: CustomTableProps) {
             console.log(err);
         }
     }
-    
+
     return (
         <table className="w-full">
-            <thead className="border-b-[2px] border-solid border-[#e3e5ec] w-full" style={{backgroundColor: "#fff !important"}}>
+            <thead className="border-b-[2px] border-solid border-[#e3e5ec] w-full" style={{ backgroundColor: "#fff !important" }}>
                 <tr>
                     {Object.keys(props.data[0]).map((item, index) => {
-                        return <th style={{width: props.columnWidths[index]}} className="text-left p-[1vw] " key={index}>{item}</th>;
+                        return <th style={{ width: props.columnWidths[index] }}
+                            className="text-left p-[1vw] " key={index}
+                            onClick={() =>{
+                                SetProps({
+                                    ...props,
+                                    data: Sort(props.data as any, item),
+                                })
+                            }}>
+                            {item}
+                        </th>;
                     })}
-                    <th>Opciones</th>               
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,10 +64,10 @@ export default function CustomTable(props: CustomTableProps) {
                             })}
                             <td className="text-center">
                                 <Link href={"/dashboard/InstanceViewSection?id=" + Object.values(row)[0]}>
-                                <button className="hover:bg-[#005b7f] rounded-lg mr-2"><Image src={ojo} alt="ver_icon" className="hover:invert p-2 h-10 w-10"></Image></button>
+                                    <button className="hover:bg-[#005b7f] rounded-lg mr-2"><Image src={ojo} alt="ver_icon" className="hover:invert p-2 h-10 w-10"></Image></button>
                                 </Link>
-                                <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10" 
-                                onClick={()=>deleteInstance(Object.values(row)[0])}></Image></button>
+                                <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10"
+                                    onClick={() => deleteInstance(Object.values(row)[0])}></Image></button>
                             </td>
                         </tr>
                     );
