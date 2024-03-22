@@ -8,6 +8,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.Property(user => user.Id).ValueGeneratedOnAdd();
         builder.HasKey(user => user.Email);
         builder.Property(user => user.Email).ValueGeneratedNever();
     }
