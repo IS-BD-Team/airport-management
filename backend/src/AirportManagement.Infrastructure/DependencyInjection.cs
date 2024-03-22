@@ -41,7 +41,7 @@ public static class DependencyInjection
         return serviceCollection;
     }
 
-    public static IServiceCollection AddAuth(
+    private static IServiceCollection AddAuth(
         this IServiceCollection serviceCollection,
         ConfigurationManager configurationManager)
     {
