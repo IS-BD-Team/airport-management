@@ -35,7 +35,6 @@ var builder = WebApplication.CreateBuilder(args);
                 Array.Empty<string>()
             }
         });
-        ;
     });
 
     builder.Services

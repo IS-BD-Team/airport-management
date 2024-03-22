@@ -22,8 +22,7 @@ namespace AirportManagement.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(
-        this IServiceCollection serviceCollection,
+    public static void AddInfrastructure(this IServiceCollection serviceCollection,
         ConfigurationManager configurationManager)
     {
         serviceCollection.AddDbContext<AirportManagementDbContext>(
@@ -38,11 +37,9 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IClientRepository, ClientRepository>();
         serviceCollection.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AirportManagementDbContext>());
-        return serviceCollection;
     }
 
-    private static IServiceCollection AddAuth(
-        this IServiceCollection serviceCollection,
+    private static void AddAuth(this IServiceCollection serviceCollection,
         ConfigurationManager configurationManager)
     {
         var jwtSettings = new JwtSettings();
@@ -65,7 +62,5 @@ public static class DependencyInjection
                 )
             }
         );
-
-        return serviceCollection;
     }
 }

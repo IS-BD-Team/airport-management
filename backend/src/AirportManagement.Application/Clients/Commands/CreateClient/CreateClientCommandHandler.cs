@@ -9,9 +9,6 @@ namespace AirportManagement.Application.Clients.Commands.CreateClient;
 public class CreateClientCommandHandler(IClientRepository clientRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<CreateClientCommand, ErrorOr<Client>>
 {
-    private readonly IClientRepository _clientRepository = clientRepository;
-
-
     public async Task<ErrorOr<Client>> Handle(CreateClientCommand request, CancellationToken cancellationToken)
     {
         if (!ArrivalRole.TryFromName(request.ArrivalRole, out var arrivalRole))
@@ -22,7 +19,7 @@ public class CreateClientCommandHandler(IClientRepository clientRepository, IUni
 
         var client = new Client(request.Name, request.Ci, request.Country, arrivalRole, clientType);
 
-        await _clientRepository.AddAsync(client);
+        await clientRepository.AddAsync(client);
 
         await unitOfWork.CommitChangesAsync();
 

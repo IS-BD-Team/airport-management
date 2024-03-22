@@ -86,6 +86,6 @@ public class ClientsController(ISender mediator) : ControllerBase
         var deleteClientResult = await mediator.Send(command);
 
         return deleteClientResult.MatchFirst(
-            client => Ok(StatusCode(200)), error => Problem(error.Code, statusCode: error.NumericType));
+            _ => Ok(StatusCode(200)), error => Problem(error.Code, statusCode: error.NumericType));
     }
 }

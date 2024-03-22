@@ -4,7 +4,7 @@ namespace AirportManagement.Domain.Entities;
 
 public class User(string firstName, string lastname, string email, string password, bool isSuperAdmin = false)
 {
-    [Required] public int Id { get; set; }
+    [Required] public int Id { get; init; }
 
     [Required] public string FirstName { get; set; } = firstName;
 
