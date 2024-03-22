@@ -4,9 +4,9 @@ using MediatR;
 
 namespace AirportManagement.Application.Clients.Commands.CreateClient;
 
-public abstract record CreateClientCommand(
+public record CreateClientCommand(
     string Name,
-    ClientType ClientType,
     string Ci,
     string Country,
-    ArrivalRole ArrivalRole) : IRequest<ErrorOr<Client>>;
+    string ArrivalRole,
+    string ClientType) : IRequest<ErrorOr<Client>>;

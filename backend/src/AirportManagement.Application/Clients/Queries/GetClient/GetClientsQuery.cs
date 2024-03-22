@@ -4,4 +4,4 @@ using MediatR;
 
 namespace AirportManagement.Application.Clients.Queries.GetClient;
 
-public abstract record GetClientsQuery : IRequest<ErrorOr<IEnumerable<Client>>>;
+public record GetClientsQuery : IRequest<ErrorOr<IEnumerable<Client>>>;

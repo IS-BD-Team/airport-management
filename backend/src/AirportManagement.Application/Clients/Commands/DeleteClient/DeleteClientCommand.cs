@@ -4,4 +4,4 @@ using MediatR;
 
 namespace AirportManagement.Application.Clients.Commands.DeleteClient;
 
-public abstract record DeleteClientCommand(int ClientId) : IRequest<ErrorOr<Client>>;
+public record DeleteClientCommand(int ClientId) : IRequest<ErrorOr<Client>>;
