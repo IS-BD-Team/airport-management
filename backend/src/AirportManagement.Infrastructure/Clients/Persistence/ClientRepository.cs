@@ -28,7 +28,18 @@ public class ClientRepository(AirportManagementDbContext dbContext) : IClientRep
     public async Task<Client?> UpdateAsync(int clientId, Client newClientData)
     {
         var existingClient = await dbContext.Clients.FindAsync(clientId);
-        if (existingClient != null) existingClient = newClientData;
+
+        if (existingClient != null)
+        {
+            existingClient.Name = newClientData.Name;
+            existingClient.Ci = newClientData.Ci;
+            existingClient.Country = newClientData.Country;
+            existingClient.ArrivalRole = newClientData.ArrivalRole;
+            existingClient.ClientType = newClientData.ClientType;
+
+            dbContext.Update(existingClient);
+        }
+
         return existingClient;
     }
 
