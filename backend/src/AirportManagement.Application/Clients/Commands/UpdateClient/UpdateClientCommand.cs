@@ -4,10 +4,10 @@ using MediatR;
 
 namespace AirportManagement.Application.Clients.Commands.UpdateClient;
 
-public abstract record UpdateClientCommand(
+public record UpdateClientCommand(
     int Id,
     string Name,
     string Ci,
     string Country,
-    ArrivalRole ArrivalRole,
-    ClientType ClientType) : IRequest<ErrorOr<Client>>;
+    string ArrivalRole,
+    string ClientType) : IRequest<ErrorOr<Client>>;
