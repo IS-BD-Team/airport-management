@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AirportManagement.Domain.Airports;
 
-public class Airport(string name, string address, string geographicLocation)
+public class Airport(string name, string address, string geographicLocation, string? photoUrl = null)
 {
     [Key] public int Id { get; init; }
 
@@ -10,4 +10,6 @@ public class Airport(string name, string address, string geographicLocation)
     [Required] public string Address { get; set; } = address;
 
     [Required] public string GeographicLocation { get; set; } = geographicLocation;
+
+    public string? PhotoUrl { get; set; } = photoUrl;
 }
