@@ -18,6 +18,8 @@ export default function DataManagement() {
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
+    const [toogleFilters, setFilters] = useState(false);
+    const [refetch, setRefetch] = useState(true);
 
     const getEntitys = async (entity: string) => {
         try {
