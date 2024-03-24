@@ -1,4 +1,4 @@
-import { Aeropuerto, Instalacion, Cliente, Servicio, TestingType } from "@/app/utils/types";
+import { Instance } from "@/app/utils/types";
 import Link from "next/link";
 import Image from "next/image";
 import ojo from "@/public/ojo.png";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 type CustomTableProps = {
-    data: Aeropuerto[] | Instalacion[] | Cliente[] | Servicio[] | TestingType[];
+    data: Instance[];
     columnWidths: string[];
     handleOnClickDeleteButton: () => void;
 }
