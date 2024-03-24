@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,10 +26,7 @@ public static class DependencyInjection
     public static void AddInfrastructure(this IServiceCollection serviceCollection,
         ConfigurationManager configurationManager)
     {
-        serviceCollection.AddDbContext<AirportManagementDbContext>(
-            options => options.UseSqlite("DataSource = AirportManagement.db"));
-
-
+        serviceCollection.ConfigureDb(configurationManager);
         serviceCollection.AddAuth(configurationManager);
 
         serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
@@ -63,4 +61,45 @@ public static class DependencyInjection
             }
         );
     }
+
+    private static void ConfigureDb(this IServiceCollection serviceCollection,
+        ConfigurationManager configurationManager)
+    {
+        var dbSettings = new DbSettings();
+        configurationManager.Bind(nameof(DbSettings), dbSettings);
+        var connectionString = dbSettings.ConnectionString;
+
+
+        ServerVersion serverVersion;
+
+        if (dbSettings.DbProvider != "MariaDb")
+            serverVersion = new MySqlServerVersion(new Version
+            (
+                dbSettings.MajorVersion, dbSettings.MinorVersion,
+                dbSettings.BuildVersion
+            ));
+        else
+            serverVersion = new MariaDbServerVersion(new Version
+            (
+                dbSettings.MajorVersion, dbSettings.MinorVersion,
+                dbSettings.BuildVersion
+            ));
+
+        serviceCollection.AddDbContext<AirportManagementDbContext>(
+            options => options
+                .UseMySql(connectionString, serverVersion)
+                .LogTo(Console.WriteLine, LogLevel.Information)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+        );
+    }
+}
+
+public class DbSettings
+{
+    public string ConnectionString { get; init; } = null!;
+    public string DbProvider { get; init; } = null!;
+    public int MajorVersion { get; init; }
+    public int MinorVersion { get; init; }
+    public int BuildVersion { get; init; }
 }
