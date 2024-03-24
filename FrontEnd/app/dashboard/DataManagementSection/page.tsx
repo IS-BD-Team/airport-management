@@ -46,7 +46,7 @@ export default function DataManagement() {
     useEffect(() => {
             getAirportsData();
             setRefetch(false);
-    }, [refetch, entity]);
+    }, [refetch]);
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
