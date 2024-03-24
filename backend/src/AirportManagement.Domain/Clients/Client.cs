@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using AirportManagement.Domain.Planes;
 
 namespace AirportManagement.Domain.Clients;
 
@@ -17,5 +16,5 @@ public class Client(string name, string ci, string country, ArrivalRole arrivalR
 
     [Required] public ArrivalRole ArrivalRole { get; set; } = arrivalRole;
 
-    public ICollection<Plane>? Planes { get; set; }
+    public ICollection<Airplane.Airplane>? Airplanes { get; set; }
 }
