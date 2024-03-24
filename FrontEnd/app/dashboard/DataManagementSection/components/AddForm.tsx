@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 type AddFormProps = {
     type: string;
     handleToggleEvent: () => void;
+    handleOnClickAddButton: () => void;
 };
 export default function AddForm(props: AddFormProps) {
     console.log(props.type);
@@ -84,6 +85,7 @@ export default function AddForm(props: AddFormProps) {
             <button
                 type="submit"
                 className="bg-[#005b7f] text-white rounded-lg p-[2%] mt-6 w-[30%] self-end"
+                onClick={props.handleOnClickAddButton}
             >
                 Añadir
             </button>

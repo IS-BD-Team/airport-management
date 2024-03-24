@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 type CustomTableProps = {
     data: Aeropuerto[] | Instalacion[] | Cliente[] | Servicio[] | TestingType[];
     columnWidths: string[];
+    handleOnClickDeleteButton: () => void;
 }
 
 export default function CustomTable(prop: CustomTableProps) {
