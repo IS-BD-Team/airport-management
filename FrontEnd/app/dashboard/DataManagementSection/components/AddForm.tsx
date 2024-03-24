@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { allFormConfigs } from "../../../utils/formConfigs";
+import { getFormConfigs } from "../../../utils/EntityConfigs";
 import AddFormInput from "./AddFormInput";
 import { useRouter } from "next/navigation";
 
@@ -11,32 +11,7 @@ type AddFormProps = {
 export default function AddForm(props: AddFormProps) {
     console.log(props.type);
     const router = useRouter();
-    let formConfig;
-    switch (props.type) {
-        case "Administradores":
-            formConfig = allFormConfigs.Administradores;
-            break;
-        case "Aeropuertos":
-            formConfig = allFormConfigs.Aeropuertos;
-            break;
-        case "Instalaciones":
-            formConfig = allFormConfigs.Instalaciones;
-            break;
-        case "Servicios":
-            formConfig = allFormConfigs.Servicios;
-            break;
-        case "Reparciones":
-            formConfig = allFormConfigs.Reparciones;
-            break;
-        case "Clientes":
-            formConfig = allFormConfigs.Clientes;
-            break;
-        case "Naves":
-            formConfig = allFormConfigs.Naves;
-            break;
-        default:
-            formConfig = allFormConfigs.default;
-    }
+    const formConfig = getFormConfigs(props.type);
 
     async function createInstance(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -54,7 +29,7 @@ export default function AddForm(props: AddFormProps) {
                 body: JSON.stringify({ name, address, geographicLocation }),
             });
             console.log(response);
-            router.push('/dashboard/DataManagementSection')
+            //router.push(`/dashboard/DataManagementSection?entity=${props.type}`);
             // return response.json();
         } catch (err) {
             console.log(err);
@@ -81,7 +56,9 @@ export default function AddForm(props: AddFormProps) {
                     src={formConfig.icon}
                 />
             </caption>
-            {formConfig.inputs.map((value, index) => {return(<AddFormInput data={value} key={index}/>)})}
+            {formConfig.inputs.map((value, index) => {
+                return <AddFormInput data={value} key={index} />;
+            })}
             <button
                 type="submit"
                 className="bg-[#005b7f] text-white rounded-lg p-[2%] mt-6 w-[30%] self-end"
