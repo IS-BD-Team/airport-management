@@ -8,6 +8,7 @@ import eliminar from "@/public/eliminar.png";
 type CustomTableProps = {   
     data: Aeropuerto[] | Instalacion[] | Cliente[] | Servicio[] | TestingType[];
     columnWidths: string[];
+    handleOnClickDeleteButton: () => void;
 }
 
 export default function CustomTable(props: CustomTableProps) {
@@ -56,7 +57,10 @@ export default function CustomTable(props: CustomTableProps) {
                                 <button className="hover:bg-[#005b7f] rounded-lg mr-2"><Image src={ojo} alt="ver_icon" className="hover:invert p-2 h-10 w-10"></Image></button>
                                 </Link>
                                 <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10" 
-                                onClick={()=>deleteInstance(Object.values(row)[0])}></Image></button>
+                                onClick={()=>{
+                                    deleteInstance(Object.values(row)[0]);
+                                    props.handleOnClickDeleteButton();
+                                }}></Image></button>
                             </td>
                         </tr>
                     );

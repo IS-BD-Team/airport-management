@@ -4,10 +4,12 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
+import { useRender, render } from "@/app/utils/useRender";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
     const [data, setData] = useState(null);
+    const [refetch, setRefetch] = useState(true);
 
     const getAirports = async () => {
         try {
@@ -36,8 +38,9 @@ export default function DataManagement() {
     };
 
     useEffect(() => {
-        getAirportsData();
-    }, [data]);
+            getAirportsData();
+            setRefetch(false);
+    }, [refetch]);
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
@@ -65,24 +68,36 @@ export default function DataManagement() {
                     </button>
                 </header>
 
-                {toggleForm && <AddForm type={entity} handleToggleEvent={()=>{
-                    setToogleForm(false)
-                    }}/>}
+                {toggleForm && (
+                    <AddForm
+                        type={entity}
+                        handleToggleEvent={() => {
+                            setToogleForm(false);
+                        }}
+                        handleOnClickAddButton={() => {
+                            setRefetch(!refetch);
+                        }}
+                    />
+                )}
 
                 <fieldset>
                     <legend>Filtros</legend>
                 </fieldset>
                 <section>
-                    {data != null && <CustomTable
-                        data={data}
-                        columnWidths={["20%", "10%", "60%", "10%"]}
-                    />}
-                    {data == null && <h2 className="text-2xl font-bold">
-                        No hay datos
-                    </h2>}
+                    {data != null && (
+                        <CustomTable
+                            data={data}
+                            columnWidths={["20%", "10%", "60%", "10%"]}
+                            handleOnClickDeleteButton={() => {
+                                setRefetch(!refetch);
+                            }}
+                        />
+                    )}
+                    {data == null && (
+                        <h2 className="text-2xl font-bold">No hay datos</h2>
+                    )}
                 </section>
             </div>
         );
     }
 }
-

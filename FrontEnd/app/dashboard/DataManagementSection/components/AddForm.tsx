@@ -5,6 +5,7 @@ import AddFormInput from "./AddFormInput";
 type AddFormProps = {
     type: string;
     handleToggleEvent: () => void;
+    handleOnClickAddButton: () => void;
 };
 export default function AddForm(props: AddFormProps) {
     console.log(props.type);
@@ -39,8 +40,8 @@ export default function AddForm(props: AddFormProps) {
         event.preventDefault();
 
         const name = event.currentTarget["Nombre"].value;
-        const address = event.currentTarget["Ubicacion"].value;
-        const posicion = event.currentTarget["Posicion"].value;
+        const address = event.currentTarget["Ubicación"].value;
+        const posicion = event.currentTarget["Posición"].value;
 
         try {
             const response = await fetch("http://localhost:5258/airports", {
@@ -82,6 +83,7 @@ export default function AddForm(props: AddFormProps) {
             <button
                 type="submit"
                 className="bg-[#005b7f] text-white rounded-lg p-[2%] mt-6 w-[30%] self-end"
+                onClick={props.handleOnClickAddButton}
             >
                 Añadir
             </button>
