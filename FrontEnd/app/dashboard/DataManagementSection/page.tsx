@@ -13,6 +13,7 @@ export default function DataManagement() {
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
     const [toogleFilters, setFilters] = useState(false);
+    const [refetch, setRefetch] = useState(true);
 
     // const getAirports = async () => {
     //     try {
@@ -43,35 +44,12 @@ export default function DataManagement() {
     };
 
     useEffect(() => {
-        getAirportsData();
-    }, [entity]);
+            getAirportsData();
+            setRefetch(false);
+    }, [refetch, entity]);
 
-    // const data:Aeropuerto[] = [
-    //     {
-    //         nombre: "test5",
-    //         direccion: "test5",
-    //         id: "test5",
-    //         posicionGeografica: "test5",
-    //     },
-    //     {
-    //         nombre: "test2",
-    //         direccion: "test2",
-    //         id: "test2",
-    //         posicionGeografica: "test2",
-    //     },
-    //     {
-    //         nombre: "test3",
-    //         direccion: "test3",
-    //         id: "test3",
-    //         posicionGeografica: "test3",
-    //     },
-    //     {
-    //         nombre: "test4",
-    //         direccion: "test4",
-    //         id: "test4",
-    //         posicionGeografica: "test4",
-    //     }
-    // ]    
+    const searchParams = useSearchParams();
+    const entity = searchParams.get("entity");
 
     if (entity == null) {
         return (
@@ -96,9 +74,17 @@ export default function DataManagement() {
                     </button>
                 </header>
 
-                {toggleForm && <AddForm type={entity} handleToggleEvent={() => {
-                    setToogleForm(false)
-                }} />}
+                {toggleForm && (
+                    <AddForm
+                        type={entity}
+                        handleToggleEvent={() => {
+                            setToogleForm(false);
+                        }}
+                        handleOnClickAddButton={() => {
+                            setRefetch(!refetch);
+                        }}
+                    />
+                )}
 
                 <fieldset id="filters" className="my-4">
                     <div className="flex flex-row gap-1 py-[auto] transition-all hover:gap-2 w-fit">
@@ -130,16 +116,20 @@ export default function DataManagement() {
                         </div>}
                 </fieldset>
                 <section>
-                    {data != null && <CustomTable
-                        data={data}
-                        columnWidths={["20%", "10%", "60%", "10%"]}
-                    />}
-                    {data == null && <h2 className="text-2xl font-bold">
-                        No hay datos
-                    </h2>}
+                    {data != null && (
+                        <CustomTable
+                            data={data}
+                            columnWidths={["20%", "10%", "60%", "10%"]}
+                            handleOnClickDeleteButton={() => {
+                                setRefetch(!refetch);
+                            }}
+                        />
+                    )}
+                    {data == null && (
+                        <h2 className="text-2xl font-bold">No hay datos</h2>
+                    )}
                 </section>
             </div>
         );
     }
 }
-
