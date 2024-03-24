@@ -14,11 +14,11 @@ public class UserRepository(AirportManagementDbContext dbContext) : IUserReposit
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        return await dbContext.Users.FindAsync(email);
+        return await dbContext.Users.Where(user => user.Email == email).FirstOrDefaultAsync();
     }
 
     public async Task<User?> GetByIdAsync(Guid userId)
     {
-        return await dbContext.Users.Where(user => user.Id == userId).FirstAsync();
+        return await dbContext.Users.FindAsync(userId);
     }
 }
