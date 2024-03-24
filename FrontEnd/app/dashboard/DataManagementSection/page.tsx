@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
-import { useRender, render } from "@/app/utils/useRender";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);

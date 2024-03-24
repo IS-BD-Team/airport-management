@@ -145,6 +145,7 @@ export default function InstanceViewSection() {
                     </button>
                 </form>
             )}
+            <hr />
         </div>
     );
 }
