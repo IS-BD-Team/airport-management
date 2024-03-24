@@ -6,14 +6,16 @@ import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
+import { getTableWdths } from "@/app/utils/EntityConfigs";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
     const [data, setData] = useState(null);
-    const searchParams = useSearchParams();
-    const entity = searchParams.get("entity");
     const [toogleFilters, setFilters] = useState(false);
     const [refetch, setRefetch] = useState(true);
+
+    const searchParams = useSearchParams();
+    const entity = searchParams.get("entity");
 
     const getAirports = async () => {
         try {
@@ -36,7 +38,7 @@ export default function DataManagement() {
 
     const getAirportsData = async () => {
         const response = await getAirports();
-        console.log(response)
+        console.log(response);
         /*console.log("setData")
         console.log(response);*/
         setData(response.airports);
@@ -82,25 +84,28 @@ export default function DataManagement() {
                         }}
                         handleOnClickAddButton={() => {
                             setRefetch(!refetch);
+                            setTimeout(() => setToogleForm(false), 1000);
                         }}
                     />
                 )}
 
                 <fieldset id="filters" className="my-4">
                     <div className="flex flex-row gap-1 py-[auto] transition-all hover:gap-2 w-fit">
-                        <h2 className="text-2xl cursor-pointer">
-                            Filters
-                        </h2>
+                        <h2 className="text-2xl cursor-pointer">Filters</h2>
                         <button onClick={() => setFilters(!toogleFilters)}>
                             {!toogleFilters && <FaRegArrowAltCircleRight />}
                             {toogleFilters && <FaRegArrowAltCircleDown />}
                         </button>
                     </div>
-                    {toogleFilters &&
+                    {toogleFilters && (
                         <div>
                             <div>
-                                <select name="filtersSelect" id="filtersSelect" className="float-right mx-1
-                                border-2">
+                                <select
+                                    name="filtersSelect"
+                                    id="filtersSelect"
+                                    className="float-right mx-1
+                                border-2"
+                                >
                                     <option value="">&nbsp;</option>
                                     <option value="1">Option 1</option>
                                     <option value="2">Option 2</option>
@@ -108,18 +113,22 @@ export default function DataManagement() {
                                     <option value="4">Option 4</option>
                                     <option value="5">Option 5</option>
                                 </select>
-                                <label htmlFor="filtersSelect" className="float-right">Select a filter</label>
+                                <label
+                                    htmlFor="filtersSelect"
+                                    className="float-right"
+                                >
+                                    Select a filter
+                                </label>
                             </div>
-                            <div id="filterTable">
-
-                            </div>
-                        </div>}
+                            <div id="filterTable"></div>
+                        </div>
+                    )}
                 </fieldset>
                 <section>
                     {data != null && (
                         <CustomTable
                             data={data}
-                            columnWidths={["20%", "10%", "60%", "10%"]}
+                            columnWidths={getTableWdths(entity)}
                             handleOnClickDeleteButton={() => {
                                 setRefetch(!refetch);
                             }}
