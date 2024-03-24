@@ -1,5 +1,6 @@
 using System.Reflection;
 using AirportManagement.Application.Common.Interfaces;
+using AirportManagement.Domain.Airplane;
 using AirportManagement.Domain.Airports;
 using AirportManagement.Domain.Clients;
 using AirportManagement.Domain.Entities;
@@ -12,8 +13,9 @@ public class AirportManagementDbContext(DbContextOptions<AirportManagementDbCont
 {
     public DbSet<Airport> Airports { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
-
     public DbSet<Client> Clients { get; set; } = null!;
+
+    public DbSet<Airplane> Airplanes { get; set; } = null!;
 
     public async Task CommitChangesAsync()
     {
