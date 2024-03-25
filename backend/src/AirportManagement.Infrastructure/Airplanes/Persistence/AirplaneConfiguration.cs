@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AirportManagement.Infrastructure.Airplanes.Persistence;
 
-public class AirPlaneConfiguration : IEntityTypeConfiguration<Airplane>
+public class AirplaneConfiguration : IEntityTypeConfiguration<Airplane>
 {
     public void Configure(EntityTypeBuilder<Airplane> builder)
     {
