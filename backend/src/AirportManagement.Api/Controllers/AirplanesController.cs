@@ -4,6 +4,7 @@ using AirportManagement.Application.Airplanes.Commands.UpdateAirplane;
 using AirportManagement.Application.Airplanes.Queries.GetAirplane;
 using AirportManagement.Application.Airplanes.Queries.GetAllAirplanes;
 using AirportManagement.Contracts.Airplanes;
+using AirportManagement.Contracts.Clients;
 using AirportManagement.Domain.Airplane;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -96,7 +97,7 @@ public class AirplanesController(ISender mediator) : ControllerBase
 
     private static AirplaneResponse CreateAirplaneResponse(Airplane airplane)
     {
-        return new AirplaneResponse(
+        var response = new AirplaneResponse(
             airplane.Id,
             airplane.Classification,
             airplane.ClientId,
@@ -105,5 +106,12 @@ public class AirplanesController(ISender mediator) : ControllerBase
             airplane.ArriveDate.ToString(),
             airplane.DepartureDate.ToString(),
             airplane.HasReceivedMaintenance);
+
+        if (airplane.Owner is null)
+            return response;
+        var client = airplane.Owner;
+        response.Client = new ClientResponse(client.Id, client.Name, client.Ci, client.Country,
+            client.ArrivalRole.ToString(), client.ClientType.ToString());
+        return response;
     }
 }

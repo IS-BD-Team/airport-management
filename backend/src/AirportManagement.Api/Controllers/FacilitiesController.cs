@@ -4,6 +4,7 @@ using AirportManagement.Application.Facilities.Commands.UpdateFacility;
 using AirportManagement.Application.Facilities.Queries.GetAllFacilities;
 using AirportManagement.Application.Facilities.Queries.GetFacility;
 using AirportManagement.Contracts.Facilities;
+using AirportManagement.Contracts.Services;
 using AirportManagement.Domain.Facility;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,11 @@ public class FacilitiesController(ISender mediator) : ControllerBase
 {
     private static FacilityResponse CreateFacilityResponse(Facility facility)
     {
-        return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location);
+        if (facility.Services is null)
+            return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location);
+        return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location,
+            facility.Services.Select(
+                s => new ServiceResponse(s.Id, s.Description, s.FacilityId, s.Price)).ToList());
     }
 
     [HttpPost]
