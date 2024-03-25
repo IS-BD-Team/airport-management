@@ -9,8 +9,10 @@ public class Airplane(
     string classification,
     int clientId,
     int maxLoad,
+    int passengersCapacity,
     DateTimeOffset arriveDate,
-    DateTimeOffset departureDate)
+    DateTimeOffset departureDate
+)
 {
     [Key] public int Id { get; init; }
 
@@ -19,7 +21,7 @@ public class Airplane(
     [ForeignKey(nameof(ClientId))] private Client? Owner { get; set; }
 
     [Required] public int MaxLoad { get; set; } = maxLoad;
-    [Required] public int PassengersCapacity { get; set; }
+    [Required] public int PassengersCapacity { get; set; } = passengersCapacity;
 
     [Required] public DateTimeOffset ArriveDate { get; set; } = arriveDate;
     [Required] public DateTimeOffset DepartureDate { get; set; } = departureDate;
