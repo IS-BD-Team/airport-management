@@ -16,7 +16,7 @@ public class AirportsController(ISender mediator)
     : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> CreateAirport(CreateAirportRequest request)
+    public async Task<IActionResult> CreateAirport(AirportRequest request)
     {
         var command = new CreateAirportCommand(request.Name, request.Address, request.GeographicLocation);
 
@@ -26,7 +26,7 @@ public class AirportsController(ISender mediator)
             _ => Problem());
     }
 
-    [HttpGet("airports")]
+    [HttpGet]
     public async Task<IActionResult> GetAirports()
     {
         var query = new GetAirportsQuery();
@@ -75,7 +75,7 @@ public class AirportsController(ISender mediator)
     }
 
     [HttpPut("{airportId:int}")]
-    public async Task<IActionResult> UpdateAirport(int airportId, CreateAirportRequest request)
+    public async Task<IActionResult> UpdateAirport(int airportId, AirportRequest request)
     {
         var command = new UpdateAirportCommand(airportId, request.Name, request.Address, request.GeographicLocation);
 
