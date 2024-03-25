@@ -22,7 +22,9 @@ public class ServiceRepository(AirportManagementDbContext dbContext) : IServiceR
 
     public async Task<Service?> GetByIdAsync(int serviceId)
     {
-        return await dbContext.Services.FindAsync(serviceId);
+        var query = dbContext.Services.AsQueryable();
+        query = query.Include(service => service.Facility);
+        return await query.FirstOrDefaultAsync(service => service.Id == serviceId);
     }
 
     public async Task<Service?> UpdateAsync(int serviceId, Service newServiceData)
