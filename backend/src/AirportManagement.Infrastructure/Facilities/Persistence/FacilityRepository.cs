@@ -22,7 +22,8 @@ public class FacilityRepository(AirportManagementDbContext dbContext) : IFacilit
 
     public async Task<Facility?> GetByIdAsync(int facilityId)
     {
-        return await dbContext.Facilities.FindAsync(facilityId);
+        return await dbContext.Facilities.Include(facility => facility.Services)
+            .FirstOrDefaultAsync(facility => facility.Id == facilityId);
     }
 
     public async Task<Facility?> UpdateAsync(int facilityId, Facility newFacilityData)
