@@ -6,18 +6,20 @@ import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
-import { getTableWdths } from "@/app/utils/EntityConfigs";
+import { getTableWidths } from "@/app/utils/EntityConfigs";
+import { revalidateServerTag } from "@/app/utils/revalidate";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
     const [data, setData] = useState(null);
     const [toogleFilters, setFilters] = useState(false);
     const [refetch, setRefetch] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
 
-    const getAirports = async () => {
+    const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(
                 "http://localhost:5258/Airports/airports",
@@ -27,31 +29,35 @@ export default function DataManagement() {
                         Authorization:
                             "Bearer " + localStorage.getItem("token"),
                     },
+                    // next: { tags: ["Airports"] },
                 }
             );
             //console.log(response);
+            //revalidateServerTag("Airports");
             return response.json();
         } catch (err) {
             console.log(err);
         }
     };
 
-    const getAirportsData = async () => {
-        const response = await getAirports();
+    const getEntitysData = async (entity: string | null) => {
+        if (entity == null) return;
+
+        const response = await getEntitys(entity);
         console.log(response);
-        /*console.log("setData")
-        console.log(response);*/
+        
         setData(response.airports);
         console.log(data);
     };
 
     useEffect(() => {
-            getAirportsData();
-            setRefetch(false);
+        setIsLoading(true);
+        getEntitysData(entity);
     }, [refetch]);
 
-    const searchParams = useSearchParams();
-    const entity = searchParams.get("entity");
+    useEffect(() => {
+        setIsLoading(false);
+    }, [data]);
 
     if (entity == null) {
         return (
@@ -124,20 +130,26 @@ export default function DataManagement() {
                         </div>
                     )}
                 </fieldset>
-                <section>
-                    {data != null && (
-                        <CustomTable
-                            data={data}
-                            columnWidths={getTableWdths(entity)}
-                            handleOnClickDeleteButton={() => {
-                                setRefetch(!refetch);
-                            }}
-                        />
-                    )}
-                    {data == null && (
-                        <h2 className="text-2xl font-bold">No hay datos</h2>
-                    )}
-                </section>
+                {isLoading && (
+                    <h2 className="text-2xl font-bold">Loading...</h2>
+                )}
+                {!isLoading && (
+                    <section>
+                        {data != null && (
+                            <CustomTable
+                                entity={entity}
+                                data={data}
+                                columnWidths={getTableWidths(entity)}
+                                handleOnClickDeleteButton={() => {
+                                    setRefetch(!refetch);
+                                }}
+                            />
+                        )}
+                        {data == null && (
+                            <h2 className="text-2xl font-bold">No hay datos</h2>
+                        )}
+                    </section>
+                )}
             </div>
         );
     }
