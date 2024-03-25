@@ -8,6 +8,7 @@ public record CreateAirplaneCommand(
     string Classification,
     int ClientId,
     int MaxLoad,
+    int PassengersCapacity,
     DateTimeOffset ArriveDate,
     DateTimeOffset DepartureDate,
     bool HasReceivedMaintenance = false)
