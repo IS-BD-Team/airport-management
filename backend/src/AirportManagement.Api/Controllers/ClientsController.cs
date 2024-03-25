@@ -15,7 +15,7 @@ namespace AirportManagement.Api.Controllers;
 public class ClientsController(ISender mediator) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> CreateClient(CreateClientRequest request)
+    public async Task<IActionResult> CreateClient(ClientRequest request)
     {
         var command = new CreateClientCommand(
             request.Name, request.Ci,
@@ -64,7 +64,7 @@ public class ClientsController(ISender mediator) : ControllerBase
     }
 
     [HttpPut("{clientId:int}")]
-    public async Task<IActionResult> UpdateClient(int clientId, UpdateClientRequest request)
+    public async Task<IActionResult> UpdateClient(int clientId, ClientRequest request)
     {
         var command = new UpdateClientCommand(clientId, request.Name, request.Ci, request.Country, request.ArrivalRole,
             request.ClientType);
