@@ -3,6 +3,7 @@ using AirportManagement.Application.Services.Commands.DeleteService;
 using AirportManagement.Application.Services.Commands.UpdateService;
 using AirportManagement.Application.Services.Queries.GetAllServices;
 using AirportManagement.Application.Services.Queries.GetService;
+using AirportManagement.Contracts.Facilities;
 using AirportManagement.Contracts.Services;
 using AirportManagement.Domain.Services;
 using MediatR;
@@ -81,10 +82,23 @@ public class ServicesController(ISender mediator) : ControllerBase
 
     private static ServiceResponse CreateServiceResponse(Service service)
     {
+        if (service.Facility is not null)
+            return new ServiceResponse(
+                service.Id,
+                service.Description,
+                service.FacilityId,
+                service.Price,
+                new FacilityResponse(
+                    service.Facility!.Id,
+                    service.Facility.Name,
+                    service.Facility.Type,
+                    service.Facility.Location)
+            );
         return new ServiceResponse(
             service.Id,
             service.Description,
             service.FacilityId,
-            service.Price);
+            service.Price
+        );
     }
 }
