@@ -12,5 +12,5 @@ public class Service(string description, int facilityId, decimal price)
 
     [ForeignKey(nameof(FacilityId))] public Facility.Facility? Facility { get; set; }
 
-    public decimal Price { get; set; } = price;
+    [Required] public decimal Price { get; set; } = price;
 }
