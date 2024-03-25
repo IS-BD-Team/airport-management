@@ -17,13 +17,13 @@ public class AirPlaneConfiguration : IEntityTypeConfiguration<Airplane>
         builder.Property(plane => plane.MaxLoad).IsRequired();
         builder.Property(plane => plane.ArriveDate)
             .HasConversion(
-                offset => offset.ToString(),
+                offset => offset.ToString("F"),
                 s => DateTimeOffset.Parse(s))
             .IsRequired();
 
         builder.Property(plane => plane.DepartureDate)
             .HasConversion(
-                offset => offset.ToString(),
+                offset => offset.ToString("F"),
                 s => DateTimeOffset.Parse(s))
             .IsRequired();
 
