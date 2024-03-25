@@ -18,7 +18,7 @@ public class Airplane(
 
     public string Classification { get; set; } = classification;
     [Required] public int ClientId { get; set; } = clientId;
-    [ForeignKey(nameof(ClientId))] private Client? Owner { get; set; }
+    [ForeignKey(nameof(ClientId))] public Client? Owner { get; set; }
 
     [Required] public int MaxLoad { get; set; } = maxLoad;
     [Required] public int PassengersCapacity { get; set; } = passengersCapacity;
@@ -27,6 +27,7 @@ public class Airplane(
     [Required] public DateTimeOffset DepartureDate { get; set; } = departureDate;
 
     [Required] public bool HasReceivedMaintenance { get; set; } = false;
+
 
     public ICollection<Service>? Services { get; set; }
 }
