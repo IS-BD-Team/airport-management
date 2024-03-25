@@ -7,8 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import editar from "@/public/editar.png";
 import { useRouter } from "next/navigation";
-import { getRelations, getFormConfigs } from "@/app/utils/EntityConfigs";
-import dataFormater, {FormatedData} from "@/app/utils/dataFormater";
+import { getRelations } from "@/app/utils/EntityConfigs";
 
 export default function InstanceViewSection() {
     const [edit, setEdit] = useState(false);
@@ -136,24 +135,22 @@ export default function InstanceViewSection() {
                     className="flex flex-col m-5"
                 >
                     {Object.entries(data).map((value, index) => {
-                        if (value[0] !== "picture") {
-                            return (
-                                <>
-                                    <label
-                                        className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-2"
-                                        htmlFor={value[0]}
-                                    >
-                                        {value[0]}
-                                    </label>
-                                    <input
-                                        className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"
-                                        name={value[0]}
-                                        defaultValue={value[1]}
-                                        type="text"
-                                    />
-                                </>
-                            );
-                        }
+                        return (
+                            <>
+                                <label
+                                    className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-2"
+                                    htmlFor={value[0]}
+                                >
+                                    {value[0]}
+                                </label>
+                                <input
+                                    className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"
+                                    name={value[0]}
+                                    defaultValue={value[1]}
+                                    type="text"
+                                />
+                            </>
+                        );
                     })}
                     <button
                         type="submit"

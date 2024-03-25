@@ -14,11 +14,12 @@ export default function DataManagement() {
     const [data, setData] = useState(null);
     const [toogleFilters, setFilters] = useState(false);
     const [refetch, setRefetch] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
 
-    const getAirports = async () => {
+    const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(
                 "http://localhost:5258/Airports/airports",
