@@ -12,4 +12,6 @@ public class Airport(string name, string address, string geographicLocation, str
     [Required] public string GeographicLocation { get; set; } = geographicLocation;
 
     public string? PhotoUrl { get; set; } = photoUrl;
+
+    public ICollection<Facility.Facility>? Facilities { get; set; }
 }
