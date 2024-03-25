@@ -676,5 +676,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/requests
 
 src/AirportManagement.Api/AirportManagement.db
