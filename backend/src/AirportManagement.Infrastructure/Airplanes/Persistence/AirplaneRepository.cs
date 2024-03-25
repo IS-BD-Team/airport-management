@@ -14,7 +14,9 @@ public class AirplaneRepository(AirportManagementDbContext dbContext) : IAirplan
 
     public async Task<Airplane?> GetByIdAsync(int airplaneId)
     {
-        return await dbContext.Airplanes.FindAsync(airplaneId);
+        var query = dbContext.Airplanes.AsQueryable();
+        query = query.Include(airplane => airplane.Owner);
+        return await query.FirstOrDefaultAsync(airplane => airplane.Id == airplaneId);
     }
 
     public async Task<Airplane?> UpdateAsync(int airplaneId, Airplane airplane)
