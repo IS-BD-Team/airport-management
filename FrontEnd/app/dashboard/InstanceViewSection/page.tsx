@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import editar from "@/public/editar.png";
 import { useRouter } from "next/navigation";
+import { getRelations } from "@/app/utils/EntityConfigs";
 
 export default function InstanceViewSection() {
     const searchParams = useSearchParams();
@@ -42,27 +43,23 @@ export default function InstanceViewSection() {
     };
 
     const editAirport = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
+        event.preventDefault();
         console.log(event.currentTarget);
-        const name = event.currentTarget["name"].value; 
-        const address = event.currentTarget['address'].value;
-        const geographicLocation = event.currentTarget['geographicLocation'].value;
-        
-        const response = await fetch(
-            `http://localhost:5258/Airports/${id}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization:
-                        "Bearer " + localStorage.getItem("token"),
-                },
-                body: JSON.stringify({name, address, geographicLocation}),
-            }
-        );
-        router.push('/dashboard/DataManagementSection')
-    };
+        const name = event.currentTarget["name"].value;
+        const address = event.currentTarget["address"].value;
+        const geographicLocation =
+            event.currentTarget["geographicLocation"].value;
 
+        const response = await fetch(`http://localhost:5258/Airports/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify({ name, address, geographicLocation }),
+        });
+        router.push("/dashboard/DataManagementSection");
+    };
 
     const getAirportData = async () => {
         const response = await getAirport();
@@ -76,8 +73,6 @@ export default function InstanceViewSection() {
         getAirportData();
     }, []);
 
-
-
     const instance: Instance = {
         id: "1",
         nombre: "Aeropuerto José Martí",
@@ -86,7 +81,7 @@ export default function InstanceViewSection() {
     };
 
     return (
-        <div>
+        <div className="overflow-y-auto">
             <header className="w-full h-[10vw] bg-gray-700 text-white text-2xl text-center relative">
                 <Image
                     src={havana}
@@ -131,7 +126,12 @@ export default function InstanceViewSection() {
                     {Object.entries(data).map((value, index) => {
                         return (
                             <>
-                                <label className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-2" htmlFor={value[0]}>{value[0]}</label>
+                                <label
+                                    className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-2"
+                                    htmlFor={value[0]}
+                                >
+                                    {value[0]}
+                                </label>
                                 <input
                                     className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"
                                     name={value[0]}
@@ -150,6 +150,32 @@ export default function InstanceViewSection() {
                 </form>
             )}
             <hr />
+            {entity != null && (
+                <section className="m-5">
+                        <h2 className="text-2xl capitalize mb-1">
+                            Relaciones de interes
+                        </h2>
+                    <div className="flex gap-2">
+                        {getRelations(entity).map((relation, index) => {
+                            return (
+                                <button
+                                    key={index}
+                                    className="flex bg-[#005b7f] text-white rounded-lg p-2 mt-6"
+                                >
+                                    {relation.name}{" "}
+                                    {relation.icon != null && (
+                                        <Image
+                                            className="ml-4 h-6 w-6 invert"
+                                            src={relation.icon}
+                                            alt="ralation_icon"
+                                        />
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </section>
+            )}
         </div>
     );
 }
