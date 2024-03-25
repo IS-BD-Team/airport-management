@@ -9,5 +9,5 @@ public class Facility(string? name, string type, string location)
     public string Type { get; set; } = type;
     public string Location { get; set; } = location;
 
-    private ICollection<Service>? Services { get; set; }
+    public ICollection<Service>? Services { get; set; }
 }
