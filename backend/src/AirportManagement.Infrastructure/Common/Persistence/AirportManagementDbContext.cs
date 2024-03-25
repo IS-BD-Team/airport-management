@@ -14,12 +14,15 @@ public class AirportManagementDbContext(DbContextOptions<AirportManagementDbCont
     : DbContext(options), IUnitOfWork
 {
     public DbSet<Airport> Airports { get; set; } = null!;
+
     public DbSet<User> Users { get; set; } = null!;
+
     public DbSet<Client> Clients { get; set; } = null!;
+
     public DbSet<Airplane> Airplanes { get; set; } = null!;
-    
+
     public DbSet<Service> Services { get; set; } = null!;
-    
+
     public DbSet<Facility> Facilities { get; set; } = null!;
 
     public async Task CommitChangesAsync()
