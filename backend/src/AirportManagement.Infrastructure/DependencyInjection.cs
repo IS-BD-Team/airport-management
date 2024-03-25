@@ -4,6 +4,7 @@ using AirportManagement.Application.Common.Interfaces.Auth;
 using AirportManagement.Application.Common.Interfaces.Persistence.Airplanes;
 using AirportManagement.Application.Common.Interfaces.Persistence.Airports;
 using AirportManagement.Application.Common.Interfaces.Persistence.Clients;
+using AirportManagement.Application.Common.Interfaces.Persistence.Facilities;
 using AirportManagement.Application.Common.Interfaces.Persistence.Users;
 using AirportManagement.Application.Common.Services;
 using AirportManagement.Infrastructure.Airplanes.Persistence;
@@ -11,6 +12,7 @@ using AirportManagement.Infrastructure.Airports.Persistence;
 using AirportManagement.Infrastructure.Auth;
 using AirportManagement.Infrastructure.Clients.Persistence;
 using AirportManagement.Infrastructure.Common.Persistence;
+using AirportManagement.Infrastructure.Facilities.Persistence;
 using AirportManagement.Infrastructure.Services;
 using AirportManagement.Infrastructure.Users.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,6 +39,7 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IClientRepository, ClientRepository>();
         serviceCollection.AddScoped<IAirplaneRepository, AirplaneRepository>();
+        serviceCollection.AddScoped<IFacilityRepository, FacilityRepository>();
 
         serviceCollection.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AirportManagementDbContext>());
     }
