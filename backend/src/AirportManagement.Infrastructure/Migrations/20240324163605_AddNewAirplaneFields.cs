@@ -58,7 +58,7 @@ namespace AirportManagement.Infrastructure.Migrations
             //     .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Facility",
+                name: "Facilities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -129,7 +129,7 @@ namespace AirportManagement.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Service",
+                name: "Services",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -190,7 +190,7 @@ namespace AirportManagement.Infrastructure.Migrations
                 name: "Airports");
 
             migrationBuilder.DropTable(
-                name: "Service");
+                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -199,7 +199,7 @@ namespace AirportManagement.Infrastructure.Migrations
                 name: "Airplanes");
 
             migrationBuilder.DropTable(
-                name: "Facility");
+                name: "Facilities");
 
             migrationBuilder.DropTable(
                 name: "Clients");
