@@ -15,6 +15,7 @@ public class CreateAirplaneCommandHandler(IAirplaneRepository airplaneRepository
             request.Classification,
             request.ClientId,
             request.MaxLoad,
+            request.PassengersCapacity,
             request.ArriveDate,
             request.DepartureDate
         );
