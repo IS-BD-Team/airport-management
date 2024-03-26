@@ -11,7 +11,7 @@ public class UpdateFacilityCommandHandler(IFacilityRepository facilityRepository
 {
     public async Task<ErrorOr<Facility>> Handle(UpdateFacilityCommand request, CancellationToken cancellationToken)
     {
-        var newFacilityData = new Facility(request.Name, request.Type, request.Location);
+        var newFacilityData = new Facility(request.Name, request.Type, request.Location, request.AirportId);
 
         var facility = await facilityRepository.UpdateAsync(request.Id, newFacilityData);
 
