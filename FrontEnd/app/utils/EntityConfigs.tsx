@@ -6,7 +6,7 @@ import aviones from "../../public/avion.png";
 import clientes from "../../public/cliente.png";
 import administradores from "../../public/adminstrador.png";
 import estancias from "../../public/estancia.png";
-import reparacionesNaves from "../../public/reparacionNave.png"
+import reparacionesNaves from "../../public/reparacionNave.png";
 
 //(TODO) como modelar el costo de los servicios brindados
 
@@ -16,12 +16,23 @@ export const allEntityConfigs = {
             caption: "Nuevo Administrador",
             icon: administradores,
             inputs: [
-                { name: "Nombre", label: "Nombre", type: "text" },
-                { name: "Ubicación", label: "Ubicación", type: "text" },
+                {
+                    name: "Nombre",
+                    label: "Nombre",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Ubicación",
+                    label: "Ubicación",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
                 {
                     name: "Posición Geográfica",
                     label: "Posición",
                     type: "text",
+                    options: { from: "", value: 0, name: 0 },
                 },
             ],
         },
@@ -32,7 +43,7 @@ export const allEntityConfigs = {
             { name: "Estancias", icon: null },
             { name: "Clientes con naves", icon: null },
         ],
-        endPoints: { post: "http://localhost:5258/airports" },
+        endPoint: "http://localhost:5258/Airports",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Aeropuertos: {
@@ -40,12 +51,23 @@ export const allEntityConfigs = {
             caption: "Nuevo Aeropuerto",
             icon: aeropuertos,
             inputs: [
-                { name: "Nombre", label: "Nombre", type: "text" },
-                { name: "Ubicación", label: "Ubicación", type: "text" },
+                {
+                    name: "Nombre",
+                    label: "name",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Ubicación",
+                    label: "address",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
                 {
                     name: "Posición Geográfica",
-                    label: "Posición",
+                    label: "geographicLocation",
                     type: "text",
+                    options: { from: "", value: 0, name: 0 },
                 },
             ],
         },
@@ -56,7 +78,7 @@ export const allEntityConfigs = {
             { name: "Estancias", icon: estancias },
             { name: "Clientes con naves", icon: clientes },
         ],
-        endPoints: { post: "http://localhost:5258/Airports" },
+        endPoint: "http://localhost:5258/Airports",
         tableWidths: ["5%", "25%", "30%", "30%", "10%"],
     },
     Instalaciones: {
@@ -64,9 +86,34 @@ export const allEntityConfigs = {
             caption: "Nueva Instalación",
             icon: instalaciones,
             inputs: [
-                { name: "Nombre", label: "Nombre", type: "text" },
-                { name: "Ubicación", label: "Ubicación", type: "text" },
-                { name: "Tipo", label: "Tipo", type: "select" },
+                {
+                    name: "Nombre",
+                    label: "name",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Ubicación",
+                    label: "location",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Aeropuerto",
+                    label: "airportId",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Airports",
+                        value: 0,
+                        name: 1,
+                    },
+                },
+                {
+                    name: "Tipo",
+                    label: "type",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
             ],
         },
         relations: [
@@ -74,7 +121,7 @@ export const allEntityConfigs = {
             { name: "Servicios", icon: servicios },
             { name: "Reparaciones", icon: reparaciones },
         ],
-        endPoints: { post: "http://localhost:5258/airports" },
+        endPoint: "http://localhost:5258/Facilities",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Servicios: {
@@ -82,9 +129,28 @@ export const allEntityConfigs = {
             caption: "Nuevo Servicio",
             icon: servicios,
             inputs: [
-                { name: "Código", label: "Código", type: "number" },
-                { name: "Descripción", label: "Descripción", type: "text" },
-                { name: "Precio", label: "Precio", type: "text" },
+                {
+                    name: "Descripción",
+                    label: "Descripción",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Precio",
+                    label: "Precio",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Instalación",
+                    label: "facilityId",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Facilities",
+                        value: 1,
+                        name: 2,
+                    },
+                },
             ],
         },
         relations: [
@@ -92,7 +158,7 @@ export const allEntityConfigs = {
             { name: "Brindado en: Aeropuertos", icon: aeropuertos },
             { name: "Brindado en: Instalaciones", icon: instalaciones },
         ],
-        endPoints: { post: "http://localhost:5258/services" },
+        endPoint: "http://localhost:5258/Services",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Reparciones: {
@@ -100,10 +166,30 @@ export const allEntityConfigs = {
             caption: "Nueva Reparación",
             icon: reparaciones,
             inputs: [
-                { name: "Código", label: "Código", type: "number" },
-                { name: "Descripción", label: "Descripción", type: "text" },
-                { name: "Precio", label: "Precio", type: "text" },
-                { name: "Tipo", label: "Tipo", type: "select" },
+                {
+                    name: "Código",
+                    label: "Código",
+                    type: "number",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Descripción",
+                    label: "Descripción",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Precio",
+                    label: "Precio",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Tipo",
+                    label: "Tipo",
+                    type: "select",
+                    options: { from: "", value: 0, name: 0 },
+                },
             ],
         },
         relations: [
@@ -111,7 +197,7 @@ export const allEntityConfigs = {
             { name: "Brindado en: Aeropuertos", icon: aeropuertos },
             { name: "Brindado en: Instalaciones", icon: instalaciones },
         ],
-        endPoints: { post: "http://localhost:5258/airports" },
+        endPoint: "http://localhost:5258/airports",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Clientes: {
@@ -119,18 +205,34 @@ export const allEntityConfigs = {
             caption: "Nuevo Cliente",
             icon: clientes,
             inputs: [
-                { name: "Nombre", label: "Nombre", type: "text" },
-                { name: "Nacionalidad", label: "Nacionalidad", type: "select" },
-                { name: "Tipo", label: "Tipo", type: "select" },
+                {
+                    name: "Nombre",
+                    label: "Nombre",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Nacionalidad",
+                    label: "Nacionalidad",
+                    type: "select",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Tipo",
+                    label: "Tipo",
+                    type: "select",
+                    options: { from: "", value: 0, name: 0 },
+                },
                 {
                     name: "Dueño de nave",
                     label: "DueñoDeNave",
                     type: "checkbox",
+                    options: { from: "", value: 0, name: 0 },
                 },
             ],
         },
         relations: [{ name: "Naves", icon: aviones }],
-        endPoints: { post: "http://localhost:5258/Clients" },
+        endPoint: "http://localhost:5258/Clients",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Naves: {
@@ -138,21 +240,39 @@ export const allEntityConfigs = {
             caption: "Nueva Nave",
             icon: aviones,
             inputs: [
-                { name: "Matrícula", label: "Matrícula", type: "text" },
+                {
+                    name: "Matrícula",
+                    label: "Matrícula",
+                    type: "text",
+                    options: { from: "", value: 0, name: 0 },
+                },
                 {
                     name: "Clasificación",
                     label: "Clasificación",
                     type: "select",
+                    options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Dueño",
+                    label: "Dueño",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Clients",
+                        value: 0,
+                        name: 1,
+                    },
                 },
                 {
                     name: "Cant. de Plazas",
                     label: "CantDePlazas",
                     type: "number",
+                    options: { from: "", value: 0, name: 0 },
                 },
                 {
                     name: "Cant. de Tripulantes",
                     label: "CantDeTripulantes",
                     type: "number",
+                    options: { from: "", value: 0, name: 0 },
                 },
             ],
         },
@@ -162,7 +282,7 @@ export const allEntityConfigs = {
             { name: "Estancias", icon: estancias },
             { name: "Dueño", icon: clientes },
         ],
-        endPoints: { post: "http://localhost:5258/Airplanes" },
+        endPoint: "http://localhost:5258/Airplanes",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Estancias: {
@@ -174,15 +294,40 @@ export const allEntityConfigs = {
                     name: "Fecha de Inicio",
                     label: "FechaDeInicio",
                     type: "date",
+                    options: { from: "", value: 0, name: 0 },
                 },
                 {
                     name: "Fecha Planificad de Fin",
                     label: "FechaDeFin",
                     type: "date",
+                    options: { from: "", value: 0, name: 0 },
                 },
-                { name: "Id de Aeropuerto", label: "IdA", type: "select" },
-                { name: "Matrícula", label: "Matrícula", type: "select" },
-                { name: "Valoración", label: "Valoración", type: "number" },
+                {
+                    name: "Id de Aeropuerto",
+                    label: "IdA",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Airports",
+                        value: 0,
+                        name: 1,
+                    },
+                },
+                {
+                    name: "Matrícula",
+                    label: "Matrícula",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Airplanes",
+                        value: 0,
+                        name: 0,
+                    },
+                },
+                {
+                    name: "Valoración",
+                    label: "Valoración",
+                    type: "number",
+                    options: { from: "", value: 0, name: 0 },
+                },
             ],
         },
         relations: [
@@ -190,7 +335,7 @@ export const allEntityConfigs = {
             { name: "Aeropuerto", icon: aeropuertos },
             { name: "Servicios", icon: servicios },
         ],
-        endPoints: { post: "http://localhost:5258/airports" },
+        endPoint: "http://localhost:5258/airports",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     ReparacionesNaves: {
@@ -202,15 +347,40 @@ export const allEntityConfigs = {
                     name: "Fecha de Inicio",
                     label: "FechaDeInicio",
                     type: "date",
+                    options: { from: "", value: 0, name: 0 },
                 },
                 {
                     name: "Fecha de Fin",
                     label: "FechaDeFin",
                     type: "date",
+                    options: { from: "", value: 0, name: 0 },
                 },
-                { name: "Matrícula", label: "Matrícula", type: "select" },
-                { name: "Código", label: "Código", type: "select" },
-                { name: "Tiempo", label: "Tiempo", type: "number" },
+                {
+                    name: "Matrícula",
+                    label: "Matrícula",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Airplanes",
+                        value: 0,
+                        name: 0,
+                    },
+                },
+                {
+                    name: "Código",
+                    label: "Código",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Reaprations:):):)jjjajajaj",
+                        value: 0,
+                        name: 0,
+                    },
+                },
+                {
+                    name: "Tiempo",
+                    label: "Tiempo",
+                    type: "number",
+                    options: { from: "", value: 0, name: 0 },
+                },
             ],
         },
         relations: [
@@ -218,7 +388,7 @@ export const allEntityConfigs = {
             { name: "Nave", icon: aviones },
             { name: "Reparacion", icon: reparaciones },
         ],
-        endPoints: { post: "http://localhost:5258/airports" },
+        endPoint: "http://localhost:5258/airports",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     default: {
@@ -228,7 +398,7 @@ export const allEntityConfigs = {
             inputs: [],
         },
         relations: [],
-        endPoints: {},
+        endPoint: "",
         tableWidths: ["100%"],
     },
 };
@@ -286,25 +456,25 @@ export function getTableWidths(entity: string) {
 export function getEndpoints(entity: string) {
     switch (entity) {
         case "Administradores":
-            return allEntityConfigs.Administradores.endPoints;
+            return allEntityConfigs.Administradores.endPoint;
         case "Aeropuertos":
-            return allEntityConfigs.Aeropuertos.endPoints;
+            return allEntityConfigs.Aeropuertos.endPoint;
         case "Instalaciones":
-            return allEntityConfigs.Instalaciones.endPoints;
+            return allEntityConfigs.Instalaciones.endPoint;
         case "Servicios":
-            return allEntityConfigs.Servicios.endPoints;
+            return allEntityConfigs.Servicios.endPoint;
         case "Reparciones":
-            return allEntityConfigs.Reparciones.endPoints;
+            return allEntityConfigs.Reparciones.endPoint;
         case "Clientes":
-            return allEntityConfigs.Clientes.endPoints;
+            return allEntityConfigs.Clientes.endPoint;
         case "Naves":
-            return allEntityConfigs.Naves.endPoints;
+            return allEntityConfigs.Naves.endPoint;
         case "Estancias":
-            return allEntityConfigs.Estancias.endPoints;
+            return allEntityConfigs.Estancias.endPoint;
         case "ReparacionesNaves":
-            return allEntityConfigs.ReparacionesNaves.endPoints;
+            return allEntityConfigs.ReparacionesNaves.endPoint;
         default:
-            return allEntityConfigs.default.endPoints;
+            return allEntityConfigs.default.endPoint;
     }
 }
 

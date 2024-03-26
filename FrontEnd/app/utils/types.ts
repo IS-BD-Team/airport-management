@@ -1,48 +1,51 @@
 import { StaticImageData } from "next/image";
 
 export type Aeropuerto = {
-    id: string;
-    nombre: string;
-    direccion: string;
-    posicionGeografica: string;
-    picture: StaticImageData;
+    id: number;
+    name: string;
+    address: string;
+    geographicLocation: string;
+    //picture: StaticImageData;
 }
 export type Instalacion = {
-    ida: string;
-    idi: string;
-    nombre: string;
-    tipo: string;
-    ubicacion: string;
-    picture: StaticImageData;
+    airportId: number;
+    idi: number;
+    name: string;
+    type: string;
+    location: string;
+   // picture: StaticImageData;
 }
 export type Servicio = {
-    id: string;
-    descripcion: string;
-    precio: number;
-    picture: StaticImageData;
+    id: number;
+    facilityId: number;
+    description: string;
+    price: number;
+   // picture: StaticImageData;
 }
 export type Reparcion = {
-    id: string;
-    descripcion: string;
-    precio: number;
+    id: number;
+    facilityId: number;
+    description: string;
+    price: number;
     tipo: string;
-    picture: StaticImageData;
+    //picture: StaticImageData;
 }
 export type Cliente = {
-    id: string;
-    nombre: string;
-    nacionalidad: string; 
-    tipo: string;
-    hasNave: boolean;
-    picture: StaticImageData;
+    ci: number;
+    name: string;
+    country: string; 
+    clientType: string;
+    hasNave: boolean; //todo: decirle a rafa
+    //picture: StaticImageData;
 }
 export type Nave = {
-    matricula: string;
-    plazas: number;
-    clasificacion: string; 
+    id: number;
+    clientId: number
+    passengersCapacity: number;
+    classification: string; 
     tripulantes: number;
-    capacidad: string;
-    picture: StaticImageData;
+    maxLoad: number;
+    //picture: StaticImageData;
 }
 export type Estancia = {
     matricula: string;
@@ -50,7 +53,7 @@ export type Estancia = {
     idA: string;
     valoracion: number;
     fechaPropuestaFin: string;
-    picture: StaticImageData;
+    //picture: StaticImageData;
 }
 export type ReparacionNave = {
     matricula: string;
@@ -58,7 +61,7 @@ export type ReparacionNave = {
     codigo: string;
     tiempo: number;
     fechaFin: string;
-    picture: StaticImageData;
+    //picture: StaticImageData;
 }
 export type TestingType = {
     nombre: string, 
@@ -66,6 +69,6 @@ export type TestingType = {
     num: string, 
     description: string, 
     fecha: string,
-    picture: StaticImageData,
+    //picture: StaticImageData,
 }
 export type Instance = Aeropuerto | Instalacion | Servicio | Reparcion | Cliente | Nave | Estancia | ReparacionNave | TestingType; 
