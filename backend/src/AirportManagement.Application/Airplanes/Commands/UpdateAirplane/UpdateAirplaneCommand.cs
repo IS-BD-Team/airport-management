@@ -9,7 +9,7 @@ public record UpdateAirplaneCommand(
     string Classification,
     int ClientId,
     int MaxLoad,
-    DateTimeOffset ArriveDate,
-    DateTimeOffset DepartureDate,
-    bool HasReceivedMaintenance)
+    int PassengersCapacity,
+    int CrewMembers
+)
     : IRequest<ErrorOr<Airplane>>;

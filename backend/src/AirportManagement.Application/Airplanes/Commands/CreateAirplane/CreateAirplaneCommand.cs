@@ -9,7 +9,6 @@ public record CreateAirplaneCommand(
     int ClientId,
     int MaxLoad,
     int PassengersCapacity,
-    DateTimeOffset ArriveDate,
-    DateTimeOffset DepartureDate,
-    bool HasReceivedMaintenance = false)
+    int CrewMembers
+)
     : IRequest<ErrorOr<Airplane>>;

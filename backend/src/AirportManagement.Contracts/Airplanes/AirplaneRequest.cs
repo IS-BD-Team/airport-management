@@ -5,6 +5,5 @@ public record AirplaneRequest(
     int ClientId,
     int MaxLoad,
     int PassengersCapacity,
-    string ArriveDate,
-    string DepartureDate,
-    bool HasReceivedMaintenance = false);
+    int CrewMembers
+);

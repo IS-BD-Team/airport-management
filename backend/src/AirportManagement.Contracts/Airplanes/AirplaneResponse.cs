@@ -8,8 +8,7 @@ public class AirplaneResponse(
     int clientId,
     int maxLoad,
     int passengersCapacity,
-    string arriveDate,
-    string departureDate,
+    int crewMembers,
     bool hasReceivedMaintenance,
     ClientResponse? client = null)
 {
@@ -18,8 +17,7 @@ public class AirplaneResponse(
     public int ClientId { get; } = clientId;
     public int MaxLoad { get; } = maxLoad;
     public int PassengersCapacity { get; } = passengersCapacity;
-    public string ArriveDate { get; } = arriveDate;
-    public string DepartureDate { get; } = departureDate;
+    public int CrewMembers { get; } = crewMembers;
     public bool HasReceivedMaintenance { get; } = hasReceivedMaintenance;
     public ClientResponse? Client { get; set; } = client;
 }
