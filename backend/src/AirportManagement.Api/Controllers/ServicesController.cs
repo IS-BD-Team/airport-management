@@ -92,7 +92,8 @@ public class ServicesController(ISender mediator) : ControllerBase
                     service.Facility!.Id,
                     service.Facility.Name,
                     service.Facility.Type,
-                    service.Facility.Location)
+                    service.Facility.Location,
+                    service.Facility.AirportId)
             );
         return new ServiceResponse(
             service.Id,

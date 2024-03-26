@@ -20,8 +20,9 @@ public class FacilitiesController(ISender mediator) : ControllerBase
     private static FacilityResponse CreateFacilityResponse(Facility facility)
     {
         if (facility.Services is null)
-            return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location);
-        return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location,
+            return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location,
+                facility.AirportId);
+        return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location, facility.AirportId,
             facility.Services.Select(
                 s => new ServiceResponse(s.Id, s.Description, s.FacilityId, s.Price)).ToList());
     }
@@ -30,7 +31,7 @@ public class FacilitiesController(ISender mediator) : ControllerBase
     public async Task<IActionResult> CreateFacility(FacilityRequest request)
     {
         var command = new CreateFacilityCommand(
-            request.Name, request.Type, request.Location);
+            request.Name, request.Type, request.Location, request.AirportId);
 
         var createFacilityResult = await mediator.Send(command);
 
@@ -64,7 +65,8 @@ public class FacilitiesController(ISender mediator) : ControllerBase
     [HttpPut("{facilityId:int}")]
     public async Task<IActionResult> UpdateFacility(int facilityId, FacilityRequest request)
     {
-        var command = new UpdateFacilityCommand(facilityId, request.Name, request.Type, request.Location);
+        var command =
+            new UpdateFacilityCommand(facilityId, request.Name, request.Type, request.Location, request.AirportId);
 
         var updateFacilityResult = await mediator.Send(command);
 
