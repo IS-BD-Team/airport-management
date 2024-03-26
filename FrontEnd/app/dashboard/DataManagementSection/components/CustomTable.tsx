@@ -34,6 +34,7 @@ export default function CustomTable(prop: CustomTableProps) {
                 }
             );
             console.log(response);
+            window.location.reload();
             //router.push('/dashboard/DataManagementSection')
             // return response.json();
         } catch (err) {
