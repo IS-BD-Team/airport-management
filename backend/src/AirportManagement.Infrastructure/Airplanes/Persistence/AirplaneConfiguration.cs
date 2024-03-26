@@ -15,23 +15,5 @@ public class AirplaneConfiguration : IEntityTypeConfiguration<Airplane>
         builder.Property(plane => plane.Classification).IsRequired();
         builder.Property(plane => plane.ClientId).IsRequired();
         builder.Property(plane => plane.MaxLoad).IsRequired();
-        builder.Property(plane => plane.ArriveDate)
-            .HasConversion(
-                offset => offset.ToString("F"),
-                s => DateTimeOffset.Parse(s))
-            .IsRequired();
-
-        builder.Property(plane => plane.DepartureDate)
-            .HasConversion(
-                offset => offset.ToString("F"),
-                s => DateTimeOffset.Parse(s))
-            .IsRequired();
-
-        builder.Property(plane => plane.DepartureDate).IsRequired();
-
-        builder.HasMany(plane => plane.Services)
-            .WithOne()
-            .HasForeignKey(service => service.FacilityId)
-            .IsRequired();
     }
 }

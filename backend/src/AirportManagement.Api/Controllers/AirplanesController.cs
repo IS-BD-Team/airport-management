@@ -20,16 +20,9 @@ public class AirplanesController(ISender mediator) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateAirplane(AirplaneRequest request)
     {
-        if (!DateTimeOffset.TryParse(request.ArriveDate, out var arriveDate))
-            return ValidationProblem("The provided arrive date is invalid the correct format should be:");
-
-        if (!DateTimeOffset.TryParse(request.DepartureDate, out var departureDate))
-            return ValidationProblem("The provided departure date is invalid the correct format should be:");
-
         var command = new CreateAirplaneCommand(
             request.Classification, request.ClientId,
-            request.MaxLoad, request.PassengersCapacity, arriveDate,
-            departureDate);
+            request.MaxLoad, request.PassengersCapacity, request.CrewMembers);
 
         var createAirplaneResult = await mediator.Send(command);
 
@@ -65,17 +58,13 @@ public class AirplanesController(ISender mediator) : ControllerBase
     [HttpPut("{airplaneId:int}")]
     public async Task<IActionResult> UpdateAirplane(int airplaneId, AirplaneRequest request)
     {
-        if (!DateTimeOffset.TryParse(request.ArriveDate, out var arriveDate))
-            return ValidationProblem("The provided arrive date is invalid the correct format should be:");
-
-        if (!DateTimeOffset.TryParse(request.DepartureDate, out var departureDate))
-            return ValidationProblem("The provided departure date is invalid the correct format should be:");
-
-
-        var command = new UpdateAirplaneCommand(airplaneId,
-            request.Classification, request.ClientId,
-            request.MaxLoad, arriveDate,
-            departureDate, request.HasReceivedMaintenance);
+        var command = new UpdateAirplaneCommand(
+            airplaneId,
+            request.Classification,
+            request.ClientId,
+            request.MaxLoad,
+            request.PassengersCapacity,
+            request.CrewMembers);
 
         var updateAirplaneResult = await mediator.Send(command);
 
@@ -103,9 +92,9 @@ public class AirplanesController(ISender mediator) : ControllerBase
             airplane.ClientId,
             airplane.MaxLoad,
             airplane.PassengersCapacity,
-            airplane.ArriveDate.ToString(),
-            airplane.DepartureDate.ToString(),
-            airplane.HasReceivedMaintenance);
+            airplane.CrewMembers,
+            airplane.HasReceivedMaintenance
+        );
 
         if (airplane.Owner is null)
             return response;

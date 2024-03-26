@@ -16,8 +16,7 @@ public class CreateAirplaneCommandHandler(IAirplaneRepository airplaneRepository
             request.ClientId,
             request.MaxLoad,
             request.PassengersCapacity,
-            request.ArriveDate,
-            request.DepartureDate
+            request.CrewMembers
         );
 
         await airplaneRepository.AddAAsync(airplane);

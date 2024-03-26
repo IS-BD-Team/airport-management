@@ -18,9 +18,8 @@ public class UpdateAirplaneCommandHandler(IAirplaneRepository airplaneRepository
         airplane.Classification = request.Classification;
         airplane.ClientId = request.ClientId;
         airplane.MaxLoad = request.MaxLoad;
-        airplane.ArriveDate = request.ArriveDate;
-        airplane.DepartureDate = request.DepartureDate;
-        airplane.HasReceivedMaintenance = request.HasReceivedMaintenance;
+        airplane.PassengersCapacity = request.PassengersCapacity;
+        airplane.CrewMembers = request.CrewMembers;
 
         await unitOfWork.CommitChangesAsync();
 

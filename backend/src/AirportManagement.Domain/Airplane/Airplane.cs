@@ -10,24 +10,24 @@ public class Airplane(
     int clientId,
     int maxLoad,
     int passengersCapacity,
-    DateTimeOffset arriveDate,
-    DateTimeOffset departureDate
+    int crewMembers
 )
 {
     [Key] public int Id { get; init; }
 
-    public string Classification { get; set; } = classification;
+    [Required] public string Classification { get; set; } = classification;
+
+    //TODO: 
+    // [Required] public string PlanePlate { get; init; } = planePlate;
     [Required] public int ClientId { get; set; } = clientId;
     [ForeignKey(nameof(ClientId))] public Client? Owner { get; set; }
 
     [Required] public int MaxLoad { get; set; } = maxLoad;
     [Required] public int PassengersCapacity { get; set; } = passengersCapacity;
 
-    [Required] public DateTimeOffset ArriveDate { get; set; } = arriveDate;
-    [Required] public DateTimeOffset DepartureDate { get; set; } = departureDate;
+    [Required] public int CrewMembers { get; set; } = crewMembers;
 
     [Required] public bool HasReceivedMaintenance { get; set; } = false;
-
 
     public ICollection<Service>? Services { get; set; }
 }
