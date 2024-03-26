@@ -7,4 +7,5 @@ public record FacilityResponse(
     string? Name,
     string Type,
     string Location,
+    int AirportId,
     List<ServiceResponse>? Services = null);
