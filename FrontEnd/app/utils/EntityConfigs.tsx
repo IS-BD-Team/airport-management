@@ -181,7 +181,7 @@ export const allEntityConfigs = {
                     type: "date",
                 },
                 { name: "Id de Aeropuerto", label: "IdA", type: "select" },
-                { name: "Matrícula", label: "Matrícula", type: "text" },
+                { name: "Matrícula", label: "Matrícula", type: "select" },
                 { name: "Valoración", label: "Valoración", type: "number" },
             ],
         },
@@ -208,8 +208,8 @@ export const allEntityConfigs = {
                     label: "FechaDeFin",
                     type: "date",
                 },
-                { name: "Matrícula", label: "Matrícula", type: "text" },
-                { name: "Código", label: "Código", type: "number" },
+                { name: "Matrícula", label: "Matrícula", type: "select" },
+                { name: "Código", label: "Código", type: "select" },
                 { name: "Tiempo", label: "Tiempo", type: "number" },
             ],
         },
@@ -249,6 +249,10 @@ export function getFormConfigs(entity: string) {
             return allEntityConfigs.Clientes.formConfig;
         case "Naves":
             return allEntityConfigs.Naves.formConfig;
+        case "Estancias":
+            return allEntityConfigs.Estancias.formConfig;
+        case "ReparacionesNaves":
+            return allEntityConfigs.ReparacionesNaves.formConfig;
         default:
             return allEntityConfigs.default.formConfig;
     }
@@ -270,12 +274,16 @@ export function getTableWidths(entity: string) {
             return allEntityConfigs.Clientes.tableWidths;
         case "Naves":
             return allEntityConfigs.Naves.tableWidths;
+        case "Estancias":
+            return allEntityConfigs.Estancias.tableWidths;
+        case "ReparacionesNaves":
+            return allEntityConfigs.ReparacionesNaves.tableWidths;
         default:
             return allEntityConfigs.default.tableWidths;
     }
 }
 
-export function getEndpoint(entity: string) {
+export function getEndpoints(entity: string) {
     switch (entity) {
         case "Administradores":
             return allEntityConfigs.Administradores.endPoints;
@@ -291,6 +299,10 @@ export function getEndpoint(entity: string) {
             return allEntityConfigs.Clientes.endPoints;
         case "Naves":
             return allEntityConfigs.Naves.endPoints;
+        case "Estancias":
+            return allEntityConfigs.Estancias.endPoints;
+        case "ReparacionesNaves":
+            return allEntityConfigs.ReparacionesNaves.endPoints;
         default:
             return allEntityConfigs.default.endPoints;
     }
@@ -312,6 +324,10 @@ export function getRelations(entity: string) {
             return allEntityConfigs.Clientes.relations;
         case "Naves":
             return allEntityConfigs.Naves.relations;
+        case "Estancias":
+            return allEntityConfigs.Estancias.relations;
+        case "ReparacionesNaves":
+            return allEntityConfigs.ReparacionesNaves.relations;
         default:
             return allEntityConfigs.default.relations;
     }
