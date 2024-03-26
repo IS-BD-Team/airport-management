@@ -7,21 +7,26 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import editar from "@/public/editar.png";
 import { useRouter } from "next/navigation";
-import { getRelations } from "@/app/utils/EntityConfigs";
+import { getRelations, getFormConfigs } from "@/app/utils/EntityConfigs";
+import dataFormater, {FormatedData} from "@/app/utils/dataFormater";
 
 export default function InstanceViewSection() {
+    const [edit, setEdit] = useState(false);
+
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
     const id = searchParams.get("id");
-    const [edit, setEdit] = useState(false);
     const router = useRouter();
+    const formConfig = getFormConfigs(entity ?? "");
 
     const [data, setData] = useState({
         id: "",
-        name: "",
+        nombre: "",
         direccion: "",
         posicionGeografica: "",
+        picture: havana,
     });
+    const [formatedData, setFormatedData] = useState<FormatedData>();
 
     const getAirport = async () => {
         try {
@@ -45,10 +50,10 @@ export default function InstanceViewSection() {
     const editAirport = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(event.currentTarget);
-        const name = event.currentTarget["name"].value;
-        const address = event.currentTarget["address"].value;
+        const name = event.currentTarget["name"];
+        const address = event.currentTarget["address"];
         const geographicLocation =
-            event.currentTarget["geographicLocation"].value;
+            event.currentTarget["geographicLocation"];
 
         const response = await fetch(`http://localhost:5258/Airports/${id}`, {
             method: "PUT",
@@ -71,6 +76,9 @@ export default function InstanceViewSection() {
 
     useEffect(() => {
         getAirportData();
+        setData({ ...data, picture: havana });
+        setFormatedData(dataFormater(data, entity ?? ""));
+        console.log(formatedData);
     }, []);
 
     const instance: Instance = {
@@ -78,19 +86,22 @@ export default function InstanceViewSection() {
         nombre: "Aeropuerto José Martí",
         direccion: "Boyeros, Herradura",
         posicionGeografica: "222.1w 212.2n",
+        picture: havana,
     };
 
     return (
         <div className="overflow-y-auto">
             <header className="w-full h-[10vw] bg-gray-700 text-white text-2xl text-center relative">
                 <Image
-                    src={havana}
+                    src={data.picture ?? formConfig.icon}
                     alt=""
-                    className="w-full h-full object-cover absolute z-0"
+                    className={`w-full h-full p-2 absolute z-0 ${
+                        formatedData?.picture ? "object-cover" : "object-contain"
+                    }`}
                 />
                 {data != null && (
                     <h1 className="h-full flex items-center justify-around z-10 relative bg-slate-900 bg-opacity-40">
-                        {data.name}
+                        {formatedData?.name}
                     </h1>
                 )}
             </header>
@@ -102,7 +113,8 @@ export default function InstanceViewSection() {
             </button>
             {data != null && !edit && (
                 <main className="m-5">
-                    {Object.entries(data).map((value, index) => {
+                    {Object.entries(formatedData ?? {}).map((value, index) => {
+                        if(value[0] === "picture" || value[0] === "name" || value[0] === "id") return;
                         return (
                             <section key={index}>
                                 <h2 className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-5">
@@ -124,22 +136,24 @@ export default function InstanceViewSection() {
                     className="flex flex-col m-5"
                 >
                     {Object.entries(data).map((value, index) => {
-                        return (
-                            <>
-                                <label
-                                    className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-2"
-                                    htmlFor={value[0]}
-                                >
-                                    {value[0]}
-                                </label>
-                                <input
-                                    className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"
-                                    name={value[0]}
-                                    defaultValue={value[1]}
-                                    type="text"
-                                />
-                            </>
-                        );
+                        if (value[0] !== "picture") {
+                            return (
+                                <>
+                                    <label
+                                        className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-2"
+                                        htmlFor={value[0]}
+                                    >
+                                        {value[0]}
+                                    </label>
+                                    <input
+                                        className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"
+                                        name={value[0]}
+                                        defaultValue={value[1]}
+                                        type="text"
+                                    />
+                                </>
+                            );
+                        }
                     })}
                     <button
                         type="submit"
@@ -152,9 +166,9 @@ export default function InstanceViewSection() {
             <hr />
             {entity != null && (
                 <section className="m-5">
-                        <h2 className="text-2xl capitalize mb-1">
-                            Relaciones de interes
-                        </h2>
+                    <h2 className="text-2xl capitalize mb-1">
+                        Relaciones de interes
+                    </h2>
                     <div className="flex gap-2">
                         {getRelations(entity).map((relation, index) => {
                             return (
