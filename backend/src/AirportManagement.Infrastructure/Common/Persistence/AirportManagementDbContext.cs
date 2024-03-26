@@ -25,6 +25,8 @@ public class AirportManagementDbContext(DbContextOptions<AirportManagementDbCont
 
     public DbSet<Facility> Facilities { get; set; } = null!;
 
+    public DbSet<ClientRating> ClientRatings { get; set; } = null!;
+
     public async Task CommitChangesAsync()
     {
         await base.SaveChangesAsync();
