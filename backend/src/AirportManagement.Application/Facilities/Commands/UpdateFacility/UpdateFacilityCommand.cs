@@ -8,4 +8,5 @@ public record UpdateFacilityCommand(
     int Id,
     string? Name,
     string Type,
-    string Location) : IRequest<ErrorOr<Facility>>;
+    string Location,
+    int AirportId) : IRequest<ErrorOr<Facility>>;
