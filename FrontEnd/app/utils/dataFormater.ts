@@ -1,4 +1,4 @@
-import {
+/*import {
     Instance,
     Aeropuerto,
     Cliente,
@@ -144,3 +144,4 @@ export default function dataFormater(data: Instance, entity: string) {
             return formatedData;
     }
 }
+*/

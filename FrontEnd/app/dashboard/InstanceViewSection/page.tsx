@@ -1,14 +1,28 @@
 "use client";
 
-import { Instance } from "../../utils/types";
+import {
+    Instance,
+    Aeropuerto,
+    Cliente,
+    Estancia,
+    Instalacion,
+    Nave,
+    ReparacionNave,
+    Reparcion,
+    Servicio,
+} from "@/app/utils/types";
 import havana from "../../../public/HavanAirport.jpg";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import editar from "@/public/editar.png";
 import { useRouter } from "next/navigation";
-import { getRelations, getFormConfigs } from "@/app/utils/EntityConfigs";
-import dataFormater, {FormatedData} from "@/app/utils/dataFormater";
+import {
+    getRelations,
+    getFormConfigs,
+    getEndpoints,
+} from "@/app/utils/EntityConfigs";
+//import dataFormater, {FormatedData} from "@/app/utils/dataFormater";
 
 export default function InstanceViewSection() {
     const [edit, setEdit] = useState(false);
@@ -19,19 +33,20 @@ export default function InstanceViewSection() {
     const router = useRouter();
     const formConfig = getFormConfigs(entity ?? "");
 
-    const [data, setData] = useState({
-        id: "",
-        nombre: "",
-        direccion: "",
-        posicionGeografica: "",
-        picture: havana,
+    const [name, setName] = useState("");
+    const [data, setData] = useState<Instance>({
+        id: 0,
+        name: "",
+        address: "",
+        geographicLocation: "",
+        //picture: havana,
     });
-    const [formatedData, setFormatedData] = useState<FormatedData>();
+    //const [formatedData, setFormatedData] = useState<FormatedData>();
 
     const getAirport = async () => {
         try {
             const response = await fetch(
-                `http://localhost:5258/airports/${id}`,
+                `${getEndpoints(entity ?? "")}/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -52,10 +67,9 @@ export default function InstanceViewSection() {
         console.log(event.currentTarget);
         const name = event.currentTarget["name"];
         const address = event.currentTarget["address"];
-        const geographicLocation =
-            event.currentTarget["geographicLocation"];
+        const geographicLocation = event.currentTarget["geographicLocation"];
 
-        const response = await fetch(`http://localhost:5258/Airports/${id}`, {
+        const response = await fetch(`${getEndpoints(entity ?? "")}/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -76,32 +90,55 @@ export default function InstanceViewSection() {
 
     useEffect(() => {
         getAirportData();
-        setData({ ...data, picture: havana });
-        setFormatedData(dataFormater(data, entity ?? ""));
-        console.log(formatedData);
+        setData({ ...data /*, picture: havana */ });
+        //setFormatedData(dataFormater(data, entity ?? ""));
+        //console.log("formated: ", formatedData);
     }, []);
+    /*useEffect(() => {
+        if (
+            entity == "Aeropuertos" ||
+            entity == "Instalaciones" ||
+            entity == "Clientes"
+        ) {
+            setName((data as Aeropuerto | Instalacion | Cliente).nombre);
+        } else if (entity == "Servicios") {
+            setName(`Servicio: ${(data as Servicio).id}`);
+        } else if (entity == "Reparciones") {
+            setName(`Reparcion: ${(data as Reparcion).id}`);
+        } else if (entity == "Naves") {
+            setName(`Nave: ${(data as Nave).matricula}`);
+        } else if (entity == "Estancias") {
+            setName(`Estancia de: ${(data as Estancia).matricula} en: ${
+                (data as Estancia).idA
+            } desde: ${(data as Estancia).fechaInicio}`);
+        } else if (entity == "ReparacionNaves") {
+            setName(`Reparacion: ${(data as ReparacionNave).codigo} a: ${
+                (data as ReparacionNave).matricula
+            } en: ${(data as ReparacionNave).fechaInicio}`);
+        }
+        console.log("name: ", name);
+    }
+    , [data]);*/
 
     const instance: Instance = {
-        id: "1",
-        nombre: "Aeropuerto José Martí",
-        direccion: "Boyeros, Herradura",
-        posicionGeografica: "222.1w 212.2n",
-        picture: havana,
+        id: 1,
+        name: "Aeropuerto José Martí",
+        address: "Boyeros, Herradura",
+        geographicLocation: "222.1w 212.2n",
+        // picture: havana,
     };
 
     return (
         <div className="overflow-y-auto">
             <header className="w-full h-[10vw] bg-gray-700 text-white text-2xl text-center relative">
                 <Image
-                    src={data.picture ?? formConfig.icon}
+                    src={formConfig.icon}
                     alt=""
-                    className={`w-full h-full p-2 absolute z-0 ${
-                        formatedData?.picture ? "object-cover" : "object-contain"
-                    }`}
+                    className={`w-full h-full p-2 absolute z-0 object-contain`}
                 />
                 {data != null && (
                     <h1 className="h-full flex items-center justify-around z-10 relative bg-slate-900 bg-opacity-40">
-                        {formatedData?.name}
+                        {name}
                     </h1>
                 )}
             </header>
@@ -113,16 +150,19 @@ export default function InstanceViewSection() {
             </button>
             {data != null && !edit && (
                 <main className="m-5">
-                    {Object.entries(formatedData ?? {}).map((value, index) => {
-                        if(value[0] === "picture" || value[0] === "name" || value[0] === "id") return;
-                        return (
-                            <section key={index}>
-                                <h2 className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-5">
-                                    {value[0]}
-                                </h2>
-                                <p className="mb-3">{value[1]}</p>
-                            </section>
-                        );
+                    {Object.entries(data).map((value, index) => {
+                        if (value[0] !== "picture") {
+                            return (
+                                <section key={index}>
+                                    <h2 className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-5">
+                                        {value[0].toString()}
+                                    </h2>
+                                    <p className="mb-3">
+                                        {value[1].toString()}
+                                    </p>
+                                </section>
+                            );
+                        }
                     })}
                 </main>
             )}
@@ -148,7 +188,7 @@ export default function InstanceViewSection() {
                                     <input
                                         className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"
                                         name={value[0]}
-                                        defaultValue={value[1]}
+                                        defaultValue={value[1].toString()}
                                         type="text"
                                     />
                                 </>

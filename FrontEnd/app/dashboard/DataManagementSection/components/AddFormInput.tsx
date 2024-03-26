@@ -1,6 +1,6 @@
 type AddFormInputProps = {
     data: { name: string; label: string; type: string };
-    options?: {value: string; name: string}[];
+    options?: { value: number | string; name: number | string }[];
 };
 
 export default function AddFormInput(props: AddFormInputProps) {
@@ -41,7 +41,7 @@ export default function AddFormInput(props: AddFormInputProps) {
                         className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]"
                         name={props.data.label}
                     >
-                        {props.options?.map((value, index) => {return(<option key={index} value={value.value}>value.name</option>)})}
+                        {props.options?.map((value, index) => {return(<option key={index} value={value.value}>{value.name}</option>)})}
                     </select>
                 </>
             );

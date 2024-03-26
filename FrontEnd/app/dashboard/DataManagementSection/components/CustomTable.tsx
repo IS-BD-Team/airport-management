@@ -7,6 +7,7 @@ import eliminar from "@/public/eliminar.png";
 import Sort from "@/app/utils/sort";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getEndpoints } from "@/app/utils/EntityConfigs";
 
 type CustomTableProps = {
     entity: string;
@@ -24,7 +25,7 @@ export default function CustomTable(prop: CustomTableProps) {
 
         try {
             const response = await fetch(
-                `http://localhost:5258/Airports/${id}`,
+                `${getEndpoints(props.entity)}/${id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -61,7 +62,7 @@ export default function CustomTable(prop: CustomTableProps) {
                 </tr>
             </thead>
             <tbody>
-                {props.data.length>0&& props.data.map((row, i) => {
+                {props.data.length > 0&& props.data.map((row, i) => {
                     return (
                         <tr key={i} className="h-[4vw]">
                             {Object.values(row).map((val, j) => {
