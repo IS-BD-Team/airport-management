@@ -6,13 +6,16 @@ import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
-import { getTableWidths } from "@/app/utils/EntityConfigs";
+import { getTableWidths, getEndpoints } from "@/app/utils/EntityConfigs";
 import { revalidateServerTag } from "@/app/utils/revalidate";
+import { Instance } from "@/app/utils/types";
 import { getRelations } from "@/app/utils/EntityConfigs";
 import { getFilters } from "@/app/utils/filters";
+
+
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<Instance[] | null>(null);
     const [toogleFilters, setFilters] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +26,7 @@ export default function DataManagement() {
     const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(
-                "http://localhost:5258/Airports/airports",
+                getEndpoints(entity),
                 {
                     method: "GET",
                     headers: {
@@ -45,9 +48,9 @@ export default function DataManagement() {
         if (entity == null) return;
 
         const response = await getEntitys(entity);
-        console.log(response);
-
-        setData(response.airports);
+        console.log("response:" ,response);
+      
+        setData(response);
         console.log(data);
     };
 

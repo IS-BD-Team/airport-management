@@ -1,5 +1,7 @@
 using AirportManagement.Application;
 using AirportManagement.Infrastructure;
+using AirportManagement.Infrastructure.Common.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +47,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
+    // Apply migrations
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<AirportManagementDbContext>();
+        dbContext.Database.Migrate();
+    }
+
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();

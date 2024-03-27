@@ -1,15 +1,20 @@
 import Image from "next/image";
-import { getFormConfigs } from "../../../utils/EntityConfigs";
+import { getEndpoints, getFormConfigs } from "../../../utils/EntityConfigs";
 import AddFormInput from "./AddFormInput";
 import { useRouter } from "next/navigation";
+import resolveGenericFetch from "@/app/utils/genericFetch";
+import { useEffect, useState } from "react";
+import genericFetch from "@/app/utils/genericFetch";
+import { Aeropuerto } from "@/app/utils/types";
 
 type AddFormProps = {
     type: string;
+    options?: [{ value: number | string; name: number | string }[]];
     handleToggleEvent: () => void;
     handleOnClickAddButton: () => void;
 };
-export default function AddForm(props: AddFormProps) {
-    console.log(props.type);
+function AddFormBase(props: AddFormProps) {
+    console.log("base: ", props.options);
     const router = useRouter();
     const formConfig = getFormConfigs(props.type);
 
@@ -20,7 +25,7 @@ export default function AddForm(props: AddFormProps) {
         const geographicLocation = event.currentTarget["Posición"].value;
 
         try {
-            const response = await fetch("http://localhost:5258/airports", {
+            const response = await fetch(getEndpoints(props.type), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +63,7 @@ export default function AddForm(props: AddFormProps) {
                 />
             </caption>
             {formConfig.inputs.map((value, index) => {
-                return <AddFormInput data={value} key={index} />;
+                return <AddFormInput data={value} key={index} options={value.type == "select" && props.options != undefined ?  props.options[index-2]: []}/>;
             })}
             <button
                 type="submit"
@@ -69,4 +74,66 @@ export default function AddForm(props: AddFormProps) {
             </button>
         </form>
     );
+}
+
+
+export function AddFormFacility(props: AddFormProps) {
+    const [airports, setAirports] = useState<Aeropuerto[]>([]);
+
+    async function getAirports() {
+        const data = await genericFetch(getEndpoints("Aeropuertos"));
+        console.log("useEffect data: ", data);
+
+        setAirports(data.airports);
+        console.log("useEffect airports: ", airports);
+    }
+
+    useEffect(() => {
+        getAirports();
+    }, []);
+
+    return(
+        <AddFormBase 
+            type="Instalaciones"
+            options={[airports.map((airport) => {return {value: airport.id, name: airport.name}})]}
+            handleOnClickAddButton={props.handleOnClickAddButton}
+            handleToggleEvent={props.handleToggleEvent}
+        />
+    );
+}
+
+export function AddFormService(props: AddFormProps) {
+    const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
+
+    async function getAirports() {
+        const data = await genericFetch(getEndpoints("Instalaciones"));
+        console.log("useEffect data: ", data);
+
+        setFacilities(data);
+        console.log("useEffect airports: ", facilities);
+    }
+
+    useEffect(() => {
+        getAirports();
+    }, []);
+
+    return(
+        <AddFormBase 
+            type="Instalaciones"
+            options={[facilities.map((facility) => {return {value: facility.id, name: facility.name}})]}
+            handleOnClickAddButton={props.handleOnClickAddButton}
+            handleToggleEvent={props.handleToggleEvent}
+        />
+    );
+}
+
+export default function AddForm(props: AddFormProps) {
+    switch (props.type) {
+        case "Instalaciones":
+            return <AddFormFacility {...props} />;
+        case "Servicios":
+            return <AddFormService {...props} />;
+        default:
+            return <AddFormBase {...props} />;
+    }
 }
