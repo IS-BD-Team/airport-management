@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getEndpoints, getFormConfigs } from "../../../utils/EntityConfigs";
+import { getEndpoint, getFormConfigs } from "../../../utils/EntityConfigs";
 import AddFormInput from "./AddFormInput";
 import { useRouter } from "next/navigation";
 import resolveGenericFetch from "@/app/utils/genericFetch";
@@ -25,7 +25,7 @@ function AddFormBase(props: AddFormProps) {
         const geographicLocation = event.currentTarget["Posición"].value;
 
         try {
-            const response = await fetch(getEndpoints(props.type), {
+            const response = await fetch(getEndpoint(props.type), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export function AddFormFacility(props: AddFormProps) {
     const [airports, setAirports] = useState<Aeropuerto[]>([]);
 
     async function getAirports() {
-        const data = await genericFetch(getEndpoints("Aeropuertos"));
+        const data = await genericFetch(getEndpoint("Aeropuertos"));
         console.log("useEffect data: ", data);
 
         setAirports(data.airports);
@@ -106,7 +106,7 @@ export function AddFormService(props: AddFormProps) {
     const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
 
     async function getAirports() {
-        const data = await genericFetch(getEndpoints("Instalaciones"));
+        const data = await genericFetch(getEndpoint("Instalaciones"));
         console.log("useEffect data: ", data);
 
         setFacilities(data);
@@ -133,6 +133,7 @@ export default function AddForm(props: AddFormProps) {
             return <AddFormFacility {...props} />;
         case "Servicios":
             return <AddFormService {...props} />;
+        
         default:
             return <AddFormBase {...props} />;
     }

@@ -111,7 +111,7 @@ export const allEntityConfigs = {
                 {
                     name: "Tipo",
                     label: "type",
-                    type: "text",
+                    type: "text", //(TODO) esto es un select falta el endpoint de rafa
                     options: { from: "", value: 0, name: 0 },
                 },
             ],
@@ -167,12 +167,6 @@ export const allEntityConfigs = {
             icon: reparaciones,
             inputs: [
                 {
-                    name: "Código",
-                    label: "Código",
-                    type: "number",
-                    options: { from: "", value: 0, name: 0 },
-                },
-                {
                     name: "Descripción",
                     label: "Descripción",
                     type: "text",
@@ -183,6 +177,16 @@ export const allEntityConfigs = {
                     label: "Precio",
                     type: "text",
                     options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Instalación",
+                    label: "facilityId",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Facilities",
+                        value: 1,
+                        name: 2,
+                    },
                 },
                 {
                     name: "Tipo",
@@ -453,7 +457,7 @@ export function getTableWidths(entity: string) {
     }
 }
 
-export function getEndpoints(entity: string) {
+export function getEndpoint(entity: string) {
     switch (entity) {
         case "Administradores":
             return allEntityConfigs.Administradores.endPoint;

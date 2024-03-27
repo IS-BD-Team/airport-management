@@ -6,7 +6,7 @@ import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
-import { getTableWidths, getEndpoints } from "@/app/utils/EntityConfigs";
+import { getTableWidths, getEndpoint } from "@/app/utils/EntityConfigs";
 import { revalidateServerTag } from "@/app/utils/revalidate";
 import { Instance } from "@/app/utils/types";
 import { getRelations } from "@/app/utils/EntityConfigs";
@@ -26,7 +26,7 @@ export default function DataManagement() {
     const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(
-                getEndpoints(entity),
+                getEndpoint(entity),
                 {
                     method: "GET",
                     headers: {
@@ -58,6 +58,7 @@ export default function DataManagement() {
         setIsLoading(true);
         getEntitysData(entity);
     }, [refetch]);
+    
     useEffect(() => {
         console.log('Entity changed');
         setFilters(false);        
@@ -122,8 +123,8 @@ export default function DataManagement() {
                                 onChange={getFilters}
                                 >                                   
                                     <option value="">&nbsp;</option>
-                                    {getRelations(entity).map((relation) => (
-                                        <option value={relation.name}>
+                                    {getRelations(entity).map((relation, item) => (
+                                        <option key={item} value={relation.name}>
                                             {relation.name}
                                         </option>
                                     ))}                                    
