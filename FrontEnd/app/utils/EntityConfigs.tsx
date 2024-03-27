@@ -161,7 +161,7 @@ export const allEntityConfigs = {
         endPoint: "http://localhost:5258/Services",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
-    Reparciones: {
+    Reparaciones: {
         formConfig: {
             caption: "Nueva Reparación",
             icon: reparaciones,
@@ -417,8 +417,8 @@ export function getFormConfigs(entity: string) {
             return allEntityConfigs.Instalaciones.formConfig;
         case "Servicios":
             return allEntityConfigs.Servicios.formConfig;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.formConfig;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.formConfig;
         case "Clientes":
             return allEntityConfigs.Clientes.formConfig;
         case "Naves":
@@ -442,8 +442,8 @@ export function getTableWidths(entity: string) {
             return allEntityConfigs.Instalaciones.tableWidths;
         case "Servicios":
             return allEntityConfigs.Servicios.tableWidths;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.tableWidths;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.tableWidths;
         case "Clientes":
             return allEntityConfigs.Clientes.tableWidths;
         case "Naves":
@@ -467,8 +467,8 @@ export function getEndpoint(entity: string) {
             return allEntityConfigs.Instalaciones.endPoint;
         case "Servicios":
             return allEntityConfigs.Servicios.endPoint;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.endPoint;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.endPoint;
         case "Clientes":
             return allEntityConfigs.Clientes.endPoint;
         case "Naves":
@@ -492,8 +492,8 @@ export function getRelations(entity: string) {
             return allEntityConfigs.Instalaciones.relations;
         case "Servicios":
             return allEntityConfigs.Servicios.relations;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.relations;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.relations;
         case "Clientes":
             return allEntityConfigs.Clientes.relations;
         case "Naves":

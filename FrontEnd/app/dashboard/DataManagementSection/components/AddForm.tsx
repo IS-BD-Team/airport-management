@@ -77,14 +77,14 @@ function AddFormBase(props: AddFormProps) {
 }
 
 
-export function AddFormFacility(props: AddFormProps) {
+function AddFormFacility(props: AddFormProps) {
     const [airports, setAirports] = useState<Aeropuerto[]>([]);
 
     async function getAirports() {
         const data = await genericFetch(getEndpoint("Aeropuertos"));
         console.log("useEffect data: ", data);
 
-        setAirports(data.airports);
+        setAirports(data);
         console.log("useEffect airports: ", airports);
     }
 
@@ -102,7 +102,7 @@ export function AddFormFacility(props: AddFormProps) {
     );
 }
 
-export function AddFormService(props: AddFormProps) {
+function AddFormService(props: AddFormProps) {
     const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
 
     async function getAirports() {
@@ -119,7 +119,34 @@ export function AddFormService(props: AddFormProps) {
 
     return(
         <AddFormBase 
-            type="Instalaciones"
+            type="Servicios"
+            options={[facilities.map((facility) => {return {value: facility.id, name: facility.name}})]}
+            handleOnClickAddButton={props.handleOnClickAddButton}
+            handleToggleEvent={props.handleToggleEvent}
+        />
+    );
+}
+
+function AddFormRepair(props: AddFormProps) {
+    const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
+
+    async function getAirports() {
+        const data = await genericFetch(getEndpoint("Instalaciones"));
+        console.log("useEffect data: ", data);
+
+        setFacilities(data);
+        console.log("useEffect repair: ", facilities);
+    }
+
+    //(TODO) añadir fetch pa los tipos
+
+    useEffect(() => {
+        getAirports();
+    }, []);
+
+    return(
+        <AddFormBase 
+            type="Reparaciones"
             options={[facilities.map((facility) => {return {value: facility.id, name: facility.name}})]}
             handleOnClickAddButton={props.handleOnClickAddButton}
             handleToggleEvent={props.handleToggleEvent}
@@ -133,7 +160,8 @@ export default function AddForm(props: AddFormProps) {
             return <AddFormFacility {...props} />;
         case "Servicios":
             return <AddFormService {...props} />;
-        
+        case "Reparaciones":
+            return <AddFormRepair {...props} />;
         default:
             return <AddFormBase {...props} />;
     }
