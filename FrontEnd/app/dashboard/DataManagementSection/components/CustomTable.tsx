@@ -7,6 +7,7 @@ import eliminar from "@/public/eliminar.png";
 import Sort from "@/app/utils/sort";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getEndpoints } from "@/app/utils/EntityConfigs";
 
 type CustomTableProps = {
     entity: string;
@@ -24,7 +25,7 @@ export default function CustomTable(prop: CustomTableProps) {
 
         try {
             const response = await fetch(
-                `http://localhost:5258/Airports/${id}`,
+                `${getEndpoints(props.entity)}/${id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -34,6 +35,7 @@ export default function CustomTable(prop: CustomTableProps) {
                 }
             );
             console.log(response);
+            window.location.reload();
             //router.push('/dashboard/DataManagementSection')
             // return response.json();
         } catch (err) {
@@ -61,7 +63,7 @@ export default function CustomTable(prop: CustomTableProps) {
                 </tr>
             </thead>
             <tbody>
-                {props.data.length>0&& props.data.map((row, i) => {
+                {props.data.length > 0&& props.data.map((row, i) => {
                     return (
                         <tr key={i} className="h-[4vw]">
                             {Object.values(row).map((val, j) => {
@@ -71,8 +73,11 @@ export default function CustomTable(prop: CustomTableProps) {
                                 <Link href={`/dashboard/InstanceViewSection?id=${Object.values(row)[0]}&entity=${props.entity}`}>
                                     <button className="hover:bg-[#005b7f] rounded-lg mr-2"><Image src={ojo} alt="ver_icon" className="hover:invert p-2 h-10 w-10"></Image></button>
                                 </Link>
-                                <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10"
-                                    onClick={() => deleteInstance(Object.values(row)[0])}></Image></button>
+                                <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10" 
+                                onClick={()=>{
+                                    deleteInstance(Object.values(row)[0]);
+                                    props.handleOnClickDeleteButton();
+                                }}></Image></button>
                             </td>
                         </tr>
                     );
