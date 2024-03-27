@@ -16,6 +16,7 @@ public class UpdateAirplaneCommandHandler(IAirplaneRepository airplaneRepository
         if (airplane == null) return Error.NotFound($"Airplane with ID {request.Id} not found.");
 
         airplane.Classification = request.Classification;
+        airplane.PlanePlate = request.PlanePlate;
         airplane.ClientId = request.ClientId;
         airplane.MaxLoad = request.MaxLoad;
         airplane.PassengersCapacity = request.PassengersCapacity;

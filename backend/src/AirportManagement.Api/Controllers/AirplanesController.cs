@@ -21,8 +21,12 @@ public class AirplanesController(ISender mediator) : ControllerBase
     public async Task<IActionResult> CreateAirplane(AirplaneRequest request)
     {
         var command = new CreateAirplaneCommand(
-            request.Classification, request.ClientId,
-            request.MaxLoad, request.PassengersCapacity, request.CrewMembers);
+            request.Classification,
+            request.PlanePlate,
+            request.ClientId,
+            request.MaxLoad,
+            request.PassengersCapacity,
+            request.CrewMembers);
 
         var createAirplaneResult = await mediator.Send(command);
 
@@ -61,6 +65,7 @@ public class AirplanesController(ISender mediator) : ControllerBase
         var command = new UpdateAirplaneCommand(
             airplaneId,
             request.Classification,
+            request.PlanePlate,
             request.ClientId,
             request.MaxLoad,
             request.PassengersCapacity,
@@ -89,6 +94,7 @@ public class AirplanesController(ISender mediator) : ControllerBase
         var response = new AirplaneResponse(
             airplane.Id,
             airplane.Classification,
+            airplane.PlanePlate,
             airplane.ClientId,
             airplane.MaxLoad,
             airplane.PassengersCapacity,
