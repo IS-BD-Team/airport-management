@@ -9,6 +9,9 @@ import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { getTableWidths, getEndpoints } from "@/app/utils/EntityConfigs";
 import { revalidateServerTag } from "@/app/utils/revalidate";
 import { Instance } from "@/app/utils/types";
+import { getRelations } from "@/app/utils/EntityConfigs";
+import { getFilters } from "@/app/utils/filters";
+
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
@@ -46,6 +49,7 @@ export default function DataManagement() {
 
         const response = await getEntitys(entity);
         console.log("response:" ,response);
+      
         setData(response);
         console.log(data);
     };
@@ -54,6 +58,10 @@ export default function DataManagement() {
         setIsLoading(true);
         getEntitysData(entity);
     }, [refetch]);
+    useEffect(() => {
+        console.log('Entity changed');
+        setFilters(false);        
+    },[entity])
 
     useEffect(() => {
         setIsLoading(false);
@@ -105,19 +113,20 @@ export default function DataManagement() {
                     </div>
                     {toogleFilters && (
                         <div>
-                            <div>
+                            <div className="overflow-hidden">
                                 <select
                                     name="filtersSelect"
                                     id="filtersSelect"
                                     className="float-right mx-1
                                 border-2"
-                                >
+                                onChange={getFilters}
+                                >                                   
                                     <option value="">&nbsp;</option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
-                                    <option value="4">Option 4</option>
-                                    <option value="5">Option 5</option>
+                                    {getRelations(entity).map((relation) => (
+                                        <option value={relation.name}>
+                                            {relation.name}
+                                        </option>
+                                    ))}                                    
                                 </select>
                                 <label
                                     htmlFor="filtersSelect"
@@ -126,7 +135,10 @@ export default function DataManagement() {
                                     Select a filter
                                 </label>
                             </div>
-                            <div id="filterTable"></div>
+                            <div id="filterTable">
+
+                            </div>
+                            <button className="bg-gray-200 px-3 py-1 rounded-md">Apply</button>
                         </div>
                     )}
                 </fieldset>
