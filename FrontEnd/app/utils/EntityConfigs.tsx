@@ -425,7 +425,7 @@ export function getFormConfigs(entity: string) {
             return allEntityConfigs.Naves.formConfig;
         case "Estancias":
             return allEntityConfigs.Estancias.formConfig;
-        case "ReparacionesNaves":
+        case "Reparaciones a Naves":
             return allEntityConfigs.ReparacionesNaves.formConfig;
         default:
             return allEntityConfigs.default.formConfig;
@@ -450,7 +450,7 @@ export function getTableWidths(entity: string) {
             return allEntityConfigs.Naves.tableWidths;
         case "Estancias":
             return allEntityConfigs.Estancias.tableWidths;
-        case "ReparacionesNaves":
+        case "Reparaciones a Naves":
             return allEntityConfigs.ReparacionesNaves.tableWidths;
         default:
             return allEntityConfigs.default.tableWidths;
@@ -475,7 +475,7 @@ export function getEndpoint(entity: string) {
             return allEntityConfigs.Naves.endPoint;
         case "Estancias":
             return allEntityConfigs.Estancias.endPoint;
-        case "ReparacionesNaves":
+        case "Reparaciones a Naves":
             return allEntityConfigs.ReparacionesNaves.endPoint;
         default:
             return allEntityConfigs.default.endPoint;

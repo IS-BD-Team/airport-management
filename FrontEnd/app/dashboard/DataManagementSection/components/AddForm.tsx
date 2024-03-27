@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import resolveGenericFetch from "@/app/utils/genericFetch";
 import { useEffect, useState } from "react";
 import genericFetch from "@/app/utils/genericFetch";
-import { Aeropuerto } from "@/app/utils/types";
+import { Aeropuerto, Cliente, Instalacion, Nave, ReparacionNave } from "@/app/utils/types";
+import { countries } from "@/app/utils/countries";
 
 type AddFormProps = {
     type: string;
-    options?: [{ value: number | string; name: number | string }[]];
+    options?: { value: number | string; name: number | string }[][];
     handleToggleEvent: () => void;
     handleOnClickAddButton: () => void;
 };
@@ -63,7 +64,17 @@ function AddFormBase(props: AddFormProps) {
                 />
             </caption>
             {formConfig.inputs.map((value, index) => {
-                return <AddFormInput data={value} key={index} options={value.type == "select" && props.options != undefined ?  props.options[index-2]: []}/>;
+                return (
+                    <AddFormInput
+                        data={value}
+                        key={index}
+                        options={
+                            value.type == "select" && props.options != undefined
+                                ? props.options[index - 2]
+                                : []
+                        }
+                    />
+                );
             })}
             <button
                 type="submit"
@@ -75,7 +86,6 @@ function AddFormBase(props: AddFormProps) {
         </form>
     );
 }
-
 
 function AddFormFacility(props: AddFormProps) {
     const [airports, setAirports] = useState<Aeropuerto[]>([]);
@@ -92,10 +102,14 @@ function AddFormFacility(props: AddFormProps) {
         getAirports();
     }, []);
 
-    return(
-        <AddFormBase 
+    return (
+        <AddFormBase
             type="Instalaciones"
-            options={[airports.map((airport) => {return {value: airport.id, name: airport.name}})]}
+            options={[
+                airports.map((airport) => {
+                    return { value: airport.id, name: airport.name };
+                }),
+            ]}
             handleOnClickAddButton={props.handleOnClickAddButton}
             handleToggleEvent={props.handleToggleEvent}
         />
@@ -103,7 +117,7 @@ function AddFormFacility(props: AddFormProps) {
 }
 
 function AddFormService(props: AddFormProps) {
-    const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
+    const [facilities, setFacilities] = useState<Instalacion[]>([]);
 
     async function getAirports() {
         const data = await genericFetch(getEndpoint("Instalaciones"));
@@ -117,10 +131,14 @@ function AddFormService(props: AddFormProps) {
         getAirports();
     }, []);
 
-    return(
-        <AddFormBase 
+    return (
+        <AddFormBase
             type="Servicios"
-            options={[facilities.map((facility) => {return {value: facility.id, name: facility.name}})]}
+            options={[
+                facilities.map((facility) => {
+                    return { value: facility.id, name: facility.name };
+                }),
+            ]}
             handleOnClickAddButton={props.handleOnClickAddButton}
             handleToggleEvent={props.handleToggleEvent}
         />
@@ -128,7 +146,7 @@ function AddFormService(props: AddFormProps) {
 }
 
 function AddFormRepair(props: AddFormProps) {
-    const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
+    const [facilities, setFacilities] = useState<Instalacion[]>([]);
 
     async function getAirports() {
         const data = await genericFetch(getEndpoint("Instalaciones"));
@@ -144,10 +162,168 @@ function AddFormRepair(props: AddFormProps) {
         getAirports();
     }, []);
 
-    return(
-        <AddFormBase 
+    return (
+        <AddFormBase
             type="Reparaciones"
-            options={[facilities.map((facility) => {return {value: facility.id, name: facility.name}})]}
+            options={[
+                facilities.map((facility) => {
+                    return { value: facility.id, name: facility.name };
+                }),
+            ]}
+            handleOnClickAddButton={props.handleOnClickAddButton}
+            handleToggleEvent={props.handleToggleEvent}
+        />
+    );
+}
+
+function AddFormClients(props: AddFormProps) {
+    //const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
+
+    /*async function getAirports() {
+        const data = await genericFetch(getEndpoint("Instalaciones"));
+        console.log("useEffect data: ", data);
+
+        setFacilities(data);
+        console.log("useEffect repair: ", facilities);
+    }*/
+
+    //(TODO) añadir fetch pa los tipos
+    /*
+    useEffect(() => {
+        getAirports();
+    }, []);*/
+
+    return (
+        <AddFormBase
+            type="Reparaciones"
+            options={[
+                countries.map((country) => {
+                    return { value: country, name: country };
+                }),
+            ]}
+            handleOnClickAddButton={props.handleOnClickAddButton}
+            handleToggleEvent={props.handleToggleEvent}
+        />
+    );
+}
+
+function AddFormAirplane(props: AddFormProps) {
+    const [clients, setClients] = useState<Cliente[]>([]);
+
+    async function getClients() {
+        const data = await genericFetch(getEndpoint("Clientes"));
+        console.log("useEffect data: ", data);
+
+        setClients(data);
+        console.log("useEffect Airplane: ", clients);
+    }
+
+    //(TODO) añadir fetch pa los Clasificaciones
+
+    useEffect(() => {
+        getClients();
+    }, []);
+
+    return (
+        <AddFormBase
+            options={[
+                { values: "A", name: "A" },
+                { values: "B", name: "B" },
+            ]}
+            type="Naves"
+            options={[
+                clients.map((client) => {
+                    return { value: client.ci, name: client.name };
+                }),
+            ]}
+            handleOnClickAddButton={props.handleOnClickAddButton}
+            handleToggleEvent={props.handleToggleEvent}
+        />
+    );
+}
+
+function AddFormStays(props: AddFormProps) {
+    const [airplanes, setAirplanes] = useState<Nave[]>([]);
+    const [airports, setAirports] = useState<Aeropuerto[]>([]);
+
+    async function getAirplanes() {
+        const data = await genericFetch(getEndpoint("Naves"));
+        console.log("useEffect data: ", data);
+
+        setAirplanes(data);
+        console.log("useEffect Stays: ", airplanes);
+    }
+
+    async function getAirports() {
+        const data = await genericFetch(getEndpoint("Aeropuertos"));
+        console.log("useEffect data: ", data);
+
+        setAirports(data);
+        console.log("useEffect Stay: ", airports);
+    }
+
+    //(TODO) añadir fetch pa los Clasificaciones
+
+    useEffect(() => {
+        getAirplanes();
+        getAirports();
+    }, []);
+
+    return (
+        <AddFormBase
+            type="Estancias"
+            options={[
+                airports.map((airport) => {
+                    return { value: airport.id, name: airport.name };
+                }),
+                airplanes.map((airplane) => {
+                    return { value: airplane.id, name: airplane.id };
+                }),
+            ]}
+            handleOnClickAddButton={props.handleOnClickAddButton}
+            handleToggleEvent={props.handleToggleEvent}
+        />
+    );
+}
+
+function AddFormPlaneRepair(props: AddFormProps) {
+    const [airplanes, setAirplanes] = useState<Nave[]>([]);
+    const [repairs, setRepairs] = useState<ReparacionNave[]>([]);
+
+    async function getAirplanes() {
+        const data = await genericFetch(getEndpoint("Naves"));
+        console.log("useEffect data: ", data);
+
+        setAirplanes(data);
+        console.log("useEffect Stays: ", airplanes);
+    }
+
+    async function getRepairs() {
+        const data = await genericFetch(getEndpoint("Reparaciones"));
+        console.log("useEffect data: ", data);
+
+        setRepairs(data);
+        console.log("useEffect PlaneRepairs: ", repairs);
+    }
+
+    //(TODO) añadir fetch pa los Clasificaciones
+
+    useEffect(() => {
+        getAirplanes();
+        getRepairs();
+    }, []);
+
+    return (
+        <AddFormBase
+            type="Reparaciones a Naves"
+            options={[
+                airplanes.map((airplane) => {
+                    return { value: airplane.id, name: airplane.id };
+                }),
+                repairs.map((repair) => {
+                    return { value: repair.codigo, name: repair.codigo };
+                }),
+            ]}
             handleOnClickAddButton={props.handleOnClickAddButton}
             handleToggleEvent={props.handleToggleEvent}
         />
@@ -162,6 +338,14 @@ export default function AddForm(props: AddFormProps) {
             return <AddFormService {...props} />;
         case "Reparaciones":
             return <AddFormRepair {...props} />;
+        case "Clientes":
+            return <AddFormClients {...props} />;
+        case "Naves":
+            return <AddFormAirplane {...props} />;
+        case "Estancias":
+            return <AddFormStays {...props} />;
+        case "Reparaciones a Naves":
+            return <AddFormPlaneRepair {...props} />;
         default:
             return <AddFormBase {...props} />;
     }

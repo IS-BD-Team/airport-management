@@ -9,7 +9,7 @@ export type Aeropuerto = {
 }
 export type Instalacion = {
     airportId: number;
-    idi: number;
+    facilityId: number;
     name: string;
     type: string;
     location: string;
@@ -39,6 +39,7 @@ export type Cliente = {
     //picture: StaticImageData;
 }
 export type Nave = {
+    name: any;
     id: number;
     clientId: number
     passengersCapacity: number;

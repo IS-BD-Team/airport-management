@@ -36,7 +36,6 @@ export default function DataManagement() {
                     // next: { tags: ["Airports"] },
                 }
             );
-            //console.log(response);
             //revalidateServerTag("Airports");
             return response.json();
         } catch (err) {
