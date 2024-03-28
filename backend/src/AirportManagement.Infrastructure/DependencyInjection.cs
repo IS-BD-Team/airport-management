@@ -5,6 +5,7 @@ using AirportManagement.Application.Common.Interfaces.Persistence.Airplanes;
 using AirportManagement.Application.Common.Interfaces.Persistence.Airports;
 using AirportManagement.Application.Common.Interfaces.Persistence.Clients;
 using AirportManagement.Application.Common.Interfaces.Persistence.Facilities;
+using AirportManagement.Application.Common.Interfaces.Persistence.PlaneStay;
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
 using AirportManagement.Application.Common.Interfaces.Persistence.Users;
 using AirportManagement.Application.Common.Services;
@@ -14,6 +15,7 @@ using AirportManagement.Infrastructure.Auth;
 using AirportManagement.Infrastructure.Clients.Persistence;
 using AirportManagement.Infrastructure.Common.Persistence;
 using AirportManagement.Infrastructure.Facilities.Persistence;
+using AirportManagement.Infrastructure.PlaneStay.Persistence;
 using AirportManagement.Infrastructure.Services;
 using AirportManagement.Infrastructure.Services.Persistence;
 using AirportManagement.Infrastructure.Users.Persistence;
@@ -44,6 +46,8 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IFacilityRepository, FacilityRepository>();
         serviceCollection.AddScoped<IServiceRepository, ServiceRepository>();
         serviceCollection.AddScoped<IClientRatingRepository, ClientRatingRepository>();
+        serviceCollection.AddScoped<IPlaneStayRepository, PlaneStayRepository>();
+        serviceCollection.AddScoped<IRepairServiceRepository, RepairServiceRepository>();
 
         serviceCollection.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AirportManagementDbContext>());
     }
