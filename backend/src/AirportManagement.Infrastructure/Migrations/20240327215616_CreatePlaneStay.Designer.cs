@@ -4,6 +4,7 @@ using AirportManagement.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirportManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AirportManagementDbContext))]
-    partial class AirportManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240327215616_CreatePlaneStay")]
+    partial class CreatePlaneStay
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,10 +238,6 @@ namespace AirportManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("CreationDate")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("DepartureDate")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -267,11 +266,6 @@ namespace AirportManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("varchar(13)");
-
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
 
@@ -287,21 +281,6 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("Services");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Service");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("AirportManagement.Domain.Services.RepairService", b =>
-                {
-                    b.HasBaseType("AirportManagement.Domain.Services.Service");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasDiscriminator().HasValue("RepairService");
                 });
 
             modelBuilder.Entity("AirportManagement.Domain.Airplane.Airplane", b =>
