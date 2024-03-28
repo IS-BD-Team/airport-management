@@ -22,7 +22,7 @@ export default function DataManagement() {
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
-
+    
     const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(

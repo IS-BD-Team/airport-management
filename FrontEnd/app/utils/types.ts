@@ -27,7 +27,7 @@ export type Reparcion = {
     facilityId: number;
     description: string;
     price: number;
-    tipo: string;
+    type: string;
     //picture: StaticImageData;
 }
 export type Cliente = {
@@ -39,12 +39,11 @@ export type Cliente = {
     //picture: StaticImageData;
 }
 export type Nave = {
-    name: any;
     id: number;
     clientId: number
     passengersCapacity: number;
     classification: string; 
-    tripulantes: number;
+    crewMembers: number;
     maxLoad: number;
     //picture: StaticImageData;
 }
