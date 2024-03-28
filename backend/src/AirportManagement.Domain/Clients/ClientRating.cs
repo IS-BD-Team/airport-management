@@ -7,13 +7,12 @@ namespace AirportManagement.Domain.Clients;
 public class ClientRating(int rating, int clientId, int serviceId)
 {
     [Required] public int Id { get; init; }
-    [Required] public int ClientId { get; set; } = clientId;
+    [Required] public int ClientId { get; init; } = clientId;
+    
+    [ForeignKey(nameof(ClientId))] public Client? Client { get; set; }
 
-    [ForeignKey(nameof(ClientId))] public Clients.Client? Client { get; set; }
-
-    [Required] public int ServiceId { get; set; } = serviceId;
-
+    [Required] public int ServiceId { get; init; } = serviceId;
     [ForeignKey(nameof(ServiceId))] public Service? Service { get; set; }
 
-    public int Rating { get; set; } = rating;
+    [Required] public int Rating { get; set; } = rating;
 }
