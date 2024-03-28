@@ -27,6 +27,11 @@ public class AirportManagementDbContext(DbContextOptions<AirportManagementDbCont
 
     public DbSet<ClientRating> ClientRatings { get; set; } = null!;
 
+    public DbSet<Domain.PlaneStay.PlaneStay> PlaneStays { get; set; } = null!;
+
+    public DbSet<RepairService> RepairServices { get; set; } = null!;
+
+
     public async Task CommitChangesAsync()
     {
         await base.SaveChangesAsync();
