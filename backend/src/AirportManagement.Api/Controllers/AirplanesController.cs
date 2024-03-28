@@ -4,11 +4,10 @@ using AirportManagement.Application.Airplanes.Commands.UpdateAirplane;
 using AirportManagement.Application.Airplanes.Queries.GetAirplane;
 using AirportManagement.Application.Airplanes.Queries.GetAllAirplanes;
 using AirportManagement.Contracts.Airplanes;
-using AirportManagement.Contracts.Clients;
-using AirportManagement.Domain.Airplane;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static AirportManagement.Api.Utils.ResponseCreator;
 
 namespace AirportManagement.Api.Controllers;
 
@@ -87,26 +86,5 @@ public class AirplanesController(ISender mediator) : ControllerBase
 
         return deleteAirplaneResult.MatchFirst(
             _ => Ok(StatusCode(200)), error => Problem(error.Code, statusCode: error.NumericType));
-    }
-
-    private static AirplaneResponse CreateAirplaneResponse(Airplane airplane)
-    {
-        var response = new AirplaneResponse(
-            airplane.Id,
-            airplane.Classification,
-            airplane.PlanePlate,
-            airplane.ClientId,
-            airplane.MaxLoad,
-            airplane.PassengersCapacity,
-            airplane.CrewMembers,
-            airplane.HasReceivedMaintenance
-        );
-
-        if (airplane.Owner is null)
-            return response;
-        var client = airplane.Owner;
-        response.Client = new ClientResponse(client.Id, client.Name, client.Ci, client.Country,
-            client.ArrivalRole.ToString(), client.ClientType.ToString());
-        return response;
     }
 }
