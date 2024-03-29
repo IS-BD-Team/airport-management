@@ -1,4 +1,4 @@
-using AirportManagement.Domain.Services;
+using AirportManagement.Domain.Services.AirplaneRepairService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

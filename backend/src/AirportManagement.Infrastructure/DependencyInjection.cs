@@ -48,6 +48,7 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IClientRatingRepository, ClientRatingRepository>();
         serviceCollection.AddScoped<IPlaneStayRepository, PlaneStayRepository>();
         serviceCollection.AddScoped<IRepairServiceRepository, RepairServiceRepository>();
+        serviceCollection.AddScoped<IAirplaneRepairServiceRepository, AirplaneRepairServiceRepository>();
 
         serviceCollection.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<AirportManagementDbContext>());
     }

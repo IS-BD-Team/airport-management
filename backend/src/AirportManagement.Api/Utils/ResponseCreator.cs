@@ -6,6 +6,7 @@ using AirportManagement.Domain.Airplane;
 using AirportManagement.Domain.Airports;
 using AirportManagement.Domain.PlaneStay;
 using AirportManagement.Domain.Services;
+using AirportManagement.Domain.Services.AirplaneRepairService;
 
 namespace AirportManagement.Api.Utils;
 
@@ -50,5 +51,17 @@ public static class ResponseCreator
     {
         return new RepairServiceResponse(repairService.Id, repairService.Description, repairService.FacilityId,
             repairService.Price, repairService.Type);
+    }
+
+    public static AirplaneRepairServiceResponse CreateAirplaneRepairServiceResponse(
+        AirplaneRepairService airplaneRepairService)
+    {
+        return new AirplaneRepairServiceResponse(
+            airplaneRepairService.Id,
+            airplaneRepairService.AirPlaneId,
+            airplaneRepairService.RepairServiceId,
+            airplaneRepairService.StartDate,
+            airplaneRepairService.EndDate,
+            airplaneRepairService.ElapsedHours);
     }
 }

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AirportManagement.Domain.Services;
+namespace AirportManagement.Domain.Services.AirplaneRepairService;
 
 public class AirplaneRepairService(int airPlaneId, int repairServiceId, DateTime startDate, DateTime endDate)
 {
