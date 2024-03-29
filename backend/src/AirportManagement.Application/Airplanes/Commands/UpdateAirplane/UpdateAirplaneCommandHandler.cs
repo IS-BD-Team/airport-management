@@ -11,15 +11,18 @@ public class UpdateAirplaneCommandHandler(IAirplaneRepository airplaneRepository
 {
     public async Task<ErrorOr<Airplane>> Handle(UpdateAirplaneCommand request, CancellationToken cancellationToken)
     {
-        var airplane = await airplaneRepository.GetByIdAsync(request.Id);
+        var newAirplane = new Airplane(
+            request.Classification,
+            request.PlanePlate,
+            request.ClientId,
+            request.MaxLoad,
+            request.PassengersCapacity,
+            request.CrewMembers);
+
+
+        var airplane = await airplaneRepository.UpdateAsync(request.Id, newAirplane);
 
         if (airplane == null) return Error.NotFound($"Airplane with ID {request.Id} not found.");
-
-        airplane.Classification = request.Classification;
-        airplane.ClientId = request.ClientId;
-        airplane.MaxLoad = request.MaxLoad;
-        airplane.PassengersCapacity = request.PassengersCapacity;
-        airplane.CrewMembers = request.CrewMembers;
 
         await unitOfWork.CommitChangesAsync();
 
