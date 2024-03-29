@@ -49,6 +49,10 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.Property<int>("PassengersCapacity")
                         .HasColumnType("int");
 
+                    b.Property<string>("PlanePlate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
@@ -132,6 +136,9 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PlaneStayId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -141,6 +148,8 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("PlaneStayId");
 
                     b.HasIndex("ServiceId");
 
@@ -208,6 +217,76 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.ToTable("Facilities");
                 });
 
+            modelBuilder.Entity("AirportManagement.Domain.PlaneStay.PlaneStay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AirplaneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AirportId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ArrivalDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CreationDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DepartureDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirplaneId");
+
+                    b.HasIndex("AirportId");
+
+                    b.ToTable("PlaneStays");
+                });
+
+            modelBuilder.Entity("AirportManagement.Domain.Services.AirplaneRepairService.AirplaneRepairService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AirPlaneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreationDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("EndDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RepairServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StartDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirPlaneId");
+
+                    b.HasIndex("RepairServiceId");
+
+                    b.ToTable("AirplaneRepairServices");
+                });
+
             modelBuilder.Entity("AirportManagement.Domain.Services.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -222,6 +301,11 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
 
                     b.Property<int>("FacilityId")
                         .HasColumnType("int");
@@ -238,6 +322,21 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("Services");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Service");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("AirportManagement.Domain.Services.RepairService", b =>
+                {
+                    b.HasBaseType("AirportManagement.Domain.Services.Service");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasDiscriminator().HasValue("RepairService");
                 });
 
             modelBuilder.Entity("AirportManagement.Domain.Airplane.Airplane", b =>
@@ -259,6 +358,10 @@ namespace AirportManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AirportManagement.Domain.PlaneStay.PlaneStay", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("PlaneStayId");
+
                     b.HasOne("AirportManagement.Domain.Services.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
@@ -279,6 +382,44 @@ namespace AirportManagement.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Airport");
+                });
+
+            modelBuilder.Entity("AirportManagement.Domain.PlaneStay.PlaneStay", b =>
+                {
+                    b.HasOne("AirportManagement.Domain.Airplane.Airplane", "Airplane")
+                        .WithMany()
+                        .HasForeignKey("AirplaneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AirportManagement.Domain.Airports.Airport", "Airport")
+                        .WithMany()
+                        .HasForeignKey("AirportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Airplane");
+
+                    b.Navigation("Airport");
+                });
+
+            modelBuilder.Entity("AirportManagement.Domain.Services.AirplaneRepairService.AirplaneRepairService", b =>
+                {
+                    b.HasOne("AirportManagement.Domain.Airplane.Airplane", "Plane")
+                        .WithMany()
+                        .HasForeignKey("AirPlaneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AirportManagement.Domain.Services.RepairService", "RepairService")
+                        .WithMany()
+                        .HasForeignKey("RepairServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plane");
+
+                    b.Navigation("RepairService");
                 });
 
             modelBuilder.Entity("AirportManagement.Domain.Services.Service", b =>
@@ -314,6 +455,11 @@ namespace AirportManagement.Infrastructure.Migrations
             modelBuilder.Entity("AirportManagement.Domain.Facility.Facility", b =>
                 {
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("AirportManagement.Domain.PlaneStay.PlaneStay", b =>
+                {
+                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

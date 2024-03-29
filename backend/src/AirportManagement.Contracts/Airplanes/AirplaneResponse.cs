@@ -5,6 +5,7 @@ namespace AirportManagement.Contracts.Airplanes;
 public class AirplaneResponse(
     int id,
     string classification,
+    string planePlate,
     int clientId,
     int maxLoad,
     int passengersCapacity,
@@ -14,6 +15,7 @@ public class AirplaneResponse(
 {
     public int Id { get; } = id;
     public string Classification { get; } = classification;
+    public string PlanePlate { get; } = planePlate;
     public int ClientId { get; } = clientId;
     public int MaxLoad { get; } = maxLoad;
     public int PassengersCapacity { get; } = passengersCapacity;

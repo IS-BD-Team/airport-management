@@ -3,10 +3,10 @@ using AirportManagement.Application.Airports.Commands.DeleteAirport;
 using AirportManagement.Application.Airports.Commands.UpdateAirport;
 using AirportManagement.Application.Airports.Queries;
 using AirportManagement.Contracts.Airports;
-using AirportManagement.Domain.Airports;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static AirportManagement.Api.Utils.ResponseCreator;
 
 namespace AirportManagement.Api.Controllers;
 
@@ -16,11 +16,6 @@ namespace AirportManagement.Api.Controllers;
 public class AirportsController(ISender mediator)
     : ControllerBase
 {
-    private static AirportResponse CreateAirportResponse(Airport airport)
-    {
-        return new AirportResponse(airport.Id, airport.Name, airport.Address, airport.GeographicLocation);
-    }
-
     [HttpPost]
     public async Task<IActionResult> CreateAirport(AirportRequest request)
     {

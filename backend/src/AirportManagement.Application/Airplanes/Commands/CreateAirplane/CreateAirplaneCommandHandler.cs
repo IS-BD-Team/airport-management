@@ -13,6 +13,7 @@ public class CreateAirplaneCommandHandler(IAirplaneRepository airplaneRepository
     {
         var airplane = new Airplane(
             request.Classification,
+            request.PlanePlate,
             request.ClientId,
             request.MaxLoad,
             request.PassengersCapacity,
