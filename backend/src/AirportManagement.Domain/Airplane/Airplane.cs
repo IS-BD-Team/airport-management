@@ -7,6 +7,7 @@ namespace AirportManagement.Domain.Airplane;
 
 public class Airplane(
     string classification,
+    string planePlate,
     int clientId,
     int maxLoad,
     int passengersCapacity,
@@ -17,8 +18,7 @@ public class Airplane(
 
     [Required] public string Classification { get; set; } = classification;
 
-    //TODO: 
-    // [Required] public string PlanePlate { get; init; } = planePlate;
+    [Required] public string PlanePlate { get; set; } = planePlate;
     [Required] public int ClientId { get; set; } = clientId;
     [ForeignKey(nameof(ClientId))] public Client? Owner { get; set; }
 

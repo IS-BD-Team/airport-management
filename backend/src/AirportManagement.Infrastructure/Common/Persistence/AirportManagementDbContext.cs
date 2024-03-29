@@ -6,6 +6,7 @@ using AirportManagement.Domain.Clients;
 using AirportManagement.Domain.Entities;
 using AirportManagement.Domain.Facility;
 using AirportManagement.Domain.Services;
+using AirportManagement.Domain.Services.AirplaneRepairService;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirportManagement.Infrastructure.Common.Persistence;
@@ -26,6 +27,13 @@ public class AirportManagementDbContext(DbContextOptions<AirportManagementDbCont
     public DbSet<Facility> Facilities { get; set; } = null!;
 
     public DbSet<ClientRating> ClientRatings { get; set; } = null!;
+
+    public DbSet<Domain.PlaneStay.PlaneStay> PlaneStays { get; set; } = null!;
+
+    public DbSet<RepairService> RepairServices { get; set; } = null!;
+
+    public DbSet<AirplaneRepairService> AirplaneRepairServices { get; set; } = null!;
+
 
     public async Task CommitChangesAsync()
     {
