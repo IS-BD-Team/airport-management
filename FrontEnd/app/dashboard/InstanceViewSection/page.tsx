@@ -20,8 +20,9 @@ import { useRouter } from "next/navigation";
 import {
     getRelations,
     getFormConfigs,
-    getEndpoints,
+    getEndpoint,
 } from "@/app/utils/EntityConfigs";
+import mapProps from "@/app/utils/mapProps";
 //import dataFormater, {FormatedData} from "@/app/utils/dataFormater";
 
 export default function InstanceViewSection() {
@@ -46,7 +47,7 @@ export default function InstanceViewSection() {
     const getAirport = async () => {
         try {
             const response = await fetch(
-                `${getEndpoints(entity ?? "")}/${id}`,
+                `${getEndpoint(entity ?? "")}/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -69,7 +70,7 @@ export default function InstanceViewSection() {
         const address = event.currentTarget["address"];
         const geographicLocation = event.currentTarget["geographicLocation"];
 
-        const response = await fetch(`${getEndpoints(entity ?? "")}/${id}`, {
+        const response = await fetch(`${getEndpoint(entity ?? "")}/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -155,10 +156,10 @@ export default function InstanceViewSection() {
                             return (
                                 <section key={index}>
                                     <h2 className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-5">
-                                        {value[0].toString()}
+                                        {mapProps(value[0].toString())}
                                     </h2>
                                     <p className="mb-3">
-                                        {value[1].toString()}
+                                        {mapProps(value[1].toString())}
                                     </p>
                                 </section>
                             );
@@ -183,7 +184,7 @@ export default function InstanceViewSection() {
                                         className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-2"
                                         htmlFor={value[0]}
                                     >
-                                        {value[0]}
+                                        {mapProps(value[0])}
                                     </label>
                                     <input
                                         className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"

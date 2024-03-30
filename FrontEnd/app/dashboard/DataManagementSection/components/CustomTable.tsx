@@ -8,6 +8,7 @@ import Sort from "@/app/utils/sort";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getEndpoint } from "@/app/utils/EntityConfigs";
+import mapProps from "@/app/utils/mapProps";
 
 type CustomTableProps = {
     entity: string;
@@ -56,7 +57,7 @@ export default function CustomTable(prop: CustomTableProps) {
                                     data: Sort(props.data as any, item),
                                 })
                             }}>
-                            {item}
+                            {mapProps(item)}
                         </th>;
                     })}
                     <th>Opciones</th>
