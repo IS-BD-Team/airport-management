@@ -201,7 +201,7 @@ export const allEntityConfigs = {
             { name: "Brindado en: Aeropuertos", icon: aeropuertos },
             { name: "Brindado en: Instalaciones", icon: instalaciones },
         ],
-        endPoint: "http://localhost:5258/airports",
+        endPoint: "http://localhost:5258/RepairServices",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Clientes: {
@@ -339,7 +339,7 @@ export const allEntityConfigs = {
             { name: "Aeropuerto", icon: aeropuertos },
             { name: "Servicios", icon: servicios },
         ],
-        endPoint: "http://localhost:5258/airports",
+        endPoint: "http://localhost:5258/PlaneStay",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     ReparacionesNaves: {
@@ -374,7 +374,7 @@ export const allEntityConfigs = {
                     label: "Código",
                     type: "select",
                     options: {
-                        from: "http://localhost:5258/Reaprations:):):)jjjajajaj",
+                        from: "http://localhost:5258/RepairServices",
                         value: 0,
                         name: 0,
                     },
@@ -392,7 +392,7 @@ export const allEntityConfigs = {
             { name: "Nave", icon: aviones },
             { name: "Reparacion", icon: reparaciones },
         ],
-        endPoint: "http://localhost:5258/airports",
+        endPoint: "http://localhost:5258/AirplaneRepairServices",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     default: {
