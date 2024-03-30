@@ -103,7 +103,7 @@ export default function InstanceViewSection() {
             setName((data as Aeropuerto | Instalacion | Cliente).nombre);
         } else if (entity == "Servicios") {
             setName(`Servicio: ${(data as Servicio).id}`);
-        } else if (entity == "Reparciones") {
+        } else if (entity == "Reparaciones") {
             setName(`Reparcion: ${(data as Reparcion).id}`);
         } else if (entity == "Naves") {
             setName(`Nave: ${(data as Nave).matricula}`);

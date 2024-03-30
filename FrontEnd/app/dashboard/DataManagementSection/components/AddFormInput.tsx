@@ -41,22 +41,41 @@ export default function AddFormInput(props: AddFormInputProps) {
                         className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]"
                         name={props.data.label}
                     >
-                        {props.options?.map((value, index) => {return(<option key={index} value={value.value}>{value.name}</option>)})}
+                        {props.options?.map((value, index) => {
+                            return (
+                                <option key={index} value={value.value}>
+                                    {value.name}
+                                </option>
+                            );
+                        })}
                     </select>
                 </>
             );
-            case "number":
-                return (
-                    <>
-                        <label htmlFor={props.data.label}>
-                            {props.data.name + ":"}
-                        </label>
-                        <input
-                            className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]"
-                            name={props.data.label}
-                            type="number"
-                        />
-                    </>
-                );
+        case "number":
+            return (
+                <>
+                    <label htmlFor={props.data.label}>
+                        {props.data.name + ":"}
+                    </label>
+                    <input
+                        className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]"
+                        name={props.data.label}
+                        type="number"
+                    />
+                </>
+            );
+        case "date":
+            return (
+                <>
+                    <label htmlFor={props.data.label}>
+                        {props.data.name + ":"}
+                    </label>
+                    <input
+                        className="border-[2px] border-solid rounded-lg border-[#e3e5ec] p-[2%]"
+                        name={props.data.label}
+                        type="date"
+                    />
+                </>
+            );
     }
 }
