@@ -7,7 +7,7 @@ namespace AirportManagement.Infrastructure.Airplanes.Persistence;
 
 public class AirplaneRepository(AirportManagementDbContext dbContext) : IAirplaneRepository
 {
-    public async Task AddAAsync(Airplane airplane)
+    public async Task AddAsync(Airplane airplane)
     {
         await dbContext.Airplanes.AddAsync(airplane);
     }

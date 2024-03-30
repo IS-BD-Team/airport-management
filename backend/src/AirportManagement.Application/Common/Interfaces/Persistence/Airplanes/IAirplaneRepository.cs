@@ -4,7 +4,7 @@ namespace AirportManagement.Application.Common.Interfaces.Persistence.Airplanes;
 
 public interface IAirplaneRepository
 {
-    Task AddAAsync(Airplane airplane);
+    Task AddAsync(Airplane airplane);
     Task<Airplane?> DeleteAsync(int airplaneId);
     Task<Airplane?> GetByIdAsync(int airplaneId);
     Task<Airplane?> UpdateAsync(int airplaneId, Airplane airplane);
