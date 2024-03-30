@@ -1,20 +1,21 @@
+using AirportManagement.Application.DTO;
 using AirportManagement.Application.Services.AirplaneRepairService.Commands.CreateAirplaneRepairService;
 using AirportManagement.Application.Services.AirplaneRepairService.Commands.DeleteAirplaneRepairService;
 using AirportManagement.Application.Services.AirplaneRepairService.Commands.UpdateAirplaneRepairService;
 using AirportManagement.Application.Services.AirplaneRepairService.Queries.GetAirplaneRepairService;
 using AirportManagement.Application.Services.AirplaneRepairService.Queries.GetAllAirplaneRepairServices;
 using AirportManagement.Contracts.Services;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static AirportManagement.Api.Utils.ResponseCreator;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Authorize]
 [Route("[controller]")]
-public class AirplaneRepairServicesController(ISender mediator) : ControllerBase
+public class AirplaneRepairServicesController(ISender mediator, IMapper mapper) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> Create(AirplaneRepairServiceRequest request)
@@ -28,7 +29,7 @@ public class AirplaneRepairServicesController(ISender mediator) : ControllerBase
         var createResult = await mediator.Send(command);
 
         return createResult.MatchFirst(
-            service => Ok(CreateAirplaneRepairServiceResponse(service)),
+            service => Ok(mapper.Map<AirplaneRepairServiceDto>(service)),
             _ => Problem());
     }
 
@@ -53,7 +54,7 @@ public class AirplaneRepairServicesController(ISender mediator) : ControllerBase
         var updateResult = await mediator.Send(command);
 
         return updateResult.MatchFirst(
-            service => Ok(CreateAirplaneRepairServiceResponse(service)),
+            service => Ok(mapper.Map<AirplaneRepairServiceDto>(service)),
             _ => Problem());
     }
 
@@ -64,7 +65,7 @@ public class AirplaneRepairServicesController(ISender mediator) : ControllerBase
         var queryResult = await mediator.Send(query);
 
         return queryResult.MatchFirst(
-            service => Ok(CreateAirplaneRepairServiceResponse(service)),
+            service => Ok(mapper.Map<AirplaneRepairServiceDto>(service)),
             _ => Problem());
     }
 
@@ -76,7 +77,7 @@ public class AirplaneRepairServicesController(ISender mediator) : ControllerBase
 
         return queryResult.MatchFirst(
             services => Ok(
-                services.Select(CreateAirplaneRepairServiceResponse).ToList()),
+                services.Select(mapper.Map<AirplaneRepairServiceDto>).ToList()),
             _ => Problem());
     }
 }

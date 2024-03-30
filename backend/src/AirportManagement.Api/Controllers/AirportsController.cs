@@ -2,18 +2,19 @@ using AirportManagement.Application.Airports.Commands.CreateAirport;
 using AirportManagement.Application.Airports.Commands.DeleteAirport;
 using AirportManagement.Application.Airports.Commands.UpdateAirport;
 using AirportManagement.Application.Airports.Queries;
+using AirportManagement.Application.DTO;
 using AirportManagement.Contracts.Airports;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static AirportManagement.Api.Utils.ResponseCreator;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 [Authorize]
-public class AirportsController(ISender mediator)
+public class AirportsController(ISender mediator, IMapper mapper)
     : ControllerBase
 {
     [HttpPost]
@@ -22,8 +23,8 @@ public class AirportsController(ISender mediator)
         var command = new CreateAirportCommand(request.Name, request.Address, request.GeographicLocation);
 
         var createAirportResult = await mediator.Send(command);
-        return createAirportResult.MatchFirst(airport =>
-                Ok(new AirportResponse(airport.Id, airport.Name, airport.Address, airport.GeographicLocation)),
+        return createAirportResult.MatchFirst(
+            airport => Ok(mapper.Map<AirportDto>(airport)),
             _ => Problem());
     }
 
@@ -35,7 +36,7 @@ public class AirportsController(ISender mediator)
         var getAirportsResult = await mediator.Send(query);
 
         return getAirportsResult.MatchFirst(
-            airports => Ok(airports.Select(CreateAirportResponse).ToList()),
+            airports => Ok(airports.Select(mapper.Map<AirportDto>).ToList()),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }
@@ -48,7 +49,7 @@ public class AirportsController(ISender mediator)
         var getAirportResult = await mediator.Send(query);
 
         return getAirportResult.MatchFirst(
-            airport => Ok(new AirportResponse(airport.Id, airport.Name, airport.Address, airport.GeographicLocation)),
+            airport => Ok(mapper.Map<AirportDto>(airport)),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }
@@ -61,7 +62,7 @@ public class AirportsController(ISender mediator)
         var deleteAirportResult = await mediator.Send(command);
 
         return deleteAirportResult.MatchFirst(
-            airport => Ok(CreateAirportResponse(airport)),
+            airport => Ok(mapper.Map<AirportDto>(airport)),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }
@@ -74,7 +75,7 @@ public class AirportsController(ISender mediator)
         var updateAirportResult = await mediator.Send(command);
 
         return updateAirportResult.MatchFirst(
-            airport => Ok(CreateAirportResponse(airport)),
+            airport => Ok(mapper.Map<AirportDto>(airport)),
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }

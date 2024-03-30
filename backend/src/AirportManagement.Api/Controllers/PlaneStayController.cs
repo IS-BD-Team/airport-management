@@ -1,20 +1,21 @@
+using AirportManagement.Application.DTO;
 using AirportManagement.Application.PlaneStays.Commands.CreatePlaneStay;
 using AirportManagement.Application.PlaneStays.Commands.DeletePlaneStay;
 using AirportManagement.Application.PlaneStays.Commands.UpdatePlaneStay;
 using AirportManagement.Application.PlaneStays.Queries.QueryAllPlaneStays;
 using AirportManagement.Application.PlaneStays.Queries.QueryPlaneStay;
 using AirportManagement.Contracts.Airplanes;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static AirportManagement.Api.Utils.ResponseCreator;
 
 namespace AirportManagement.Api.Controllers;
 
 [Authorize]
 [Route("[controller]")]
 [ApiController]
-public class PlaneStayController(ISender mediator) : ControllerBase
+public class PlaneStayController(ISender mediator, IMapper mapper) : ControllerBase
 {
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
@@ -33,7 +34,7 @@ public class PlaneStayController(ISender mediator) : ControllerBase
         var queryResponseResult = await mediator.Send(query);
 
         return queryResponseResult.MatchFirst(
-            stay => Ok(CreatePlaneStayResponse(stay)),
+            stay => Ok(mapper.Map<PlaneStayDto>(stay)),
             _ => Problem());
     }
 
@@ -45,7 +46,7 @@ public class PlaneStayController(ISender mediator) : ControllerBase
         var createStayResult = await mediator.Send(command);
 
         return createStayResult.MatchFirst(
-            stay => Ok(CreatePlaneStayResponse(stay)),
+            stay => Ok(mapper.Map<PlaneStayDto>(stay)),
             _ => Problem());
     }
 
@@ -57,7 +58,7 @@ public class PlaneStayController(ISender mediator) : ControllerBase
 
         var result = await mediator.Send(command);
 
-        return result.MatchFirst(stay => Ok(CreatePlaneStayResponse(stay)), _ => Problem());
+        return result.MatchFirst(stay => Ok(mapper.Map<PlaneStayDto>(stay)), _ => Problem());
     }
 
     [HttpGet]
@@ -67,7 +68,7 @@ public class PlaneStayController(ISender mediator) : ControllerBase
         var queryResponseResult = await mediator.Send(query);
 
         return queryResponseResult.MatchFirst(
-            stays => Ok(stays.Select(CreatePlaneStayResponse).ToList()),
+            stays => Ok(stays.Select(mapper.Map<PlaneStayDto>).ToList()),
             _ => Problem());
     }
 }
