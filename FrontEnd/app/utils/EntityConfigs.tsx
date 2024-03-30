@@ -111,7 +111,7 @@ export const allEntityConfigs = {
                 {
                     name: "Tipo",
                     label: "type",
-                    type: "text",
+                    type: "text", //(TODO) esto es un select falta el endpoint de rafa
                     options: { from: "", value: 0, name: 0 },
                 },
             ],
@@ -161,17 +161,11 @@ export const allEntityConfigs = {
         endPoint: "http://localhost:5258/Services",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
-    Reparciones: {
+    Reparaciones: {
         formConfig: {
             caption: "Nueva Reparación",
             icon: reparaciones,
             inputs: [
-                {
-                    name: "Código",
-                    label: "Código",
-                    type: "number",
-                    options: { from: "", value: 0, name: 0 },
-                },
                 {
                     name: "Descripción",
                     label: "Descripción",
@@ -183,6 +177,16 @@ export const allEntityConfigs = {
                     label: "Precio",
                     type: "text",
                     options: { from: "", value: 0, name: 0 },
+                },
+                {
+                    name: "Instalación",
+                    label: "facilityId",
+                    type: "select",
+                    options: {
+                        from: "http://localhost:5258/Facilities",
+                        value: 1,
+                        name: 2,
+                    },
                 },
                 {
                     name: "Tipo",
@@ -197,7 +201,7 @@ export const allEntityConfigs = {
             { name: "Brindado en: Aeropuertos", icon: aeropuertos },
             { name: "Brindado en: Instalaciones", icon: instalaciones },
         ],
-        endPoint: "http://localhost:5258/airports",
+        endPoint: "http://localhost:5258/RepairServices",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     Clientes: {
@@ -335,7 +339,7 @@ export const allEntityConfigs = {
             { name: "Aeropuerto", icon: aeropuertos },
             { name: "Servicios", icon: servicios },
         ],
-        endPoint: "http://localhost:5258/airports",
+        endPoint: "http://localhost:5258/PlaneStay",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     ReparacionesNaves: {
@@ -370,7 +374,7 @@ export const allEntityConfigs = {
                     label: "Código",
                     type: "select",
                     options: {
-                        from: "http://localhost:5258/Reaprations:):):)jjjajajaj",
+                        from: "http://localhost:5258/RepairServices",
                         value: 0,
                         name: 0,
                     },
@@ -388,7 +392,7 @@ export const allEntityConfigs = {
             { name: "Nave", icon: aviones },
             { name: "Reparacion", icon: reparaciones },
         ],
-        endPoint: "http://localhost:5258/airports",
+        endPoint: "http://localhost:5258/AirplaneRepairServices",
         tableWidths: ["5%", "25%", "60%", "10%"],
     },
     default: {
@@ -413,15 +417,15 @@ export function getFormConfigs(entity: string) {
             return allEntityConfigs.Instalaciones.formConfig;
         case "Servicios":
             return allEntityConfigs.Servicios.formConfig;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.formConfig;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.formConfig;
         case "Clientes":
             return allEntityConfigs.Clientes.formConfig;
         case "Naves":
             return allEntityConfigs.Naves.formConfig;
         case "Estancias":
             return allEntityConfigs.Estancias.formConfig;
-        case "ReparacionesNaves":
+        case "Reparaciones a Naves":
             return allEntityConfigs.ReparacionesNaves.formConfig;
         default:
             return allEntityConfigs.default.formConfig;
@@ -438,22 +442,22 @@ export function getTableWidths(entity: string) {
             return allEntityConfigs.Instalaciones.tableWidths;
         case "Servicios":
             return allEntityConfigs.Servicios.tableWidths;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.tableWidths;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.tableWidths;
         case "Clientes":
             return allEntityConfigs.Clientes.tableWidths;
         case "Naves":
             return allEntityConfigs.Naves.tableWidths;
         case "Estancias":
             return allEntityConfigs.Estancias.tableWidths;
-        case "ReparacionesNaves":
+        case "Reparaciones a Naves":
             return allEntityConfigs.ReparacionesNaves.tableWidths;
         default:
             return allEntityConfigs.default.tableWidths;
     }
 }
 
-export function getEndpoints(entity: string) {
+export function getEndpoint(entity: string) {
     switch (entity) {
         case "Administradores":
             return allEntityConfigs.Administradores.endPoint;
@@ -463,15 +467,15 @@ export function getEndpoints(entity: string) {
             return allEntityConfigs.Instalaciones.endPoint;
         case "Servicios":
             return allEntityConfigs.Servicios.endPoint;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.endPoint;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.endPoint;
         case "Clientes":
             return allEntityConfigs.Clientes.endPoint;
         case "Naves":
             return allEntityConfigs.Naves.endPoint;
         case "Estancias":
             return allEntityConfigs.Estancias.endPoint;
-        case "ReparacionesNaves":
+        case "Reparaciones a Naves":
             return allEntityConfigs.ReparacionesNaves.endPoint;
         default:
             return allEntityConfigs.default.endPoint;
@@ -488,8 +492,8 @@ export function getRelations(entity: string) {
             return allEntityConfigs.Instalaciones.relations;
         case "Servicios":
             return allEntityConfigs.Servicios.relations;
-        case "Reparciones":
-            return allEntityConfigs.Reparciones.relations;
+        case "Reparaciones":
+            return allEntityConfigs.Reparaciones.relations;
         case "Clientes":
             return allEntityConfigs.Clientes.relations;
         case "Naves":

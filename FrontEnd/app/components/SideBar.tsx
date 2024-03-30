@@ -18,7 +18,7 @@ export default function SideBar(){
                 <SideBarItem text="Aeropuertos" icon={aeropuertos}/>
                 <SideBarItem text="Instalaciones" icon={instalaciones}/>
                 <SideBarItem text="Servicios" icon={servicios}/>
-                <SideBarItem text="Reparciones" icon={reparaciones}/>
+                <SideBarItem text="Reparaciones" icon={reparaciones}/>
                 <SideBarItem text="Clientes" icon={clientes}/>
                 <SideBarItem text="Naves" icon={aviones}/>
                 <SideBarItem text="Estancias" icon={estancias}/>

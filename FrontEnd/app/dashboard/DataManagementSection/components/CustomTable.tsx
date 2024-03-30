@@ -7,7 +7,7 @@ import eliminar from "@/public/eliminar.png";
 import Sort from "@/app/utils/sort";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getEndpoints } from "@/app/utils/EntityConfigs";
+import { getEndpoint } from "@/app/utils/EntityConfigs";
 
 type CustomTableProps = {
     entity: string;
@@ -21,11 +21,11 @@ export default function CustomTable(prop: CustomTableProps) {
     console.log(prop.data);
     const [props, SetProps] = useState(prop);
     const router = useRouter();
-    const deleteInstance = async (id: string) => {
+    const deleteInstance = async (id: string | number) => {
 
         try {
             const response = await fetch(
-                `${getEndpoints(props.entity)}/${id}`,
+                `${getEndpoint(props.entity)}/${id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -75,7 +75,7 @@ export default function CustomTable(prop: CustomTableProps) {
                                 </Link>
                                 <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10" 
                                 onClick={()=>{
-                                    deleteInstance(Object.values(row)[0]);
+                                    deleteInstance((Object.values(row)[0] as number | string));
                                     props.handleOnClickDeleteButton();
                                 }}></Image></button>
                             </td>
