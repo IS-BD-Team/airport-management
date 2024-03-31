@@ -8,7 +8,7 @@ public class ClientRating(int rating, int clientId, int serviceId)
 {
     [Required] public int Id { get; init; }
     [Required] public int ClientId { get; init; } = clientId;
-    
+
     [ForeignKey(nameof(ClientId))] public Client? Client { get; set; }
 
     [Required] public int ServiceId { get; init; } = serviceId;

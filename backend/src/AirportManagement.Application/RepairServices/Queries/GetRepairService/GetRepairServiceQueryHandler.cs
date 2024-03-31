@@ -1,6 +1,5 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
 using AirportManagement.Domain.RepairServices;
-using AirportManagement.Domain.Services;
 using ErrorOr;
 using MediatR;
 

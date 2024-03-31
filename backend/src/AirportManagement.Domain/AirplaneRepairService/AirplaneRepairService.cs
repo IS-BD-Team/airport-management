@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirportManagement.Domain.RepairServices;
-using AirportManagement.Domain.Services;
 
 namespace AirportManagement.Domain.AirplaneRepairService;
 
