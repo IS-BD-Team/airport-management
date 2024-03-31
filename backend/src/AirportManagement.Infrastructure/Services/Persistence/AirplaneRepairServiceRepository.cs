@@ -1,5 +1,5 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
-using AirportManagement.Domain.Services.AirplaneRepairService;
+using AirportManagement.Domain.AirplaneRepairService;
 using AirportManagement.Infrastructure.Common.Persistence;
 using ErrorOr;
 

@@ -1,6 +1,7 @@
 // src/AirportManagement.Infrastructure/Services/Persistence/RepairServiceRepository.cs
 
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
+using AirportManagement.Domain.RepairServices;
 using AirportManagement.Domain.Services;
 using AirportManagement.Infrastructure.Common.Persistence;
 using ErrorOr;

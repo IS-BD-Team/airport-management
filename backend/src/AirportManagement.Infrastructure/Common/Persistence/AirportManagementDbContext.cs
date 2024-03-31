@@ -1,12 +1,13 @@
 using System.Reflection;
 using AirportManagement.Application.Common.Interfaces;
 using AirportManagement.Domain.Airplane;
+using AirportManagement.Domain.AirplaneRepairService;
 using AirportManagement.Domain.Airports;
 using AirportManagement.Domain.Clients;
 using AirportManagement.Domain.Entities;
 using AirportManagement.Domain.Facility;
+using AirportManagement.Domain.RepairServices;
 using AirportManagement.Domain.Services;
-using AirportManagement.Domain.Services.AirplaneRepairService;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirportManagement.Infrastructure.Common.Persistence;
