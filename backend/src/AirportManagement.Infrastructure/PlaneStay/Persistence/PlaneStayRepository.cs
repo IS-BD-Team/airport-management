@@ -1,7 +1,6 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.PlaneStay;
 using AirportManagement.Infrastructure.Common.Persistence;
 using ErrorOr;
-using Microsoft.EntityFrameworkCore;
 
 namespace AirportManagement.Infrastructure.PlaneStay.Persistence;
 
@@ -23,12 +22,7 @@ public class PlaneStayRepository(AirportManagementDbContext dbContext) : IPlaneS
 
     public async Task<Domain.PlaneStay.PlaneStay?> GetByIdAsync(int planeStayId)
     {
-        var planeStay = await dbContext.PlaneStays
-            .Include(stay => stay.Airplane)
-            .Include(stay => stay.Airport)
-            .FirstOrDefaultAsync(stay => stay.Id == planeStayId);
-
-        return planeStay;
+        return await dbContext.PlaneStays.FindAsync(planeStayId);
     }
 
     public async Task<Domain.PlaneStay.PlaneStay?> UpdateAsync(int planeStayId, Domain.PlaneStay.PlaneStay planeStay)
@@ -46,11 +40,8 @@ public class PlaneStayRepository(AirportManagementDbContext dbContext) : IPlaneS
         return existingPlaneStay;
     }
 
-    public async Task<IEnumerable<Domain.PlaneStay.PlaneStay>> GetAllAsync()
+    public Task<IQueryable<Domain.PlaneStay.PlaneStay>> GetAllAsync()
     {
-        return await dbContext.PlaneStays
-            .Include(stay => stay.Airplane)
-            .Include(stay => stay.Airport)
-            .ToListAsync();
+        return Task.FromResult(dbContext.PlaneStays.AsQueryable());
     }
 }
