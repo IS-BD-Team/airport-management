@@ -9,6 +9,5 @@ public class AirplaneDto
     public int PassengersCapacity { get; set; }
     public int CrewMembers { get; set; }
     public bool HasReceivedMaintenance { get; set; }
-    public ClientDto Owner { get; set; } = null!;
-    public ICollection<ServiceDto>? Services { get; set; }
+    public int ClientId { get; set; }
 }
