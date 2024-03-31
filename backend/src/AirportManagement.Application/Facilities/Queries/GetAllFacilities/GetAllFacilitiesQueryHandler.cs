@@ -6,13 +6,13 @@ using MediatR;
 namespace AirportManagement.Application.Facilities.Queries.GetAllFacilities;
 
 public class GetFacilitiesQueryHandler(IFacilityRepository facilityRepository)
-    : IRequestHandler<GetAllFacilitiesQuery, ErrorOr<IEnumerable<Facility>>>
+    : IRequestHandler<GetAllFacilitiesQuery, ErrorOr<IQueryable<Facility>>>
 {
-    public async Task<ErrorOr<IEnumerable<Facility>>> Handle(GetAllFacilitiesQuery request,
+    public async Task<ErrorOr<IQueryable<Facility>>> Handle(GetAllFacilitiesQuery request,
         CancellationToken cancellationToken)
     {
         var facilities = await facilityRepository.GetAllAsync();
 
-        return facilities.ToList();
+        return facilities.ToErrorOr();
     }
 }

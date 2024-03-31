@@ -1,9 +1,10 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
+using AirportManagement.Domain.RepairServices;
 using AirportManagement.Domain.Services;
 using ErrorOr;
 using MediatR;
 
-namespace AirportManagement.Application.Services.Queries.GetRepairService;
+namespace AirportManagement.Application.RepairServices.Queries.GetRepairService;
 
 public class GetRepairServiceQueryHandler(IRepairServiceRepository repairServiceRepository) :
     IRequestHandler<GetRepairServiceQuery, ErrorOr<RepairService>>

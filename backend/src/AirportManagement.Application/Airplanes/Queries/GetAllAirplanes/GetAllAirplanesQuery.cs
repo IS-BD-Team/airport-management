@@ -4,4 +4,4 @@ using MediatR;
 
 namespace AirportManagement.Application.Airplanes.Queries.GetAllAirplanes;
 
-public record GetAllAirplanesQuery : IRequest<ErrorOr<IEnumerable<Airplane>>>;
+public record GetAllAirplanesQuery : IRequest<ErrorOr<IQueryable<Airplane>>>;
