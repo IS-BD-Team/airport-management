@@ -8,5 +8,5 @@ public interface IPlaneStayRepository
     Task<Success> DeleteAsync(int planeStayId);
     Task<Domain.PlaneStay.PlaneStay?> GetByIdAsync(int planeStayId);
     Task<Domain.PlaneStay.PlaneStay?> UpdateAsync(int planeStayId, Domain.PlaneStay.PlaneStay planeStay);
-    Task<IEnumerable<Domain.PlaneStay.PlaneStay>> GetAllAsync();
+    Task<IQueryable<Domain.PlaneStay.PlaneStay>> GetAllAsync();
 }

@@ -3,19 +3,19 @@ using AirportManagement.Application.Common.Interfaces.Persistence.Services;
 using ErrorOr;
 using MediatR;
 
-namespace AirportManagement.Application.Services.AirplaneRepairService.Commands.UpdateAirplaneRepairService;
+namespace AirportManagement.Application.AirplaneRepairService.Commands.UpdateAirplaneRepairService;
 
 public class UpdateAirplaneRepairServiceCommandHandler(
     IAirplaneRepairServiceRepository repository,
     IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateAirplaneRepairServiceCommand,
-        ErrorOr<Domain.Services.AirplaneRepairService.AirplaneRepairService>>
+        ErrorOr<Domain.AirplaneRepairService.AirplaneRepairService>>
 {
-    public async Task<ErrorOr<Domain.Services.AirplaneRepairService.AirplaneRepairService>> Handle(
+    public async Task<ErrorOr<Domain.AirplaneRepairService.AirplaneRepairService>> Handle(
         UpdateAirplaneRepairServiceCommand request,
         CancellationToken cancellationToken)
     {
-        var newService = new Domain.Services.AirplaneRepairService.AirplaneRepairService(
+        var newService = new Domain.AirplaneRepairService.AirplaneRepairService(
             request.AirPlaneId,
             request.RepairServiceId, request.StartDate,
             request.EndDate);

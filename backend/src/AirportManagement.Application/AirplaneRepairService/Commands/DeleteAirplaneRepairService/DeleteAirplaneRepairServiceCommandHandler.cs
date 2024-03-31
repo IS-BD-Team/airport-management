@@ -3,7 +3,7 @@ using AirportManagement.Application.Common.Interfaces.Persistence.Services;
 using ErrorOr;
 using MediatR;
 
-namespace AirportManagement.Application.Services.AirplaneRepairService.Commands.DeleteAirplaneRepairService;
+namespace AirportManagement.Application.AirplaneRepairService.Commands.DeleteAirplaneRepairService;
 
 public class
     DeleteAirplaneRepairServiceCommandHandler(

@@ -1,10 +1,11 @@
 using AirportManagement.Application.Common.Interfaces;
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
+using AirportManagement.Domain.RepairServices;
 using AirportManagement.Domain.Services;
 using ErrorOr;
 using MediatR;
 
-namespace AirportManagement.Application.Services.Commands.CreateRepairService;
+namespace AirportManagement.Application.RepairServices.Commands.CreateRepairService;
 
 public class CreateRepairServiceCommandHandler(IRepairServiceRepository repairServiceRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<CreateRepairServiceCommand, ErrorOr<RepairService>>

@@ -1,12 +1,13 @@
 using AirportManagement.Domain.Airplane;
+using ErrorOr;
 
 namespace AirportManagement.Application.Common.Interfaces.Persistence.Airplanes;
 
 public interface IAirplaneRepository
 {
-    Task AddAsync(Airplane airplane);
-    Task<Airplane?> DeleteAsync(int airplaneId);
+    Task<Success> AddAsync(Airplane airplane);
+    Task<Success> DeleteAsync(int airplaneId);
     Task<Airplane?> GetByIdAsync(int airplaneId);
     Task<Airplane?> UpdateAsync(int airplaneId, Airplane airplane);
-    Task<IEnumerable<Airplane>> GetAllAsync();
+    Task<IQueryable<Airplane>> GetAllAsync();
 }

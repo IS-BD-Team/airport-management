@@ -3,7 +3,7 @@ using AirportManagement.Application.Common.Interfaces.Persistence.Services;
 using ErrorOr;
 using MediatR;
 
-namespace AirportManagement.Application.Services.Commands.DeleteRepairService;
+namespace AirportManagement.Application.RepairServices.Commands.DeleteRepairService;
 
 public class DeleteRepairServiceCommandHandler(IRepairServiceRepository repairServiceRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<DeleteRepairServiceCommand, ErrorOr<Success>>
