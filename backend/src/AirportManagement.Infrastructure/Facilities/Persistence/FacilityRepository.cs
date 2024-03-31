@@ -1,6 +1,7 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Facilities;
 using AirportManagement.Domain.Facility;
 using AirportManagement.Infrastructure.Common.Persistence;
+using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirportManagement.Infrastructure.Facilities.Persistence;
@@ -12,12 +13,12 @@ public class FacilityRepository(AirportManagementDbContext dbContext) : IFacilit
         await dbContext.Facilities.AddAsync(facility);
     }
 
-    public async Task<Facility?> DeleteAsync(int facilityId)
+    public async Task<Success> DeleteAsync(int facilityId)
     {
         var facility = await dbContext.Facilities.FindAsync(facilityId);
         if (facility != null) dbContext.Facilities.Remove(facility);
 
-        return facility;
+        return new Success();
     }
 
     public async Task<Facility?> GetByIdAsync(int facilityId)
@@ -42,8 +43,8 @@ public class FacilityRepository(AirportManagementDbContext dbContext) : IFacilit
         return existingFacility;
     }
 
-    public async Task<IEnumerable<Facility>> GetAllAsync()
+    public Task<IQueryable<Facility>> GetAllAsync()
     {
-        return await dbContext.Facilities.ToListAsync();
+        return Task.FromResult(dbContext.Facilities.AsQueryable());
     }
 }

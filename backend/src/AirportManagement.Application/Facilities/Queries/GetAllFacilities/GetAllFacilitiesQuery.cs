@@ -4,4 +4,4 @@ using MediatR;
 
 namespace AirportManagement.Application.Facilities.Queries.GetAllFacilities;
 
-public record GetAllFacilitiesQuery : IRequest<ErrorOr<IEnumerable<Facility>>>;
+public record GetAllFacilitiesQuery : IRequest<ErrorOr<IQueryable<Facility>>>;

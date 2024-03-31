@@ -6,13 +6,12 @@ using MediatR;
 namespace AirportManagement.Application.Airplanes.Queries.GetAllAirplanes;
 
 public class GetAllAirplanesQueryHandler(IAirplaneRepository airplaneRepository)
-    : IRequestHandler<GetAllAirplanesQuery, ErrorOr<IEnumerable<Airplane>>>
+    : IRequestHandler<GetAllAirplanesQuery, ErrorOr<IQueryable<Airplane>>>
 {
-    public async Task<ErrorOr<IEnumerable<Airplane>>> Handle(GetAllAirplanesQuery request,
+    public async Task<ErrorOr<IQueryable<Airplane>>> Handle(GetAllAirplanesQuery request,
         CancellationToken cancellationToken)
     {
         var airplanes = await airplaneRepository.GetAllAsync();
-
-        return airplanes.ToList();
+        return airplanes.ToErrorOr();
     }
 }

@@ -1,12 +1,13 @@
 using AirportManagement.Domain.Services;
+using ErrorOr;
 
 namespace AirportManagement.Application.Common.Interfaces.Persistence.Services;
 
 public interface IServiceRepository
 {
-    Task AddAsync(Service service);
-    Task<Service?> DeleteAsync(int serviceId);
+    Task<Success> AddAsync(Service service);
+    Task<Success> DeleteAsync(int serviceId);
     Task<Service?> GetByIdAsync(int serviceId);
     Task<Service?> UpdateAsync(int serviceId, Service newServiceData);
-    Task<IEnumerable<Service>> GetAllAsync();
+    Task<IQueryable<Service>> GetAllAsync();
 }

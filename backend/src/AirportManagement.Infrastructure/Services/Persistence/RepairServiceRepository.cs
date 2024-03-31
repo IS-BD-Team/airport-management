@@ -1,18 +1,19 @@
 // src/AirportManagement.Infrastructure/Services/Persistence/RepairServiceRepository.cs
 
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
+using AirportManagement.Domain.RepairServices;
 using AirportManagement.Domain.Services;
 using AirportManagement.Infrastructure.Common.Persistence;
 using ErrorOr;
-using Microsoft.EntityFrameworkCore;
 
 namespace AirportManagement.Infrastructure.Services.Persistence;
 
 public class RepairServiceRepository(AirportManagementDbContext dbContext) : IRepairServiceRepository
 {
-    public async Task AddAsync(RepairService service)
+    public async Task<Success> AddAsync(RepairService service)
     {
         await dbContext.AddAsync(service);
+        return new Success();
     }
 
     public async Task<Success> DeleteAsync(int serviceId)
@@ -25,11 +26,7 @@ public class RepairServiceRepository(AirportManagementDbContext dbContext) : IRe
 
     public async Task<RepairService?> GetByIdAsync(int serviceId)
     {
-        var service = await dbContext.RepairServices
-            .Include(s => s.Facility)
-            .FirstOrDefaultAsync(repairService => repairService.Id == serviceId);
-
-        return service;
+        return await dbContext.RepairServices.FindAsync(serviceId);
     }
 
     public async Task<RepairService?> UpdateAsync(int serviceId, RepairService service)
@@ -46,9 +43,8 @@ public class RepairServiceRepository(AirportManagementDbContext dbContext) : IRe
         return await GetByIdAsync(existingService.Id);
     }
 
-    public async Task<IEnumerable<RepairService>> GetAllAsync()
+    public Task<IQueryable<RepairService>> GetAllAsync()
     {
-        return await dbContext.RepairServices.Include(service => service.Facility)
-            .ToListAsync();
+        return Task.FromResult(dbContext.RepairServices.AsQueryable());
     }
 }

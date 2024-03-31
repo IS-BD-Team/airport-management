@@ -3,22 +3,26 @@ using AirportManagement.Application.Airplanes.Commands.DeleteAirplane;
 using AirportManagement.Application.Airplanes.Commands.UpdateAirplane;
 using AirportManagement.Application.Airplanes.Queries.GetAirplane;
 using AirportManagement.Application.Airplanes.Queries.GetAllAirplanes;
+using AirportManagement.Application.DTO;
 using AirportManagement.Contracts.Airplanes;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static AirportManagement.Api.Utils.ResponseCreator;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 [Authorize]
-public class AirplanesController(ISender mediator) : ControllerBase
+public class AirplanesController(ISender mediator, IMapper mapper) : ODataController
 {
     [HttpPost]
     public async Task<IActionResult> CreateAirplane(AirplaneRequest request)
     {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
         var command = new CreateAirplaneCommand(
             request.Classification,
             request.PlanePlate,
@@ -29,20 +33,22 @@ public class AirplanesController(ISender mediator) : ControllerBase
 
         var createAirplaneResult = await mediator.Send(command);
 
+
         return createAirplaneResult.MatchFirst(
-            airplane => Ok(CreateAirplaneResponse(airplane)),
+            airplane => Ok(mapper.Map<AirplaneDto>(airplane)),
             _ => Problem());
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAirplanes()
+    [EnableQuery]
+    public async Task<ActionResult> GetAirplanes()
     {
         var query = new GetAllAirplanesQuery();
 
         var getAirplanesResult = await mediator.Send(query);
 
         return getAirplanesResult.MatchFirst(
-            airplanes => Ok(airplanes.Select(CreateAirplaneResponse)),
+            Ok,
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 
@@ -54,7 +60,7 @@ public class AirplanesController(ISender mediator) : ControllerBase
         var getAirplaneResult = await mediator.Send(query);
 
         return getAirplaneResult.MatchFirst(
-            airplane => Ok(CreateAirplaneResponse(airplane)),
+            airplane => Ok(mapper.Map<AirplaneDto>(airplane)),
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 
@@ -73,7 +79,7 @@ public class AirplanesController(ISender mediator) : ControllerBase
         var updateAirplaneResult = await mediator.Send(command);
 
         return updateAirplaneResult.MatchFirst(
-            airplane => Ok(CreateAirplaneResponse(airplane)),
+            airplane => Ok(mapper.Map<AirplaneDto>(airplane)),
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 

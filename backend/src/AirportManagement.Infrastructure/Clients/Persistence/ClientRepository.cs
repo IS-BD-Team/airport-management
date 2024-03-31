@@ -1,23 +1,26 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Clients;
 using AirportManagement.Domain.Clients;
 using AirportManagement.Infrastructure.Common.Persistence;
-using Microsoft.EntityFrameworkCore;
+using ErrorOr;
 
 namespace AirportManagement.Infrastructure.Clients.Persistence;
 
 public class ClientRepository(AirportManagementDbContext dbContext) : IClientRepository
 {
-    public async Task AddAsync(Client client)
+    public async Task<Success> AddAsync(Client client)
     {
         await dbContext.Clients.AddAsync(client);
+        return new Success();
     }
 
-    public async Task<Client?> DeleteAsync(int clientId)
+    public async Task<Success> DeleteAsync(int clientId)
     {
         var client = await dbContext.Clients.FindAsync(clientId);
-        if (client != null) dbContext.Clients.Remove(client);
+        if (client is null) throw new Exception("Client not found");
 
-        return client;
+        dbContext.Clients.Remove(client);
+
+        return new Success();
     }
 
     public async Task<Client?> GetByIdAsync(int clientId)
@@ -43,8 +46,8 @@ public class ClientRepository(AirportManagementDbContext dbContext) : IClientRep
         return existingClient;
     }
 
-    public async Task<IEnumerable<Client>> GetAllAsync()
+    public Task<IQueryable<Client>> GetAllAsync()
     {
-        return await dbContext.Clients.ToListAsync();
+        return Task.FromResult(dbContext.Clients.AsQueryable());
     }
 }

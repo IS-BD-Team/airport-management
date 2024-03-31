@@ -1,22 +1,16 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Airplanes;
 using AirportManagement.Domain.Airplane;
 using AirportManagement.Infrastructure.Common.Persistence;
-using Microsoft.EntityFrameworkCore;
+using ErrorOr;
 
 namespace AirportManagement.Infrastructure.Airplanes.Persistence;
 
 public class AirplaneRepository(AirportManagementDbContext dbContext) : IAirplaneRepository
 {
-    public async Task AddAAsync(Airplane airplane)
+    public async Task<Success> AddAsync(Airplane airplane)
     {
         await dbContext.Airplanes.AddAsync(airplane);
-    }
-
-    public async Task<Airplane?> GetByIdAsync(int airplaneId)
-    {
-        var query = dbContext.Airplanes.AsQueryable();
-        query = query.Include(airplane => airplane.Owner);
-        return await query.FirstOrDefaultAsync(airplane => airplane.Id == airplaneId);
+        return new Success();
     }
 
     public async Task<Airplane?> UpdateAsync(int airplaneId, Airplane airplane)
@@ -36,16 +30,22 @@ public class AirplaneRepository(AirportManagementDbContext dbContext) : IAirplan
         return existingAirplane;
     }
 
-    public async Task<IEnumerable<Airplane>> GetAllAsync()
+    public Task<IQueryable<Airplane>> GetAllAsync()
     {
-        return await dbContext.Airplanes.ToListAsync();
+        return Task.FromResult(dbContext.Airplanes.AsQueryable());
     }
 
-    public async Task<Airplane?> DeleteAsync(int airplaneId)
+    public async Task<Success> DeleteAsync(int airplaneId)
     {
         var airplane = await GetByIdAsync(airplaneId);
-        if (airplane is not null) dbContext.Airplanes.Remove(airplane);
+        if (airplane is null) throw new Exception("Airplane not found");
+        dbContext.Airplanes.Remove(airplane);
 
-        return airplane;
+        return new Success();
+    }
+
+    public async Task<Airplane?> GetByIdAsync(int airplaneId)
+    {
+        return await dbContext.Airplanes.FindAsync(airplaneId);
     }
 }
