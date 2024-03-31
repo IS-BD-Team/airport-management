@@ -1,13 +1,16 @@
 using AirportManagement.Application.Airports.Commands.CreateAirport;
 using AirportManagement.Application.Airports.Commands.DeleteAirport;
 using AirportManagement.Application.Airports.Commands.UpdateAirport;
-using AirportManagement.Application.Airports.Queries;
+using AirportManagement.Application.Airports.Queries.GetAirport;
+using AirportManagement.Application.Airports.Queries.GetAllAirports;
 using AirportManagement.Application.DTO;
 using AirportManagement.Contracts.Airports;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
@@ -15,7 +18,7 @@ namespace AirportManagement.Api.Controllers;
 [Route("[controller]")]
 [Authorize]
 public class AirportsController(ISender mediator, IMapper mapper)
-    : ControllerBase
+    : ODataController
 {
     [HttpPost]
     public async Task<IActionResult> CreateAirport(AirportRequest request)
@@ -29,14 +32,15 @@ public class AirportsController(ISender mediator, IMapper mapper)
     }
 
     [HttpGet]
+    [EnableQuery]
     public async Task<IActionResult> GetAirports()
     {
-        var query = new GetAirportsQuery();
+        var query = new GetAllAirportsQuery();
 
         var getAirportsResult = await mediator.Send(query);
 
         return getAirportsResult.MatchFirst(
-            airports => Ok(airports.Select(mapper.Map<AirportDto>).ToList()),
+            Ok,
             error => Problem(error.Code, statusCode: error.NumericType)
         );
     }

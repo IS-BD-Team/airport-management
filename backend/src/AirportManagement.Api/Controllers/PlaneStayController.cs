@@ -9,13 +9,15 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
 [Authorize]
 [Route("[controller]")]
 [ApiController]
-public class PlaneStayController(ISender mediator, IMapper mapper) : ControllerBase
+public class PlaneStayController(ISender mediator, IMapper mapper) : ODataController
 {
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
@@ -58,17 +60,19 @@ public class PlaneStayController(ISender mediator, IMapper mapper) : ControllerB
 
         var result = await mediator.Send(command);
 
-        return result.MatchFirst(stay => Ok(mapper.Map<PlaneStayDto>(stay)), _ => Problem());
+        return result.MatchFirst(stay => Ok(mapper.Map<PlaneStayDto>(stay)),
+            _ => Problem());
     }
 
     [HttpGet]
+    [EnableQuery]
     public async Task<IActionResult> GetAll()
     {
         var query = new GetAllPlaneStaysQuery();
         var queryResponseResult = await mediator.Send(query);
 
         return queryResponseResult.MatchFirst(
-            stays => Ok(stays.Select(mapper.Map<PlaneStayDto>).ToList()),
+            Ok,
             _ => Problem());
     }
 }

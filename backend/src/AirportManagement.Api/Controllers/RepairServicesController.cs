@@ -1,21 +1,23 @@
 using AirportManagement.Application.DTO;
-using AirportManagement.Application.Services.Commands.CreateRepairService;
-using AirportManagement.Application.Services.Commands.DeleteRepairService;
-using AirportManagement.Application.Services.Commands.UpdateRepairService;
-using AirportManagement.Application.Services.Queries.GetAllRepairServices;
-using AirportManagement.Application.Services.Queries.GetRepairService;
+using AirportManagement.Application.RepairServices.Commands.CreateRepairService;
+using AirportManagement.Application.RepairServices.Commands.DeleteRepairService;
+using AirportManagement.Application.RepairServices.Commands.UpdateRepairService;
+using AirportManagement.Application.RepairServices.Queries.GetAllRepairServices;
+using AirportManagement.Application.RepairServices.Queries.GetRepairService;
 using AirportManagement.Contracts.Services;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
 [Authorize]
 [Route("[controller]")]
 [ApiController]
-public class RepairServicesController(ISender mediator, IMapper mapper) : ControllerBase
+public class RepairServicesController(ISender mediator, IMapper mapper) : ODataController
 {
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
@@ -62,13 +64,14 @@ public class RepairServicesController(ISender mediator, IMapper mapper) : Contro
     }
 
     [HttpGet]
+    [EnableQuery]
     public async Task<IActionResult> GetAll()
     {
         var query = new GetAllRepairServicesQuery();
         var queryResponseResult = await mediator.Send(query);
 
         return queryResponseResult.MatchFirst(
-            services => Ok(services.Select(mapper.Map<RepairServiceDto>).ToList()),
+            Ok,
             _ => Problem());
     }
 }

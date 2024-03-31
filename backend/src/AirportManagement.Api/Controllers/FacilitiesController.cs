@@ -9,6 +9,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
@@ -17,7 +19,7 @@ namespace AirportManagement.Api.Controllers;
 [Authorize]
 public class FacilitiesController(
     ISender mediator,
-    IMapper mapper) : ControllerBase
+    IMapper mapper) : ODataController
 {
     [HttpPost]
     public async Task<IActionResult> CreateFacility(FacilityRequest request)
@@ -33,6 +35,7 @@ public class FacilitiesController(
     }
 
     [HttpGet]
+    [EnableQuery]
     public async Task<IActionResult> GetAllFacilities()
     {
         var query = new GetAllFacilitiesQuery();
@@ -40,7 +43,7 @@ public class FacilitiesController(
         var getFacilitiesResult = await mediator.Send(query);
 
         return getFacilitiesResult.MatchFirst(
-            facilities => Ok(facilities.Select(mapper.Map<FacilityDto>).ToList()),
+            Ok,
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 

@@ -9,17 +9,20 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 [Authorize]
-public class AirplanesController(ISender mediator, IMapper mapper) : ControllerBase
+public class AirplanesController(ISender mediator, IMapper mapper) : ODataController
 {
     [HttpPost]
     public async Task<IActionResult> CreateAirplane(AirplaneRequest request)
     {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
         var command = new CreateAirplaneCommand(
             request.Classification,
             request.PlanePlate,
@@ -37,14 +40,15 @@ public class AirplanesController(ISender mediator, IMapper mapper) : ControllerB
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAirplanes()
+    [EnableQuery]
+    public async Task<ActionResult> GetAirplanes()
     {
         var query = new GetAllAirplanesQuery();
 
         var getAirplanesResult = await mediator.Send(query);
 
         return getAirplanesResult.MatchFirst(
-            airplanes => Ok(airplanes.Select(mapper.Map<AirplaneDto>)),
+            Ok,
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 

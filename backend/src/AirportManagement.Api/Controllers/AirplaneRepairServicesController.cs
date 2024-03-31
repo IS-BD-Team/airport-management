@@ -1,21 +1,23 @@
+using AirportManagement.Application.AirplaneRepairService.Commands.CreateAirplaneRepairService;
+using AirportManagement.Application.AirplaneRepairService.Commands.DeleteAirplaneRepairService;
+using AirportManagement.Application.AirplaneRepairService.Commands.UpdateAirplaneRepairService;
+using AirportManagement.Application.AirplaneRepairService.Queries.GetAirplaneRepairService;
+using AirportManagement.Application.AirplaneRepairService.Queries.GetAllAirplaneRepairServices;
 using AirportManagement.Application.DTO;
-using AirportManagement.Application.Services.AirplaneRepairService.Commands.CreateAirplaneRepairService;
-using AirportManagement.Application.Services.AirplaneRepairService.Commands.DeleteAirplaneRepairService;
-using AirportManagement.Application.Services.AirplaneRepairService.Commands.UpdateAirplaneRepairService;
-using AirportManagement.Application.Services.AirplaneRepairService.Queries.GetAirplaneRepairService;
-using AirportManagement.Application.Services.AirplaneRepairService.Queries.GetAllAirplaneRepairServices;
 using AirportManagement.Contracts.Services;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Authorize]
 [Route("[controller]")]
-public class AirplaneRepairServicesController(ISender mediator, IMapper mapper) : ControllerBase
+public class AirplaneRepairServicesController(ISender mediator, IMapper mapper) : ODataController
 {
     [HttpPost]
     public async Task<IActionResult> Create(AirplaneRepairServiceRequest request)
@@ -70,14 +72,14 @@ public class AirplaneRepairServicesController(ISender mediator, IMapper mapper) 
     }
 
     [HttpGet]
+    [EnableQuery]
     public async Task<IActionResult> GetAll()
     {
         var query = new GetAllAirplaneRepairServicesQuery();
         var queryResult = await mediator.Send(query);
 
         return queryResult.MatchFirst(
-            services => Ok(
-                services.Select(mapper.Map<AirplaneRepairServiceDto>).ToList()),
+            Ok,
             _ => Problem());
     }
 }
