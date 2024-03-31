@@ -388,7 +388,7 @@ export const allEntityConfigs = {
             ],
         },
         relations: [
-            { name: "Reparaciones Impilcadas", icon: reparaciones },
+            { name: "Reparaciones Implicadas", icon: reparaciones },
             { name: "Nave", icon: aviones },
             { name: "Reparacion", icon: reparaciones },
         ],
@@ -500,7 +500,7 @@ export function getRelations(entity: string) {
             return allEntityConfigs.Naves.relations;
         case "Estancias":
             return allEntityConfigs.Estancias.relations;
-        case "ReparacionesNaves":
+        case "Reparaciones a Naves":
             return allEntityConfigs.ReparacionesNaves.relations;
         default:
             return allEntityConfigs.default.relations;
