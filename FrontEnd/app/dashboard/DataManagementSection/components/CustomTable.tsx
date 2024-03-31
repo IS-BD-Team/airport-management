@@ -2,7 +2,6 @@ import { Instance } from "@/app/utils/types";
 import Link from "next/link";
 import Image from "next/image";
 import ojo from "@/public/ojo.png";
-import editar from "@/public/editar.png";
 import eliminar from "@/public/eliminar.png";
 import Sort from "@/app/utils/sort";
 import { useState } from "react";
