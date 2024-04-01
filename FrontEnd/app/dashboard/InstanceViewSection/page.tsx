@@ -12,6 +12,7 @@ import {
   getEndpoint,
 } from "@/app/utils/EntityConfigs";
 import mapProps from "@/app/utils/mapProps";
+import Link from "next/link";
 //import dataFormater, {FormatedData} from "@/app/utils/dataFormater";
 
 export default function InstanceViewSection() {
@@ -33,7 +34,7 @@ export default function InstanceViewSection() {
   });
   //const [formatedData, setFormatedData] = useState<FormatedData>();
 
-  const getAirport = async () => {
+  const getInstance = async () => {
     try {
       const response = await fetch(`${getEndpoint(entity ?? "")}/${id}`, {
         method: "GET",
@@ -48,7 +49,7 @@ export default function InstanceViewSection() {
     }
   };
 
-  const editAirport = async (event: React.FormEvent<HTMLFormElement>) => {
+  const editInstance = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(event.currentTarget);
     const name = event.currentTarget["name"];
@@ -67,7 +68,7 @@ export default function InstanceViewSection() {
   };
 
   const getAirportData = async () => {
-    const response = await getAirport();
+    const response = await getInstance();
     /*console.log("setData")
         console.log(response);*/
     setData(response);
@@ -80,7 +81,7 @@ export default function InstanceViewSection() {
     //setFormatedData(dataFormater(data, entity ?? ""));
     //console.log("formated: ", formatedData);
   }, []);
-  
+
   const instance: Instance = {
     id: 1,
     name: "Aeropuerto José Martí",
@@ -112,16 +113,14 @@ export default function InstanceViewSection() {
       {data != null && !edit && (
         <main className="m-5">
           {Object.entries(data).map((value, index) => {
-            if (value[0] !== "picture") {
-              return (
-                <section key={index}>
-                  <h2 className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-5">
-                    {mapProps(value[0].toString())}
-                  </h2>
-                  <p className="mb-3">{mapProps(value[1].toString())}</p>
-                </section>
-              );
-            }
+            return (
+              <section key={index}>
+                <h2 className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-5">
+                  {mapProps(value[0].toString())}
+                </h2>
+                <p className="mb-3">{mapProps(value[1].toString())}</p>
+              </section>
+            );
           })}
         </main>
       )}
@@ -130,12 +129,12 @@ export default function InstanceViewSection() {
           action="none"
           onSubmit={(e) => {
             setEdit(!edit);
-            editAirport(e);
+            editInstance(e);
           }}
           className="flex flex-col m-5"
         >
           {Object.entries(data).map((value, index) => {
-            if (value[0] !== "picture") {
+            if (index !== 0) {
               return (
                 <>
                   <label
@@ -169,19 +168,18 @@ export default function InstanceViewSection() {
           <div className="flex gap-2">
             {getRelations(entity).map((relation, index) => {
               return (
-                <button
-                  key={index}
-                  className="flex bg-[#005b7f] text-white rounded-lg p-2 mt-6"
-                >
-                  {relation.name}{" "}
-                  {relation.icon != null && (
-                    <Image
-                      className="ml-4 h-6 w-6 invert"
-                      src={relation.icon}
-                      alt="ralation_icon"
-                    />
-                  )}
-                </button>
+                <Link key={index} href={relation.link + id}>
+                  <button className="flex bg-[#005b7f] text-white rounded-lg p-2 mt-6">
+                    {relation.name}{" "}
+                    {relation.icon != null && (
+                      <Image
+                        className="ml-4 h-6 w-6 invert"
+                        src={relation.icon}
+                        alt="ralation_icon"
+                      />
+                    )}
+                  </button>
+                </Link>
               );
             })}
           </div>
