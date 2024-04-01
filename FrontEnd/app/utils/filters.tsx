@@ -1,61 +1,173 @@
-export function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
+import { getEndpoint } from "./EntityConfigs";
+export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
     event.preventDefault();
     let names: any[] = [];
     let labelText: string;
     let valid = true;
     const entry:string = event.currentTarget.value;
     console.log(entry);
+    let data: any[] = []
     switch (entry) {
         case "Instalaciones":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint(entry), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.name);
+            })
             labelText = 'Selecciona una instalacion';
             break;
         case "Brindado en: Instalaciones":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint('Instalaciones'), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.name);
+            })
             labelText = 'Selecciona una instalacion';
-            break; 
+            break;
         case "Servicios":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint(entry), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.description);
+            })
             labelText = 'Selecciona un servicio';
             break;
         case "Reparaciones":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint(entry), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.description);
+            })
             labelText = 'Selecciona una reparacion';
             break;
         case "Reparaciones Impilcadas":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint('Reparaciones'), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.description);
+            })
             labelText = 'Selecciona una reparacion';
             break;
         case "Estancias":
-            names = [1, 2, 3, 4];
+            
             labelText = 'Selecciona una estancia';
             break;
         case "Clientes con naves":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint('Clientes'), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.name);
+            })
             labelText = 'Selecciona un cliente con nave';
             break;
         case "Aeropuerto":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint('Aeropuertos'), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.name);
+            })
             labelText = 'Selecciona un aeropuerto';;
             break;
         case "Brindado en: Aeropuertos":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint('Aeropuertos'), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.name);
+            })
             labelText = 'Selecciona un aeropuerto';
             break;
         case "Naves":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint(entry), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.planePlate);
+            })
             labelText = 'Selecciona una nave';
             break;
         case "Brindado a":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint('Naves'), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.planePlate);
+            })
             labelText = 'Selecciona una nave';
             break;
         case "Dueño":
-            names = [1, 2, 3, 4];
+            data = await fetch(getEndpoint('Clientes'), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }).then(res => res.json())
+            console.log(data);
+            data.forEach((element: any) => {
+                names.push(element.name);
+            })
             labelText = 'Selecciona un cliente';
             break;
         default:
-            names = [1, 2, 3, 4];
+            names = [];
             labelText = '';
             valid = false;
             console.log('Invalid');
