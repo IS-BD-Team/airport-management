@@ -6,6 +6,6 @@ public class ClientDto
     public string Name { get; set; } = default!;
     public string Ci { get; set; } = default!;
     public string Country { get; set; } = default!;
-    public int ClientType { get; set; }
-    public int ArrivalRole { get; set; }
+    public string ClientType { get; set; }
+    public string ArrivalRole { get; set; }
 }

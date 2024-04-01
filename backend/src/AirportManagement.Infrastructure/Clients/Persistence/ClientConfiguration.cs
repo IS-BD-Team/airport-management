@@ -11,14 +11,14 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
         builder.HasKey(client => client.Id);
         builder.HasIndex(client => client.Id);
 
-        builder.Property(client => client.ArrivalRole)
-            .HasConversion(
-                role => role.Value,
-                value => ArrivalRole.FromValue(value));
-
-        builder.Property(client => client.ClientType)
-            .HasConversion(
-                type => type.Value,
-                value => ClientType.FromValue(value));
+        // builder.Property(client => client.ArrivalRole)
+        //     .HasConversion(
+        //         role => role.Value,
+        //         value => ArrivalRole.FromValue(value));
+        //
+        // builder.Property(client => client.ClientType)
+        //     .HasConversion(
+        //         type => type.Value,
+        //         value => ClientType.FromValue(value));
     }
 }
