@@ -1,3 +1,4 @@
+using AirportManagement.Application.Common.Services;
 using AirportManagement.Application.Services.Auth;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,8 @@ public static class DependencyInjection
         {
             options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
         });
+
+        services.AddAutoMapper(typeof(MappingProfile));
 
         services.AddScoped<IAuthService, AuthService>();
 

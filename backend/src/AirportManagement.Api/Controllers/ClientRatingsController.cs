@@ -3,17 +3,21 @@ using AirportManagement.Application.ClientRating.Commands.DeleteClientRating;
 using AirportManagement.Application.ClientRating.Commands.UpdateClientRating;
 using AirportManagement.Application.ClientRating.Queries.GetAllClientRatings;
 using AirportManagement.Application.ClientRating.Queries.GetClientRating;
+using AirportManagement.Application.DTO;
 using AirportManagement.Contracts.ClientRating;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 [Authorize]
-public class ClientRatingsController(ISender mediator) : ControllerBase
+public class ClientRatingsController(ISender mediator, IMapper mapper) : ODataController
 {
     [HttpPost]
     public async Task<IActionResult> CreateClientRating(ClientRatingRequest request)
@@ -22,9 +26,7 @@ public class ClientRatingsController(ISender mediator) : ControllerBase
         var result = await mediator.Send(command);
 
         return result.Match(
-            clientRating =>
-                Ok(new ClientRatingResponse(clientRating.Id, clientRating.ClientId, clientRating.ServiceId,
-                    clientRating.Rating)),
+            clientRating => Ok(mapper.Map<ClientRatingDto>(clientRating)),
             error => Problem());
     }
 
@@ -35,9 +37,7 @@ public class ClientRatingsController(ISender mediator) : ControllerBase
         var result = await mediator.Send(command);
 
         return result.Match(
-            clientRating =>
-                Ok(new ClientRatingResponse(clientRating.Id, clientRating.ClientId, clientRating.ServiceId,
-                    clientRating.Rating)),
+            clientRating => Ok(204),
             error => Problem());
     }
 
@@ -48,9 +48,7 @@ public class ClientRatingsController(ISender mediator) : ControllerBase
         var result = await mediator.Send(command);
 
         return result.Match(
-            clientRating =>
-                Ok(new ClientRatingResponse(clientRating.Id
-                    , clientRating.ClientId, clientRating.ServiceId, clientRating.Rating)),
+            clientRating => Ok(mapper.Map<ClientRatingDto>(clientRating)),
             error => Problem());
     }
 
@@ -61,22 +59,18 @@ public class ClientRatingsController(ISender mediator) : ControllerBase
         var result = await mediator.Send(query);
 
         return result.Match(
-            clientRating =>
-                Ok(new ClientRatingResponse(clientRating.Id, clientRating.ClientId, clientRating.ServiceId,
-                    clientRating.Rating)),
+            clientRating => Ok(mapper.Map<ClientRatingDto>(clientRating)),
             error => Problem());
     }
 
     [HttpGet]
+    [EnableQuery]
     public async Task<IActionResult> GetClientRatings()
     {
         var query = new GetAllClientRatingsQuery();
         var result = await mediator.Send(query);
 
-        return result.Match(
-            clientRatings =>
-                Ok(clientRatings.Select(cr => new ClientRatingResponse(cr.Id, cr.ClientId, cr.ServiceId, cr.Rating))
-                    .ToList()),
+        return result.Match(Ok,
             error => Problem());
     }
 }

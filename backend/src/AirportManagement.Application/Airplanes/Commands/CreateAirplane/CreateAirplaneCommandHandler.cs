@@ -20,7 +20,7 @@ public class CreateAirplaneCommandHandler(IAirplaneRepository airplaneRepository
             request.CrewMembers
         );
 
-        await airplaneRepository.AddAAsync(airplane);
+        await airplaneRepository.AddAsync(airplane);
         await unitOfWork.CommitChangesAsync();
 
         return airplane;
