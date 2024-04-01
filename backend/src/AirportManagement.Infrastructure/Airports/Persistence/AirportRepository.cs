@@ -1,15 +1,16 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Airports;
 using AirportManagement.Domain.Airports;
 using AirportManagement.Infrastructure.Common.Persistence;
-using Microsoft.EntityFrameworkCore;
+using ErrorOr;
 
 namespace AirportManagement.Infrastructure.Airports.Persistence;
 
 public class AirportRepository(AirportManagementDbContext dbContext) : IAirportsRepository
 {
-    public async Task AddAirportAsync(Airport airport)
+    public async Task<Success> AddAirportAsync(Airport airport)
     {
         await dbContext.Airports.AddAsync(airport);
+        return new Success();
     }
 
     public async Task<Airport?> GetByIdAsync(int airportId)
@@ -17,25 +18,15 @@ public class AirportRepository(AirportManagementDbContext dbContext) : IAirports
         return await dbContext.Airports.FindAsync(airportId);
     }
 
-    public async Task<IEnumerable<Airport>> GetAllAsync()
-    {
-        return await dbContext.Airports.ToListAsync();
-    }
-
-    public async Task<Airport?> DeleteAsync(int airportId)
+    public async Task<Success> DeleteAsync(int airportId)
     {
         var airport = await dbContext.Airports.FindAsync(airportId);
-        if (airport != null) dbContext.Airports.Remove(airport);
+        if (airport is null) throw new Exception("Airport not found");
+        dbContext.Airports.Remove(airport);
 
-        return airport;
+        return new Success();
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="airportId"></param>
-    /// <param name="airport"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public async Task<Airport?> UpdateAsync(int airportId, Airport airport)
     {
         var existingAirport = await dbContext.Airports.FindAsync(airportId);
@@ -48,5 +39,10 @@ public class AirportRepository(AirportManagementDbContext dbContext) : IAirports
         }
 
         return null;
+    }
+
+    public Task<IQueryable<Airport>> GetAllAsync()
+    {
+        return Task.FromResult(dbContext.Airports.AsQueryable());
     }
 }

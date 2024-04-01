@@ -1,30 +1,30 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
 using AirportManagement.Domain.Services;
 using AirportManagement.Infrastructure.Common.Persistence;
-using Microsoft.EntityFrameworkCore;
+using ErrorOr;
 
 namespace AirportManagement.Infrastructure.Services.Persistence;
 
 public class ServiceRepository(AirportManagementDbContext dbContext) : IServiceRepository
 {
-    public async Task AddAsync(Service service)
+    public async Task<Success> AddAsync(Service service)
     {
         await dbContext.Services.AddAsync(service);
+        return new Success();
     }
 
-    public async Task<Service?> DeleteAsync(int serviceId)
+    public async Task<Success> DeleteAsync(int serviceId)
     {
         var service = await dbContext.Services.FindAsync(serviceId);
-        if (service != null) dbContext.Services.Remove(service);
+        if (service is null) throw new Exception("Service not found");
+        dbContext.Services.Remove(service);
 
-        return service;
+        return new Success();
     }
 
     public async Task<Service?> GetByIdAsync(int serviceId)
     {
-        var query = dbContext.Services.AsQueryable();
-        query = query.Include(service => service.Facility);
-        return await query.FirstOrDefaultAsync(service => service.Id == serviceId);
+        return await dbContext.Services.FindAsync(serviceId);
     }
 
     public async Task<Service?> UpdateAsync(int serviceId, Service newServiceData)
@@ -43,8 +43,8 @@ public class ServiceRepository(AirportManagementDbContext dbContext) : IServiceR
         return existingService;
     }
 
-    public async Task<IEnumerable<Service>> GetAllAsync()
+    public Task<IQueryable<Service>> GetAllAsync()
     {
-        return await dbContext.Services.ToListAsync();
+        return Task.FromResult(dbContext.Services.AsQueryable());
     }
 }

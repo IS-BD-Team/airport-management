@@ -1,8 +1,7 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Services;
-using AirportManagement.Domain.Services.AirplaneRepairService;
+using AirportManagement.Domain.AirplaneRepairService;
 using AirportManagement.Infrastructure.Common.Persistence;
 using ErrorOr;
-using Microsoft.EntityFrameworkCore;
 
 namespace AirportManagement.Infrastructure.Services.Persistence;
 
@@ -24,12 +23,7 @@ public class AirplaneRepairServiceRepository(AirportManagementDbContext dbContex
 
     public async Task<AirplaneRepairService?> GetByIdAsync(int serviceId)
     {
-        var service = await dbContext.AirplaneRepairServices
-            .Include(repairService => repairService.RepairService)
-            .Include(repairService => repairService.Plane)
-            .FirstOrDefaultAsync(repairService => repairService.Id == serviceId);
-
-        return service;
+        return await dbContext.AirplaneRepairServices.FindAsync(serviceId);
     }
 
     public async Task<AirplaneRepairService?> UpdateAsync(int serviceId, AirplaneRepairService newServiceData)
@@ -47,11 +41,8 @@ public class AirplaneRepairServiceRepository(AirportManagementDbContext dbContex
         return existingService;
     }
 
-    public async Task<IEnumerable<AirplaneRepairService>> GetAllAsync()
+    public Task<IQueryable<AirplaneRepairService>> GetAllAsync()
     {
-        return await dbContext.AirplaneRepairServices
-            .Include(repairService => repairService.RepairService)
-            .Include(repairService => repairService.Plane)
-            .ToListAsync();
+        return Task.FromResult(dbContext.AirplaneRepairServices.AsQueryable());
     }
 }

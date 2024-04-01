@@ -1,32 +1,30 @@
 using AirportManagement.Application.Common.Interfaces.Persistence.Clients;
 using AirportManagement.Domain.Clients;
 using AirportManagement.Infrastructure.Common.Persistence;
-using Microsoft.EntityFrameworkCore;
+using ErrorOr;
 
 namespace AirportManagement.Infrastructure.Clients.Persistence;
 
 public class ClientRatingRepository(AirportManagementDbContext dbContext) : IClientRatingRepository
 {
-    public async Task AddAsync(ClientRating clientRating)
+    public async Task<Success> AddAsync(ClientRating clientRating)
     {
         await dbContext.ClientRatings.AddAsync(clientRating);
+        return new Success();
     }
 
-    public async Task<IEnumerable<ClientRating>> GetAllAsync()
+    public Task<IQueryable<ClientRating>> GetAllAsync()
     {
-        return await dbContext.ClientRatings.ToListAsync();
+        return Task.FromResult(dbContext.ClientRatings.AsQueryable());
     }
 
-    public async Task<ClientRating?> DeleteAsync(int ratingId)
+    public async Task<Success> DeleteAsync(int ratingId)
     {
         var clientRating = await dbContext.ClientRatings.FindAsync(ratingId);
-        if (clientRating != null)
-        {
-            dbContext.ClientRatings.Remove(clientRating);
-            await dbContext.SaveChangesAsync();
-        }
+        if (clientRating is null) throw new Exception("Client rating not found");
+        dbContext.ClientRatings.Remove(clientRating);
 
-        return clientRating;
+        return new Success();
     }
 
     public async Task<ClientRating?> GetByIdAsync(int ratingId)

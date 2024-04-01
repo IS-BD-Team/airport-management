@@ -1,32 +1,26 @@
+using AirportManagement.Application.DTO;
 using AirportManagement.Application.Facilities.Commands.CreateFacility;
 using AirportManagement.Application.Facilities.Commands.DeleteFacility;
 using AirportManagement.Application.Facilities.Commands.UpdateFacility;
 using AirportManagement.Application.Facilities.Queries.GetAllFacilities;
 using AirportManagement.Application.Facilities.Queries.GetFacility;
 using AirportManagement.Contracts.Facilities;
-using AirportManagement.Contracts.Services;
-using AirportManagement.Domain.Facility;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace AirportManagement.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 [Authorize]
-public class FacilitiesController(ISender mediator) : ControllerBase
+public class FacilitiesController(
+    ISender mediator,
+    IMapper mapper) : ODataController
 {
-    private static FacilityResponse CreateFacilityResponse(Facility facility)
-    {
-        if (facility.Services is null)
-            return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location,
-                facility.AirportId);
-        return new FacilityResponse(facility.Id, facility.Name, facility.Type, facility.Location, facility.AirportId,
-            facility.Services.Select(
-                s => new ServiceResponse(s.Id, s.Description, s.FacilityId, s.Price)).ToList());
-    }
-
     [HttpPost]
     public async Task<IActionResult> CreateFacility(FacilityRequest request)
     {
@@ -36,11 +30,12 @@ public class FacilitiesController(ISender mediator) : ControllerBase
         var createFacilityResult = await mediator.Send(command);
 
         return createFacilityResult.MatchFirst(
-            facility => Ok(CreateFacilityResponse(facility)),
+            facility => Ok(mapper.Map<FacilityDto>(facility)),
             _ => Problem());
     }
 
     [HttpGet]
+    [EnableQuery]
     public async Task<IActionResult> GetAllFacilities()
     {
         var query = new GetAllFacilitiesQuery();
@@ -48,7 +43,7 @@ public class FacilitiesController(ISender mediator) : ControllerBase
         var getFacilitiesResult = await mediator.Send(query);
 
         return getFacilitiesResult.MatchFirst(
-            facilities => Ok(facilities.Select(CreateFacilityResponse).ToList()),
+            Ok,
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 
@@ -58,7 +53,7 @@ public class FacilitiesController(ISender mediator) : ControllerBase
         var query = new GetFacilityQuery(facilityId);
         var getFacilityResult = await mediator.Send(query);
         return getFacilityResult.MatchFirst(
-            facility => Ok(CreateFacilityResponse(facility)),
+            facility => Ok(mapper.Map<FacilityDto>(facility)),
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 
@@ -71,7 +66,7 @@ public class FacilitiesController(ISender mediator) : ControllerBase
         var updateFacilityResult = await mediator.Send(command);
 
         return updateFacilityResult.MatchFirst(
-            facility => Ok(CreateFacilityResponse(facility)),
+            facility => Ok(mapper.Map<FacilityDto>(facility)),
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 
@@ -83,7 +78,7 @@ public class FacilitiesController(ISender mediator) : ControllerBase
         var deleteFacilityResult = await mediator.Send(command);
 
         return deleteFacilityResult.MatchFirst(
-            _ => Ok(StatusCode(200)),
+            _ => Ok(StatusCode(204)),
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 }
