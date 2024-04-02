@@ -22,10 +22,5 @@ public class PlaneStayConfiguration : IEntityTypeConfiguration<Domain.PlaneStay.
                 time => time.ToString("F"),
                 s => DateTime.Parse(s)
             );
-        builder.Property(stay => stay.CreationDate).IsRequired()
-            .HasConversion(
-                time => time.ToString("F"),
-                s => DateTime.Parse(s)
-            );
     }
 }
