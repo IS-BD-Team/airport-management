@@ -118,7 +118,7 @@ export default function InstanceViewSection() {
                   <h2 className="text-2xl capitalize border-b-[2px] border-solid border-[#e3e5ec] mb-5">
                     {mapProps(value[0].toString())}
                   </h2>
-                  <p className="mb-3">{mapProps(value[1].toString())}</p>
+                  <p className="mb-3">{value[1] ===null? '': mapProps(value[1].toString())}</p>
                 </section>
               );
             }
@@ -147,7 +147,7 @@ export default function InstanceViewSection() {
                   <input
                     className="border-[2px] border-solid rounded-lg border-[#e3e5ec] mb-1 p-3"
                     name={value[0]}
-                    defaultValue={value[1].toString()}
+                    defaultValue={value[1] ===null? '': value[1].toString()}
                     type="text"
                   />
                 </>
