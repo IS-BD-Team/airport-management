@@ -1,3 +1,4 @@
+'use client'
 import buildQuery from 'odata-query'
 export default function applyFilters() {
     const filterContainer = document.getElementById('filterTable');
@@ -6,9 +7,11 @@ export default function applyFilters() {
     if (filters) {
         for (let index = 0; index < filters.length; index++) {
             const name = filters[index].name;
-            const data = filters[index].value;
+            const data = filters[index].selectedOptions[0].innerText;
             queryfilters.push({ [name]: data });
         }
-        const query = buildQuery(queryfilters);
+        const query = buildQuery({filter: queryfilters});
+        console.log(query);
+        localStorage.setItem('query', query);
     }
 }
