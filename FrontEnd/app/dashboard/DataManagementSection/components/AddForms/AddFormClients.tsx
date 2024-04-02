@@ -26,6 +26,10 @@ export default function AddFormClients(props: AddFormProps) {
                 countries.map((country) => {
                     return { value: country, name: country };
                 }),
+                [
+                    { value: "true", name: "true" },
+                    { value: "false", name: "false" },
+                ],
             ]}
             handleOnClickAddButton={props.handleOnClickAddButton}
             handleToggleEvent={props.handleToggleEvent}

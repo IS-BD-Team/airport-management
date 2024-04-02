@@ -1,13 +1,13 @@
 import { AddFormProps } from "../AddForm";
 import { useState, useEffect } from "react";
-import { Nave, ReparacionNave } from "@/app/utils/types";
+import { Nave, Reparacion } from "@/app/utils/types";
 import genericFetch from "@/app/utils/genericFetch";
 import { getEndpoint } from "@/app/utils/EntityConfigs";
 import AddFormBase from "./AddFormBase";
 
 export default function AddFormPlaneRepair(props: AddFormProps) {
     const [airplanes, setAirplanes] = useState<Nave[]>([]);
-    const [repairs, setRepairs] = useState<ReparacionNave[]>([]);
+    const [repairs, setRepairs] = useState<Reparacion[]>([]);
 
     async function getAirplanes() {
         const data = await genericFetch(getEndpoint("Naves"));
@@ -37,10 +37,10 @@ export default function AddFormPlaneRepair(props: AddFormProps) {
             type="Reparaciones a Naves"
             options={[
                 airplanes.map((airplane) => {
-                    return { value: airplane.id, name: airplane.id };
+                    return { value: airplane.id, name: airplane.planePlate };
                 }),
                 repairs.map((repair) => {
-                    return { value: repair.codigo, name: repair.codigo };
+                    return { value: repair.id, name: repair.id };
                 }),
             ]}
             handleOnClickAddButton={props.handleOnClickAddButton}

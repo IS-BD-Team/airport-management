@@ -40,7 +40,7 @@ export default function AddFormStays(props: AddFormProps) {
                     return { value: airport.id, name: airport.name };
                 }),
                 airplanes.map((airplane) => {
-                    return { value: airplane.id, name: airplane.id };
+                    return { value: airplane.id, name: airplane.planePlate };
                 }),
             ]}
             handleOnClickAddButton={props.handleOnClickAddButton}

@@ -4,7 +4,7 @@ import {
   Instance,
   Nave,
   ReparacionNave,
-  Reparcion,
+  Reparacion,
   Servicio,
 } from "./types";
 
@@ -41,7 +41,7 @@ export default function getComputedLink(link: string, data: Instance) {
         case "Instalaciones":
           return (
             "/dashboard/InstanceViewSection?entity=Instalaciones&id=" +
-            (data as Reparcion).facilityId
+            (data as Reparacion).facilityId
           );
         default:
           break;
@@ -71,12 +71,12 @@ export default function getComputedLink(link: string, data: Instance) {
         case "Naves":
           return (
             "/dashboard/InstanceViewSection?entity=Naves&id=" +
-            (data as ReparacionNave).matricula
+            (data as ReparacionNave).airPlaneId
           );
         case "Reparaciones":
           return (
             "/dashboard/InstanceViewSection?entity=Reparaciones&id=" +
-            (data as ReparacionNave).codigo
+            (data as ReparacionNave).repairServiceId
           );
         default:
           break;
