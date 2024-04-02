@@ -14,6 +14,7 @@ public class CreatePlaneStayCommandHandler(IPlaneStayRepository planeStayReposit
         var planeStay = new PlaneStay(
             request.PlaneId,
             request.AirportId,
+            request.Rating,
             request.ArrivalDate,
             request.DepartureDate
         );

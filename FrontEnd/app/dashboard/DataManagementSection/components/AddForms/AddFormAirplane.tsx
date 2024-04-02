@@ -27,7 +27,7 @@ export default function AddFormAirplane(props: AddFormProps) {
             type="Naves"
             options={[
                 clients.map((client) => {
-                    return { value: client.ci, name: client.name };
+                    return { value: client.id, name: client.name };
                 }),
             ]}
             handleOnClickAddButton={props.handleOnClickAddButton}

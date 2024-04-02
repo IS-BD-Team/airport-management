@@ -18,7 +18,7 @@ export default async function createInstance(
             body: JSON.stringify(Object.fromEntries(form.entries())),
         });
         console.log(response);
-        window.location.reload();
+        //window.location.reload();
         //router.push(`/dashboard/DataManagementSection?entity=${props.type}`);
         // return response.json();
     } catch (err) {

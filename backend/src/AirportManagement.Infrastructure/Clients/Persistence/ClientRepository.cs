@@ -37,7 +37,6 @@ public class ClientRepository(AirportManagementDbContext dbContext) : IClientRep
             existingClient.Name = newClientData.Name;
             existingClient.Ci = newClientData.Ci;
             existingClient.Country = newClientData.Country;
-            existingClient.ArrivalRole = newClientData.ArrivalRole;
             existingClient.ClientType = newClientData.ClientType;
 
             dbContext.Update(existingClient);

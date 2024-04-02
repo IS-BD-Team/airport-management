@@ -11,7 +11,12 @@ public class UpdatePlaneStayCommandHandler(IPlaneStayRepository planeStayReposit
 {
     public async Task<ErrorOr<PlaneStay>> Handle(UpdatePlaneStayCommand request, CancellationToken cancellationToken)
     {
-        var newStay = new PlaneStay(request.PlaneId, request.AirportId, request.Start, request.End);
+        var newStay = new PlaneStay(request.PlaneId,
+            request.AirportId,
+            request.Rating,
+            request.Start,
+            request.End);
+
         var planeStay = await planeStayRepository.UpdateAsync(request.StayId, newStay);
         if (planeStay is null) return Error.NotFound($"Plane stay with id: {request.StayId} was not found");
 

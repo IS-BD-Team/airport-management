@@ -18,19 +18,31 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Nombre",
-          label: "Nombre",
+          label: "FirstName",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
-          name: "Ubicación",
-          label: "Ubicación",
+          name: "Apellidos",
+          label: "LastName",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
-          name: "Posición Geográfica",
-          label: "Posición",
+          name: "Super Admin",
+          label: "IsSuperAdmin",
+          type: "select",
+          options: { from: "", value: 0, name: 0 },
+        },
+        {
+          name: "Correo",
+          label: "Email",
+          type: "text",
+          options: { from: "", value: 0, name: 0 },
+        },
+        {
+          name: "Contrasena",
+          label: "Password",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
@@ -236,7 +248,7 @@ export const allEntityConfigs = {
           name: "Tipo",
           label: "Type",
           type: "text",
-          //options: { from: "", value: 0, name: 0 },
+          options: { from: "", value: 0, name: 0 },
         },
       ],
     },
@@ -267,26 +279,26 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Nombre",
-          label: "Nombre",
+          label: "name",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
+          name: "CI",
+          label: "CI",
+          type: "number",
+          options: { from: "", value: 0, name: 0 },
+        },
+        {
           name: "Nacionalidad",
-          label: "Nacionalidad",
+          label: "country",
           type: "select",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Tipo",
-          label: "Tipo",
-          type: "select",
-          options: { from: "", value: 0, name: 0 },
-        },
-        {
-          name: "Dueño de nave",
-          label: "DueñoDeNave",
-          type: "checkbox",
+          label: "clientType",
+          type: "text",
           options: { from: "", value: 0, name: 0 },
         },
       ],
@@ -308,19 +320,19 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Matrícula",
-          label: "Matrícula",
+          label: "planePlate",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Clasificación",
-          label: "Clasificación",
-          type: "select",
+          label: "classification",
+          type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Dueño",
-          label: "Dueño",
+          label: "clientId",
           type: "select",
           options: {
             from: "http://localhost:5258/Clients",
@@ -330,13 +342,20 @@ export const allEntityConfigs = {
         },
         {
           name: "Cant. de Plazas",
-          label: "CantDePlazas",
+          label: "passengersCapacity",
           type: "number",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Cant. de Tripulantes",
-          label: "CantDeTripulantes",
+          label: "crewMembers",
+          type: "number",
+          options: { from: "", value: 0, name: 0 },
+        },
+        
+        {
+          name: "Capacidad de carga",
+          label: "maxLoad",
           type: "number",
           options: { from: "", value: 0, name: 0 },
         },
@@ -374,19 +393,19 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Fecha de Inicio",
-          label: "FechaDeInicio",
+          label: "arrivalDate",
           type: "date",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Fecha Planificad de Fin",
-          label: "FechaDeFin",
+          label: "departureDate",
           type: "date",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Id de Aeropuerto",
-          label: "IdA",
+          label: "airportId",
           type: "select",
           options: {
             from: "http://localhost:5258/Airports",
@@ -396,7 +415,7 @@ export const allEntityConfigs = {
         },
         {
           name: "Matrícula",
-          label: "Matrícula",
+          label: "airplaneId",
           type: "select",
           options: {
             from: "http://localhost:5258/Airplanes",
@@ -406,7 +425,7 @@ export const allEntityConfigs = {
         },
         {
           name: "Valoración",
-          label: "Valoración",
+          label: "rating",
           type: "number",
           options: { from: "", value: 0, name: 0 },
         },
@@ -439,19 +458,19 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Fecha de Inicio",
-          label: "FechaDeInicio",
+          label: "startDate",
           type: "date",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Fecha de Fin",
-          label: "FechaDeFin",
+          label: "endDate",
           type: "date",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Matrícula",
-          label: "Matrícula",
+          label: "airPlaneId",
           type: "select",
           options: {
             from: "http://localhost:5258/Airplanes",
@@ -461,7 +480,7 @@ export const allEntityConfigs = {
         },
         {
           name: "Código",
-          label: "Código",
+          label: "repairServiceId",
           type: "select",
           options: {
             from: "http://localhost:5258/RepairServices",
@@ -471,7 +490,7 @@ export const allEntityConfigs = {
         },
         {
           name: "Tiempo",
-          label: "Tiempo",
+          label: "elapsedHours",
           type: "number",
           options: { from: "", value: 0, name: 0 },
         },
