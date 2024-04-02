@@ -33,6 +33,7 @@ public class PlaneStayRepository(AirportManagementDbContext dbContext) : IPlaneS
 
         existingPlaneStay.AirplaneId = planeStay.AirplaneId;
         existingPlaneStay.AirportId = planeStay.AirportId;
+        existingPlaneStay.Rating = planeStay.Rating;
         existingPlaneStay.ArrivalDate = planeStay.ArrivalDate;
         existingPlaneStay.DepartureDate = planeStay.DepartureDate;
         dbContext.Update(existingPlaneStay);
