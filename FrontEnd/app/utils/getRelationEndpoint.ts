@@ -3,7 +3,7 @@ relationsEndpoints.set('Administradores', new Map());
 
 relationsEndpoints.set('Aeropuertos', new Map());
 relationsEndpoints.get('Aeropuertos').set('Instalaciones', 'Facilities?$filter=AirportId eq ');
-relationsEndpoints.get('Aeropuertos').set('Servicios', '/aeropuertos/servicios');
+relationsEndpoints.get('Aeropuertos').set('Servicios', '/Airports?$expand=Facilities');
 relationsEndpoints.get('Aeropuertos').set('Reparaciones', '/aeropuertos/reparaciones');
 relationsEndpoints.get('Aeropuertos').set('Estancias', 'Stays?$filter=AirportId eq ');
 relationsEndpoints.get('Aeropuertos').set('Clientes con naves', '/aeropuertos/naves');

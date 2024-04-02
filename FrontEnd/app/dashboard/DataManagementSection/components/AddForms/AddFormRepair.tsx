@@ -27,7 +27,8 @@ export default function AddFormRepair(props: AddFormProps) {
             type="Reparaciones"
             options={[
                 facilities.map((facility) => {
-                    return { value: facility.facilityId, name: facility.name };
+                    console.log(facility);
+                    return { value: facility.id, name: facility.name };
                 }),
             ]}
             handleOnClickAddButton={props.handleOnClickAddButton}

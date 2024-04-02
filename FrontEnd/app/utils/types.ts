@@ -7,7 +7,7 @@ export type Aeropuerto = {
 }
 export type Instalacion = {
     airportId: number;
-    facilityId: number;
+    id: number;
     name: string;
     type: string;
     location: string;

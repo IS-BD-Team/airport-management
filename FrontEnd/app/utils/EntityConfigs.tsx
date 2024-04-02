@@ -154,7 +154,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/Facilities",
-    tableWidths: ["10%", "15%", "20%", "20%", "15%", "10%", "10%"],
+    tableWidths: ["10%", "20%", "20%", "30%", "10%", "10%"],
   },
   Servicios: {
     formConfig: {
@@ -163,19 +163,19 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Descripción",
-          label: "Descripción",
+          label: "Description",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Precio",
-          label: "Precio",
-          type: "text",
+          label: "Price",
+          type: "number",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Instalación",
-          label: "facilityId",
+          label: "FacilityId",
           type: "select",
           options: {
             from: "http://localhost:5258/Facilities",
@@ -203,7 +203,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/Services",
-    tableWidths: ["10%", "45%", "15%", "10%", "10%", "10%"],
+    tableWidths: ["10%", "50%", "15%", "15%", "10%"],
   },
   Reparaciones: {
     formConfig: {
@@ -212,13 +212,13 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Descripción",
-          label: "Descripción",
+          label: "Description",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Precio",
-          label: "Precio",
+          label: "Price",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
@@ -234,9 +234,9 @@ export const allEntityConfigs = {
         },
         {
           name: "Tipo",
-          label: "Tipo",
-          type: "select",
-          options: { from: "", value: 0, name: 0 },
+          label: "Type",
+          type: "text",
+          //options: { from: "", value: 0, name: 0 },
         },
       ],
     },
@@ -258,7 +258,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/RepairServices",
-    tableWidths: ["10%", "45%", "15%", "10%", "10%", "10%"],
+    tableWidths: ["10%", "10%", "50%", "10%", "10%", "10%"],
   },
   Clientes: {
     formConfig: {
@@ -365,7 +365,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/Airplanes",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["10%","20%", "20%", "10%", "10%", "10%", "10%", "10%"],
   },
   Estancias: {
     formConfig: {
@@ -430,7 +430,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/PlaneStay",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["15%", "15%", "20%", "20%", "20%", "10%"],
   },
   ReparacionesNaves: {
     formConfig: {
