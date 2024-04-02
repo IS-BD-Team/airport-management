@@ -67,20 +67,20 @@ export default function DataManagement() {
         setIsLoading(false);
     }, [data]);
     const [query, setQuery] = useState(false);
-    useEffect(() => {
-        if (localStorage.getItem('query') != null) {
-            console.log('filtrando');
-            const resp:any = fetch(`${getEndpoint(entity as string)}${localStorage.getItem('query')}`, {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-            }
-            ).then(res => res.json().then(data => {
-                setData(data);
-            }))            
-        }
-    }, [query])
+    // useEffect(() => {
+    //     if (localStorage.getItem('query') != null) {
+    //         console.log('filtrando');
+    //         const resp:any = fetch(`${getEndpoint(entity as string)}${localStorage.getItem('query')}`, {
+    //             method: "GET",
+    //             headers: {
+    //                 Authorization: "Bearer " + localStorage.getItem("token"),
+    //             },
+    //         }
+    //         ).then(res => res.json().then(data => {
+    //             setData(data);
+    //         }))            
+    //     }
+    // }, [query])
     const [fieldnames, setFieldnames] = useState<string[]>([]);
     useEffect(() => {
         setFieldnames([]);

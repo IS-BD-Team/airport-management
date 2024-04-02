@@ -227,5 +227,5 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             filterContainer.appendChild(divElement);
         }
     }
-    return fieldname;
+    return fieldname.toLowerCase();
 }
