@@ -22,7 +22,7 @@ public class ClientRatingsController(ISender mediator, IMapper mapper) : ODataCo
     [HttpPost]
     public async Task<IActionResult> CreateClientRating(ClientRatingRequest request)
     {
-        var command = new CreateClientRatingCommand(request.Rating, request.ClientId, request.ServiceId);
+        var command = new CreateClientRatingCommand(request.Rating, request.PlaneStayId, request.ServiceId);
         var result = await mediator.Send(command);
 
         return result.Match(

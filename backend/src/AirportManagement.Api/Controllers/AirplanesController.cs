@@ -40,7 +40,7 @@ public class AirplanesController(ISender mediator, IMapper mapper) : ODataContro
     }
 
     [HttpGet]
-    [EnableQuery]
+    [EnableQuery(MaxAnyAllExpressionDepth = 20)]
     public async Task<ActionResult> GetAirplanes()
     {
         var query = new GetAllAirplanesQuery();

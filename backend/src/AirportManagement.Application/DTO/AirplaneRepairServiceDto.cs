@@ -9,6 +9,6 @@ public class AirplaneRepairServiceDto
     public DateTime StartDate { get; set; }
 
     public DateTime EndDate { get; set; }
-    public AirplaneDto Plane { get; set; }
-    public RepairServiceDto RepairService { get; set; }
+    public int AirplaneId { get; set; }
+    public int RepairServiceId { get; set; }
 }

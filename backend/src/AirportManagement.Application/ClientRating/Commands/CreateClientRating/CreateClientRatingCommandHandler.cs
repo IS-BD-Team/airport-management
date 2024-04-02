@@ -12,7 +12,7 @@ public class
     public async Task<ErrorOr<Domain.Clients.ClientRating>> Handle(CreateClientRatingCommand request,
         CancellationToken cancellationToken)
     {
-        var clientRating = new Domain.Clients.ClientRating(request.Rating, request.ClientId, request.ServiceId);
+        var clientRating = new Domain.Clients.ClientRating(request.Rating, request.PlaneStayId, request.ServiceId);
 
         await clientRatingRepository.AddAsync(clientRating);
 

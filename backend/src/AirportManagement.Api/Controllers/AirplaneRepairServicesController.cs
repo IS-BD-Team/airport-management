@@ -1,5 +1,6 @@
 using AirportManagement.Application.AirplaneRepairService.Commands.CreateAirplaneRepairService;
 using AirportManagement.Application.AirplaneRepairService.Commands.DeleteAirplaneRepairService;
+using AirportManagement.Application.AirplaneRepairService.Commands.InsertAirplaneRepairService;
 using AirportManagement.Application.AirplaneRepairService.Commands.UpdateAirplaneRepairService;
 using AirportManagement.Application.AirplaneRepairService.Queries.GetAirplaneRepairService;
 using AirportManagement.Application.AirplaneRepairService.Queries.GetAllAirplaneRepairServices;
@@ -57,6 +58,18 @@ public class AirplaneRepairServicesController(ISender mediator, IMapper mapper) 
 
         return updateResult.MatchFirst(
             service => Ok(mapper.Map<AirplaneRepairServiceDto>(service)),
+            _ => Problem());
+    }
+
+    [HttpPut("{fatherId}/addService/{childId}")]
+    public async Task<IActionResult> Update(int fatherId, int childId)
+    {
+        var command = new InsertAirplaneRepairServiceCommand(fatherId, childId);
+
+        var updateResult = await mediator.Send(command);
+
+        return updateResult.MatchFirst(
+            service => Ok(200),
             _ => Problem());
     }
 
