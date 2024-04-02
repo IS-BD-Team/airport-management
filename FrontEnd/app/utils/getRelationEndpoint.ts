@@ -9,26 +9,22 @@ relationsEndpoints.get('Aeropuertos').set('Estancias', 'Stays?$filter=AirportId 
 relationsEndpoints.get('Aeropuertos').set('Clientes con naves', '/aeropuertos/naves');
 
 relationsEndpoints.set('Instalaciones', new Map());
-relationsEndpoints.get('Instalaciones').set('Servicios', '/instalaciones/servicios');
-relationsEndpoints.get('Instalaciones').set('Reparaciones', '/instalaciones/reparaciones');
+relationsEndpoints.get('Instalaciones').set('Servicios', 'Services?$filter=facilityID eq ');
+relationsEndpoints.get('Instalaciones').set('Reparaciones', 'RepairServices?$filter=facilityID eq ');
 
 relationsEndpoints.set('Servicios', new Map());
 relationsEndpoints.get('Servicios').set('Naves', '/servicios/aeropuertos');
-relationsEndpoints.get('Servicios').set('Aeropuertos', '/servicios/aeropuertos');
-relationsEndpoints.get('Servicios').set('Instalaciones', '/servicios/instalaciones');
 
 relationsEndpoints.set('Reparaciones', new Map());
 relationsEndpoints.get('Reparaciones').set('Naves', '/reparaciones/nave');
-relationsEndpoints.get('Reparaciones').set('Aeropuertos', '/reparaciones/aeropuertos');
-relationsEndpoints.get('Reparaciones').set('Instalaciones', '/reparaciones/instalaciones');
 
 relationsEndpoints.set('Clientes', new Map());
 relationsEndpoints.get('Clientes').set('Naves', 'Airplanes?$filter=clientID eq ');
 
 relationsEndpoints.set('Naves', new Map());
 relationsEndpoints.get('Naves').set('Servicios', '/naves/clientes');
-relationsEndpoints.get('Naves').set('Reparaciones', '/naves/clientes');
-relationsEndpoints.get('Naves').set('Estancias', 'Stays?$filter=AirplaneID eq ');
+relationsEndpoints.get('Naves').set('Reparaciones a Naves', 'AirplaneRepairServices?$filter=AirplaneID eq ');
+relationsEndpoints.get('Naves').set('Estancias', 'Stays?$filter=AirportID eq ');
 
 relationsEndpoints.set('Estancias', new Map());
 relationsEndpoints.get('Estancias').set('Servicios', '/estancias/clientes');

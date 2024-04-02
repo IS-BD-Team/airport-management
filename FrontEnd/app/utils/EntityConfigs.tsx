@@ -350,8 +350,8 @@ export const allEntityConfigs = {
       },
       {
         name: "Reparaciones",
-        icon: reparaciones,
-        link: "/dashboard/DataManagementSection?entity=Reparaciones&relation=Naves&id=",
+        icon: reparacionesNaves,
+        link: "/dashboard/DataManagementSection?entity=Reparaciones a Naves&relation=Naves&id=",
       },
       {
         name: "Estancias",
