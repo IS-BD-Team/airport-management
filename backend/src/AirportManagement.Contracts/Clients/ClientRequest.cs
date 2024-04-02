@@ -4,5 +4,4 @@ public record ClientRequest(
     string Name,
     string Ci,
     string Country,
-    string ArrivalRole,
     string ClientType);

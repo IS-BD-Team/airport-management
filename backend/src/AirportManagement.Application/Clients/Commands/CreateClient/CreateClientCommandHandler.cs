@@ -11,13 +11,10 @@ public class CreateClientCommandHandler(IClientRepository clientRepository, IUni
 {
     public async Task<ErrorOr<Client>> Handle(CreateClientCommand request, CancellationToken cancellationToken)
     {
-        if (!ArrivalRoleEnum.TryFromName(request.ArrivalRole, out var arrivalRole))
-            return Error.Custom(400, "ArrivalRoleNotFound", $"Arrival role {request.ArrivalRole} not found.");
-
         if (!ClientTypeEnum.TryFromName(request.ClientType, out var clientType))
-            return Error.Custom(400, "ArrivalRoleNotFound", $"Arrival role {request.ArrivalRole} not found.");
+            return Error.Custom(400, "ClientTypeNotFound", $"Client type {request.ClientType} not found.");
 
-        var client = new Client(request.Name, request.Ci, request.Country, request.ArrivalRole, request.ClientType);
+        var client = new Client(request.Name, request.Ci, request.Country, request.ClientType);
 
         await clientRepository.AddAsync(client);
 
