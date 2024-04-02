@@ -4,15 +4,10 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
-import { FaRegArrowAltCircleRight } from "react-icons/fa";
-import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { getTableWidths, getEndpoint } from "@/app/utils/EntityConfigs";
 import { Instance } from "@/app/utils/types";
-import { getRelations } from "@/app/utils/EntityConfigs";
-import { getFilters } from "@/app/utils/filters";
 import getRelationEndpoint from "@/app/utils/getRelationEndpoint";
 
-import applyFilters from "@/app/utils/applyFilters";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
@@ -122,45 +117,6 @@ export default function DataManagement() {
                     />
                 )}
 
-                <fieldset id="filters" className="my-4">
-                    <div className="flex flex-row gap-1 py-[auto] transition-all hover:gap-2 w-fit">
-                        <h2 className="text-2xl cursor-pointer">Filters</h2>
-                        <button onClick={() => setFilters(!toogleFilters)}>
-                            {!toogleFilters && <FaRegArrowAltCircleRight />}
-                            {toogleFilters && <FaRegArrowAltCircleDown />}
-                        </button>
-                    </div>
-                    {toogleFilters && (
-                        <div>
-                            <div className="overflow-hidden">
-                                <select
-                                    name="filtersSelect"
-                                    id="filtersSelect"
-                                    className="float-right mx-1
-                                border-2"
-                                onChange={getFilters}
-                                >                                   
-                                    <option value="">&nbsp;</option>
-                                    {getRelations(entity).map((relation, item) => (
-                                        <option key={item} value={relation.name}>
-                                            {relation.name}
-                                        </option>
-                                    ))}                                    
-                                </select>
-                                <label
-                                    htmlFor="filtersSelect"
-                                    className="float-right"
-                                >
-                                    Select a filter
-                                </label>
-                            </div>
-                            <div id="filterTable">
-
-                            </div>
-                            <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={()=>{applyFilters(); setQuery(!query)}}>Apply</button>
-                        </div>
-                    )}
-                </fieldset>
                 {isLoading && (
                     <h2 className="text-2xl font-bold">Loading...</h2>
                 )}

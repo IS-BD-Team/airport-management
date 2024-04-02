@@ -3,22 +3,6 @@ import AddFormBase from "./AddFormBase";
 import { countries } from "@/app/utils/countries";
 
 export default function AddFormClients(props: AddFormProps) {
-    //const [facilities, setFacilities] = useState<Aeropuerto[]>([]);
-
-    /*async function getAirports() {
-        const data = await genericFetch(getEndpoint("Instalaciones"));
-        console.log("useEffect data: ", data);
-
-        setFacilities(data);
-        console.log("useEffect repair: ", facilities);
-    }*/
-
-    //(TODO) añadir fetch pa los tipos
-    /*
-    useEffect(() => {
-        getAirports();
-    }, []);*/
-
     return (
         <AddFormBase
             type="Clientes"
