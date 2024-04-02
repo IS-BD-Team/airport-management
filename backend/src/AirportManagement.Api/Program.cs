@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using AirportManagement.Application;
 using AirportManagement.Infrastructure;
 using AirportManagement.Infrastructure.Common.Persistence;
@@ -7,7 +8,10 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddControllers()
+    builder.Services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        })
         .AddOData(options => options.Select().Filter().OrderBy().SetMaxTop(20).Count().Expand());
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
@@ -41,6 +45,7 @@ var builder = WebApplication.CreateBuilder(args);
         });
     });
 
+    builder.Services.AddProblemDetails();
     builder.Services
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
@@ -49,6 +54,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
+    app.UseExceptionHandler();
     // Apply migrations
     using (var scope = app.Services.CreateScope())
     {

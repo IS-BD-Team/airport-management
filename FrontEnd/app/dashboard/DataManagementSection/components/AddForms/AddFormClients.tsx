@@ -21,7 +21,7 @@ export default function AddFormClients(props: AddFormProps) {
 
     return (
         <AddFormBase
-            type="Reparaciones"
+            type="Clientes"
             options={[
                 countries.map((country) => {
                     return { value: country, name: country };

@@ -13,6 +13,8 @@ public class GetAllAirplaneRepairServicesQueryHandler(IAirplaneRepairServiceRepo
         CancellationToken cancellationToken)
     {
         var services = await repository.GetAllAsync();
+
+
         return services.ToErrorOr();
     }
 }

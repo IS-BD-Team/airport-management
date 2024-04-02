@@ -37,11 +37,11 @@ export const allEntityConfigs = {
       ],
     },
     relations: [
-      { name: "Instalaciones", icon: instalaciones },
-      { name: "Servicios", icon: servicios },
-      { name: "Reparaciones", icon: reparaciones },
-      { name: "Estancias", icon: null },
-      { name: "Clientes con naves", icon: null },
+      { name: "Instalaciones", icon: instalaciones, link: "" },
+      { name: "Servicios", icon: servicios, link: "" },
+      { name: "Reparaciones", icon: reparaciones, link: "" },
+      { name: "Estancias", icon: estancias, link: "" },
+      { name: "Clientes con naves", icon: clientes, link: "" },
     ],
     endPoint: "http://localhost:5258/Airports",
     tableWidths: ["5%", "25%", "60%", "10%"],
@@ -72,11 +72,31 @@ export const allEntityConfigs = {
       ],
     },
     relations: [
-      { name: "Instalaciones", icon: instalaciones },
-      { name: "Servicios", icon: servicios },
-      { name: "Reparaciones", icon: reparaciones },
-      { name: "Estancias", icon: estancias },
-      { name: "Clientes con naves", icon: clientes },
+      {
+        name: "Instalaciones",
+        icon: instalaciones,
+        link: "/dashboard/DataManagementSection?entity=Instalaciones&relation=Aeropuertos&id=",
+      },
+      {
+        name: "Servicios",
+        icon: servicios,
+        link: "/dashboard/DataManagementSection?entity=Servicios&relation=Aeropuertos&id=",
+      },
+      {
+        name: "Reparaciones",
+        icon: reparaciones,
+        link: "/dashboard/DataManagementSection?entity=Reparaciones&relation=Aeropuertos&id=",
+      },
+      {
+        name: "Estancias",
+        icon: estancias,
+        link: "/dashboard/DataManagementSection?entity=Estancias&relation=Aeropuertos&id=",
+      },
+      {
+        name: "Clientes con naves",
+        icon: clientes,
+        link: "/dashboard/DataManagementSection?entity=Clientes con naves&relation=Aeropuertos&id=",
+      },
     ],
     endPoint: "http://localhost:5258/Airports",
     tableWidths: ["5%", "25%", "30%", "30%", "10%"],
@@ -117,12 +137,24 @@ export const allEntityConfigs = {
       ],
     },
     relations: [
-      { name: "Aeropuerto", icon: aeropuertos },
-      { name: "Servicios", icon: servicios },
-      { name: "Reparaciones", icon: reparaciones },
+      {
+        name: "Aeropuerto",
+        icon: aeropuertos,
+        link: "Aeropuertos,Instalaciones",
+      },
+      {
+        name: "Servicios",
+        icon: servicios,
+        link: "/dashboard/DataManagementSection?entity=Servicios&relation=Instalaciones&id=",
+      },
+      {
+        name: "Reparaciones",
+        icon: reparaciones,
+        link: "/dashboard/DataManagementSection?entity=Reparaciones&relation=Instalaciones&id=",
+      },
     ],
     endPoint: "http://localhost:5258/Facilities",
-    tableWidths: ["10%", "15%", "20%", "20%", "15%", "10%", "10%"],
+    tableWidths: ["10%", "20%", "20%", "30%", "10%", "10%"],
   },
   Servicios: {
     formConfig: {
@@ -131,19 +163,19 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Descripción",
-          label: "Descripción",
+          label: "Description",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Precio",
-          label: "Precio",
-          type: "text",
+          label: "Price",
+          type: "number",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Instalación",
-          label: "facilityId",
+          label: "FacilityId",
           type: "select",
           options: {
             from: "http://localhost:5258/Facilities",
@@ -154,12 +186,24 @@ export const allEntityConfigs = {
       ],
     },
     relations: [
-      { name: "Brindado a", icon: aviones },
-      { name: "Brindado en: Aeropuertos", icon: aeropuertos },
-      { name: "Brindado en: Instalaciones", icon: instalaciones },
+      {
+        name: "Brindado a",
+        icon: aviones,
+        link: "/dashboard/DataManagementSection?entity=Naves&relation=Servicios&id=",
+      },
+      {
+        name: "Brindado en: Aeropuerto",
+        icon: aeropuertos,
+        link: "Aeropuertos,Servicios",
+      },
+      {
+        name: "Brindado en: Instalacion",
+        icon: instalaciones,
+        link: "Instalaciones,Servicios",
+      },
     ],
     endPoint: "http://localhost:5258/Services",
-    tableWidths: ["10%", "45%", "15%", "10%", "10%", "10%"],
+    tableWidths: ["10%", "50%", "15%", "15%", "10%"],
   },
   Reparaciones: {
     formConfig: {
@@ -168,13 +212,13 @@ export const allEntityConfigs = {
       inputs: [
         {
           name: "Descripción",
-          label: "Descripción",
+          label: "Description",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
         {
           name: "Precio",
-          label: "Precio",
+          label: "Price",
           type: "text",
           options: { from: "", value: 0, name: 0 },
         },
@@ -190,19 +234,31 @@ export const allEntityConfigs = {
         },
         {
           name: "Tipo",
-          label: "Tipo",
-          type: "select",
-          options: { from: "", value: 0, name: 0 },
+          label: "Type",
+          type: "text",
+          //options: { from: "", value: 0, name: 0 },
         },
       ],
     },
     relations: [
-      { name: "Brindado a", icon: aviones },
-      { name: "Brindado en: Aeropuertos", icon: aeropuertos },
-      { name: "Brindado en: Instalaciones", icon: instalaciones },
+      {
+        name: "Brindado a",
+        icon: aviones,
+        link: "/dashboard/DataManagementSection?entity=Naves&relation=Reparaciones&id=",
+      },
+      {
+        name: "Brindado en: Aeropuerto",
+        icon: aeropuertos,
+        link: "Aeropuertos,Reparaciones",
+      },
+      {
+        name: "Brindado en: Instalacion",
+        icon: instalaciones,
+        link: "Instalaciones,Reparaciones",
+      },
     ],
     endPoint: "http://localhost:5258/RepairServices",
-    tableWidths: ["10%", "45%", "15%", "10%", "10%", "10%"],
+    tableWidths: ["10%", "10%", "50%", "10%", "10%", "10%"],
   },
   Clientes: {
     formConfig: {
@@ -235,7 +291,13 @@ export const allEntityConfigs = {
         },
       ],
     },
-    relations: [{ name: "Naves", icon: aviones }],
+    relations: [
+      {
+        name: "Naves",
+        icon: aviones,
+        link: "/dashboard/DataManagementSection?entity=Naves&relation=Clientes&id=",
+      },
+    ],
     endPoint: "http://localhost:5258/Clients",
     tableWidths: ["10%", "20%", "15%", "15%", "15%", "15%", "10%"],
   },
@@ -281,13 +343,29 @@ export const allEntityConfigs = {
       ],
     },
     relations: [
-      { name: "Servicios", icon: servicios },
-      { name: "Reparaciones", icon: reparaciones },
-      { name: "Estancias", icon: estancias },
-      { name: "Dueño", icon: clientes },
+      {
+        name: "Servicios",
+        icon: servicios,
+        link: "/dashboard/DataManagementSection?entity=Servicios&relation=Naves&id=",
+      },
+      {
+        name: "Reparaciones",
+        icon: reparacionesNaves,
+        link: "/dashboard/DataManagementSection?entity=Reparaciones a Naves&relation=Naves&id=",
+      },
+      {
+        name: "Estancias",
+        icon: estancias,
+        link: "/dashboard/DataManagementSection?entity=Estancias&relation=Naves&id=",
+      },
+      {
+        name: "Dueño",
+        icon: clientes,
+        link: "Clientes,Naves",
+      },
     ],
     endPoint: "http://localhost:5258/Airplanes",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["10%","20%", "20%", "10%", "10%", "10%", "10%", "10%"],
   },
   Estancias: {
     formConfig: {
@@ -335,12 +413,24 @@ export const allEntityConfigs = {
       ],
     },
     relations: [
-      { name: "Nave", icon: aviones },
-      { name: "Aeropuerto", icon: aeropuertos },
-      { name: "Servicios", icon: servicios },
+      {
+        name: "Nave",
+        icon: aviones,
+        link: "Naves,Estancias",
+      },
+      {
+        name: "Aeropuerto",
+        icon: aeropuertos,
+        link: "Aeropuertos,Estancias",
+      },
+      {
+        name: "Servicios",
+        icon: servicios,
+        link: "/dashboard/DataManagementSection?entity=Servicios&relation=Estancias&id=",
+      },
     ],
     endPoint: "http://localhost:5258/PlaneStay",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["15%", "15%", "20%", "20%", "20%", "10%"],
   },
   ReparacionesNaves: {
     formConfig: {
@@ -388,9 +478,21 @@ export const allEntityConfigs = {
       ],
     },
     relations: [
-      { name: "Reparaciones Implicadas", icon: reparaciones },
-      { name: "Nave", icon: aviones },
-      { name: "Reparacion", icon: reparaciones },
+      {
+        name: "Reparaciones Implicadas",
+        icon: reparacionesNaves,
+        link: "/dashboard/DataManagementSection?entity=Reparaciones&relation=Reparaciones a Naves&id=",
+      },
+      {
+        name: "Nave",
+        icon: aviones,
+        link: "Naves,Reparaciones a Naves",
+      },
+      {
+        name: "Reparacion",
+        icon: reparaciones,
+        link: "Reparaciones,Reparaciones a Naves",
+      },
     ],
     endPoint: "http://localhost:5258/AirplaneRepairServices",
     tableWidths: ["5%", "15%", "15%", "20%", "20%", "15%", "10%"],
@@ -506,5 +608,3 @@ export function getRelations(entity: string) {
       return allEntityConfigs.default.relations;
   }
 }
-
-//`reparation-services`

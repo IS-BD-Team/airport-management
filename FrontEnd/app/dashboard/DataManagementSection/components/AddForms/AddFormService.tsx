@@ -25,7 +25,7 @@ export default function AddFormService(props: AddFormProps) {
             type="Servicios"
             options={[
                 facilities.map((facility) => {
-                    return { value: facility.facilityId, name: facility.name };
+                    return { value: facility.id, name: facility.name };
                 }),
             ]}
             handleOnClickAddButton={props.handleOnClickAddButton}

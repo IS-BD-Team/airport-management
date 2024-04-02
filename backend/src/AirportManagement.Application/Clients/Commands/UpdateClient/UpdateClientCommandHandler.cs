@@ -11,10 +11,8 @@ public class UpdateClientCommandHandler(IClientRepository clientRepository, IUni
 {
     public async Task<ErrorOr<Client>> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
     {
-        var arrivalRole = ArrivalRole.FromName(request.ArrivalRole);
-        var clientType = ClientType.FromName(request.ClientType);
-
-        var newClientData = new Client(request.Name, request.Ci, request.Country, arrivalRole, clientType);
+        var newClientData = new Client(request.Name, request.Ci, request.Country, request.ArrivalRole,
+            request.ClientType);
 
         var client = await clientRepository.UpdateAsync(request.Id, newClientData);
 

@@ -10,6 +10,8 @@ import { getTableWidths, getEndpoint } from "@/app/utils/EntityConfigs";
 import { Instance } from "@/app/utils/types";
 import { getRelations } from "@/app/utils/EntityConfigs";
 import { getFilters } from "@/app/utils/filters";
+import getRelationEndpoint from "@/app/utils/getRelationEndpoint";
+
 import applyFilters from "@/app/utils/applyFilters";
 
 export default function DataManagement() {
@@ -21,11 +23,13 @@ export default function DataManagement() {
 
     const searchParams = useSearchParams();
     const entity = searchParams.get("entity");
-    
+    const relation = searchParams.get("relation");
+    const id = searchParams.get("id");
+
     const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(
-                getEndpoint(entity),
+                relation ? ("http://localhost:5258/" + getRelationEndpoint(relation ?? "", entity, id ?? "")) : getEndpoint(entity),
                 {
                     method: "GET",
                     headers: {
@@ -64,7 +68,9 @@ export default function DataManagement() {
     useEffect(() => {
         setIsLoading(false);
     }, [data]);
+
     const [query, setQuery] = useState(false);
+    
     useEffect(() => {
         if (localStorage.getItem('query') != null) {
             console.log('filtrando');

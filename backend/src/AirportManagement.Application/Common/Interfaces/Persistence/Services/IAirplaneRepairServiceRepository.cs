@@ -12,4 +12,6 @@ public interface IAirplaneRepairServiceRepository
         Domain.AirplaneRepairService.AirplaneRepairService newServiceData);
 
     Task<IQueryable<Domain.AirplaneRepairService.AirplaneRepairService>> GetAllAsync();
+
+    Task<Success> InsertAirplaneRepairServiceAsync(int fatherId, int childId);
 }

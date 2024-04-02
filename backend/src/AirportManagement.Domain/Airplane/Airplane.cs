@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirportManagement.Domain.Clients;
-using AirportManagement.Domain.Services;
 
 namespace AirportManagement.Domain.Airplane;
 
@@ -20,14 +19,13 @@ public class Airplane(
 
     [Required] public string PlanePlate { get; set; } = planePlate;
     [Required] public int ClientId { get; set; } = clientId;
-    [ForeignKey(nameof(ClientId))] public Client? Owner { get; set; }
+    [ForeignKey(nameof(ClientId))] public Client? Client { get; set; }
 
     [Required] public int MaxLoad { get; set; } = maxLoad;
     [Required] public int PassengersCapacity { get; set; } = passengersCapacity;
 
     [Required] public int CrewMembers { get; set; } = crewMembers;
 
-    [Required] public bool HasReceivedMaintenance { get; set; } = false;
 
-    public ICollection<Service>? Services { get; set; }
+    public ICollection<AirplaneRepairService.AirplaneRepairService>? AirplaneRepairServices { get; set; }
 }

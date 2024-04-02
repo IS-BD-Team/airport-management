@@ -4,6 +4,7 @@ using AirportManagement.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirportManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AirportManagementDbContext))]
-    partial class AirportManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240402044742_FixPlaneRepairService")]
+    partial class FixPlaneRepairService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +42,9 @@ namespace AirportManagement.Infrastructure.Migrations
 
                     b.Property<int>("CrewMembers")
                         .HasColumnType("int");
+
+                    b.Property<bool>("HasReceivedMaintenance")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("MaxLoad")
                         .HasColumnType("int");
@@ -257,6 +263,10 @@ namespace AirportManagement.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ArrivalDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CreationDate")
                         .IsRequired()
                         .HasColumnType("longtext");
 

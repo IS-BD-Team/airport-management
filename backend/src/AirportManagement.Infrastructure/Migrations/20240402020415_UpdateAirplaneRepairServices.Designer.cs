@@ -4,6 +4,7 @@ using AirportManagement.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirportManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AirportManagementDbContext))]
-    partial class AirportManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240402020415_UpdateAirplaneRepairServices")]
+    partial class UpdateAirplaneRepairServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace AirportManagement.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("AirplaneRepairServiceAirplaneRepairService", b =>
+                {
+                    b.Property<int>("AirplaneRepairServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AirplaneRepairServicesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AirplaneRepairServiceId", "AirplaneRepairServicesId");
+
+                    b.HasIndex("AirplaneRepairServicesId");
+
+                    b.ToTable("AirplaneRepairServiceAirplaneRepairService");
+                });
 
             modelBuilder.Entity("AirportManagement.Domain.Airplane.Airplane", b =>
                 {
@@ -39,6 +57,9 @@ namespace AirportManagement.Infrastructure.Migrations
 
                     b.Property<int>("CrewMembers")
                         .HasColumnType("int");
+
+                    b.Property<bool>("HasReceivedMaintenance")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("MaxLoad")
                         .HasColumnType("int");
@@ -70,12 +91,13 @@ namespace AirportManagement.Infrastructure.Migrations
                     b.Property<int>("AirPlaneId")
                         .HasColumnType("int");
 
-                    b.Property<string>("EndDate")
+                    b.Property<string>("CreationDate")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("FatherAirplaneRepairServiceId")
-                        .HasColumnType("int");
+                    b.Property<string>("EndDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("RepairServiceId")
                         .HasColumnType("int");
@@ -260,6 +282,10 @@ namespace AirportManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("CreationDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("DepartureDate")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -318,6 +344,22 @@ namespace AirportManagement.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.HasDiscriminator().HasValue("RepairService");
+                });
+
+            modelBuilder.Entity("AirplaneRepairServiceAirplaneRepairService", b =>
+                {
+                    b.HasOne("AirportManagement.Domain.AirplaneRepairService.AirplaneRepairService", null)
+                        .WithMany()
+                        .HasForeignKey("AirplaneRepairServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AirportManagement.Domain.AirplaneRepairService.AirplaneRepairService", null)
+                        .WithMany()
+                        .HasForeignKey("AirplaneRepairServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_AirplaneRepairServiceAirplaneRepairService_AirplaneRepairSe~1");
                 });
 
             modelBuilder.Entity("AirportManagement.Domain.Airplane.Airplane", b =>

@@ -70,12 +70,12 @@ export default function CustomTable(prop: CustomTableProps) {
                                 return <td key={i + " " + j} className="p-[1vw]">{val}</td>;
                             })}
                             <td className="text-center">
-                                <Link href={`/dashboard/InstanceViewSection?id=${Object.values(row)[0]}&entity=${props.entity}`}>
+                                <Link href={`/dashboard/InstanceViewSection?id=${props.entity !== "Reparaciones" ? Object.values(row)[0] : Object.values(row)[1]}&entity=${props.entity}`}>
                                     <button className="hover:bg-[#005b7f] rounded-lg mr-2"><Image src={ojo} alt="ver_icon" className="hover:invert p-2 h-10 w-10"></Image></button>
                                 </Link>
                                 <button className="hover:bg-red-600 rounded-lg"><Image src={eliminar} alt="eliminar_icon" className="hover:invert p-2 h-10 w-10" 
                                 onClick={()=>{
-                                    deleteInstance((Object.values(row)[0] as number | string));
+                                    deleteInstance(((props.entity !== "Reparaciones" ? Object.values(row)[0] : Object.values(row)[1]) as number | string));
                                     props.handleOnClickDeleteButton();
                                 }}></Image></button>
                             </td>

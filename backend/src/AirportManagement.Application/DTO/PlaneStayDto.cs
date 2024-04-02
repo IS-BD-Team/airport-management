@@ -7,5 +7,4 @@ public class PlaneStayDto
     public int AirplaneId { get; set; }
     public DateTime ArrivalDate { get; set; }
     public DateTime DepartureDate { get; set; }
-    public DateTime CreationDate { get; set; }
 }
