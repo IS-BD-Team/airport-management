@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirportManagement.Domain.Airports;
-using AirportManagement.Domain.Clients;
 
 namespace AirportManagement.Domain.PlaneStay;
 
-public class PlaneStay(int airplaneId, int airportId, DateTime arrivalDate, DateTime departureDate)
+public class PlaneStay(int airplaneId, int airportId, int rating, DateTime arrivalDate, DateTime departureDate)
 {
     [Key] public int Id { get; init; }
 
@@ -18,5 +17,5 @@ public class PlaneStay(int airplaneId, int airportId, DateTime arrivalDate, Date
     [Required] public DateTime ArrivalDate { get; set; } = arrivalDate;
     [Required] public DateTime DepartureDate { get; set; } = departureDate;
 
-    public ICollection<ClientRating>? Ratings { get; set; }
+    [Required] public int Rating { get; set; } = rating;
 }
