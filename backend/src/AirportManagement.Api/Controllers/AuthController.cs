@@ -35,7 +35,8 @@ public class AuthController(IAuthService authService) : ControllerBase
                     result.User.FirstName,
                     result.User.Lastname,
                     result.User.Email,
-                    result.Token
+                    result.Token,
+                    result.User.IsSuperAdmin
                 )),
             error => Problem(error.Code, statusCode: error.NumericType));
     }
