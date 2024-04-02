@@ -7,12 +7,10 @@ import { useState, useEffect } from "react";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
 import { getTableWidths, getEndpoint } from "@/app/utils/EntityConfigs";
-import { revalidateServerTag } from "@/app/utils/revalidate";
 import { Instance } from "@/app/utils/types";
 import { getRelations } from "@/app/utils/EntityConfigs";
 import { getFilters } from "@/app/utils/filters";
 import applyFilters from "@/app/utils/applyFilters";
-
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
