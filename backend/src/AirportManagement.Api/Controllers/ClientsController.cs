@@ -24,7 +24,7 @@ public class ClientsController(ISender mediator, IMapper mapper) : ODataControll
     {
         var command = new CreateClientCommand(
             request.Name, request.Ci,
-            request.Country, request.ArrivalRole,
+            request.Country,
             request.ClientType);
 
         var createClientResult = await mediator.Send(command);
@@ -60,8 +60,7 @@ public class ClientsController(ISender mediator, IMapper mapper) : ODataControll
     [HttpPut("{clientId:int}")]
     public async Task<IActionResult> UpdateClient(int clientId, ClientRequest request)
     {
-        var command = new UpdateClientCommand(clientId, request.Name, request.Ci, request.Country, request.ArrivalRole,
-            request.ClientType);
+        var command = new UpdateClientCommand(clientId, request.Name, request.Ci, request.Country, request.ClientType);
 
         var updateClientResult = await mediator.Send(command);
 

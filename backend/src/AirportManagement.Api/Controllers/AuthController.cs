@@ -47,14 +47,7 @@ public class AuthController(IAuthService authService) : ControllerBase
         var loginResult = await authService.Login(request.Email, request.Password);
 
         return loginResult.MatchFirst(result =>
-                Ok(new AuthResponse
-                (
-                    result.User.Id,
-                    result.User.FirstName,
-                    result.User.Lastname,
-                    result.User.Email,
-                    result.Token
-                )),
+                Ok(result.User.IsSuperAdmin),
             error => Problem(error.Code, statusCode: error.NumericType));
     }
 }
