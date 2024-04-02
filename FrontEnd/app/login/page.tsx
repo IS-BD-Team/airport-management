@@ -1,4 +1,5 @@
 "use client";
+import { cookies } from "next/headers";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
@@ -20,13 +21,13 @@ const Login: React.FC = () => {
     });
     
     const data = await response.json();
-    console.log(response);
     console.log(data);
 
     if (response.status === 200) {
       document.cookie = `UserEmail=${data.email};path='/';max-age=604800`;
       document.cookie = `UserName=${data.firstName};path='/';max-age=604800`;
-      localStorage.setItem("token", data.token);
+      document.cookie = `UserToken=${data.token};path='/';max-age=604800`;
+      localStorage.setItem('token',data.token);
       router.push("../dashboard/Home");
     } else {
       alert("Login failed");

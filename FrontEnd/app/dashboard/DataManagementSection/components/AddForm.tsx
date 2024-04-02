@@ -1,90 +1,37 @@
-import Image from "next/image";
-import { allFormConfigs } from "../../../utils/formConfigs";
-import AddFormInput from "./AddFormInput";
+import AddFormBase from "./AddForms/AddFormBase";
+import AddFormClients from "./AddForms/AddFormClients";
+import AddFormAirplane from "./AddForms/AddFormAirplane";
+import AddFormPlaneRepair from "./AddForms/AddFormPlaneRepair";
+import AddFormFacility from "./AddForms/AddFormFacility";
+import AddFormService from "./AddForms/AddFormService";
+import AddFormRepair from "./AddForms/AddFormRepair";
+import AddFormStays from "./AddForms/AddFormStays";
 
-type AddFormProps = {
+
+export type AddFormProps = {
     type: string;
+    options?: { value: number | string; name: number | string }[][];
     handleToggleEvent: () => void;
+    handleOnClickAddButton: () => void;
 };
+
 export default function AddForm(props: AddFormProps) {
-    console.log(props.type);
-    let formConfig;
     switch (props.type) {
-        case "Administradores":
-            formConfig = allFormConfigs.Administradores;
-            break;
-        case "Aeropuertos":
-            formConfig = allFormConfigs.Aeropuertos;
-            break;
         case "Instalaciones":
-            formConfig = allFormConfigs.Instalaciones;
-            break;
+            return <AddFormFacility {...props} />;
         case "Servicios":
-            formConfig = allFormConfigs.Servicios;
-            break;
-        case "Reparciones":
-            formConfig = allFormConfigs.Reparciones;
-            break;
+            return <AddFormService {...props} />;
+        case "Reparaciones":
+            return <AddFormRepair {...props} />;
         case "Clientes":
-            formConfig = allFormConfigs.Clientes;
-            break;
+            return <AddFormClients {...props} />;
         case "Naves":
-            formConfig = allFormConfigs.Naves;
-            break;
+            return <AddFormAirplane {...props} />;
+        case "Estancias":
+            return <AddFormStays {...props} />;
+        case "Reparaciones a Naves":
+            return <AddFormPlaneRepair {...props} />;
         default:
-            formConfig = allFormConfigs.default;
+            return <AddFormBase {...props} />;
     }
-
-    async function createInstance(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-
-        const name = event.currentTarget["Nombre"].value;
-        const address = event.currentTarget["Ubicacion"].value;
-        const posicion = event.currentTarget["Posicion"].value;
-
-        try {
-            const response = await fetch("http://localhost:5258/airports", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-                body: JSON.stringify({ name, address }),
-            });
-            console.log(response);
-            // return response.json();
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    return (
-        <form
-            action="none"
-            className="mt-6 relative rounded-lg px-[1%] py-[2%] flex flex-col w-[33%] m-auto shadow-[0px_5px_10px_rgba(0,0,0,0.3)]"
-            onSubmit={createInstance}
-        >
-            <button
-                className="absolute right-5 text-[#e3e5ec] hover:text-black"
-                onClick={props.handleToggleEvent}
-            >
-                X
-            </button>
-            <caption className="font-bold flex flex-row justify-center mb-6">
-                {formConfig.caption}{" "}
-                <Image
-                    alt="aeropuertos_icon"
-                    className="ml-6 h-6 w-6"
-                    src={formConfig.icon}
-                />
-            </caption>
-            {formConfig.inputs.map((value, index) => {return(<AddFormInput data={value} key={index}/>)})}
-            <button
-                type="submit"
-                className="bg-[#005b7f] text-white rounded-lg p-[2%] mt-6 w-[30%] self-end"
-            >
-                Añadir
-            </button>
-        </form>
-    );
 }

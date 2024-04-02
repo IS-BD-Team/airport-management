@@ -4,43 +4,87 @@ import { useSearchParams } from "next/navigation";
 import CustomTable from "./components/CustomTable";
 import AddForm from "./components/AddForm";
 import { useState, useEffect } from "react";
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { FaRegArrowAltCircleDown } from "react-icons/fa";
+import { getTableWidths, getEndpoint } from "@/app/utils/EntityConfigs";
+import { Instance } from "@/app/utils/types";
+import { getRelations } from "@/app/utils/EntityConfigs";
+import { getFilters } from "@/app/utils/filters";
+import getRelationEndpoint from "@/app/utils/getRelationEndpoint";
+
+import applyFilters from "@/app/utils/applyFilters";
 
 export default function DataManagement() {
     const [toggleForm, setToogleForm] = useState(false);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<Instance[] | null>(null);
+    const [toogleFilters, setFilters] = useState(false);
+    const [refetch, setRefetch] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const getAirports = async () => {
+    const searchParams = useSearchParams();
+    const entity = searchParams.get("entity");
+    const relation = searchParams.get("relation");
+    const id = searchParams.get("id");
+
+    const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(
-                "http://localhost:5258/Airports/airports",
+                relation ? ("http://localhost:5258/" + getRelationEndpoint(relation ?? "", entity, id ?? "")) : getEndpoint(entity),
                 {
                     method: "GET",
                     headers: {
                         Authorization:
                             "Bearer " + localStorage.getItem("token"),
                     },
+                    // next: { tags: ["Airports"] },
                 }
             );
-            //console.log(response);
+            //revalidateServerTag("Airports");
             return response.json();
         } catch (err) {
             console.log(err);
         }
     };
 
-    const getAirportsData = async () => {
-        const response = await getAirports();
-        /*console.log("setData")
-        console.log(response);*/
-        setData(response.airports);
+    const getEntitysData = async (entity: string | null) => {
+        if (entity == null) return;
+
+        const response = await getEntitys(entity);
+        console.log("response:" ,response);
+      
+        setData(response);
+        console.log(data);
     };
 
     useEffect(() => {
-        getAirportsData();
+        setIsLoading(true);
+        getEntitysData(entity);
+    }, [refetch]);
+    
+    useEffect(() => {
+        setFilters(false);        
+    },[entity])
+
+    useEffect(() => {
+        setIsLoading(false);
     }, [data]);
 
-    const searchParams = useSearchParams();
-    const entity = searchParams.get("entity");
+    const [query, setQuery] = useState(false);
+    
+    useEffect(() => {
+        if (localStorage.getItem('query') != null) {
+            console.log('filtrando');
+            const resp:any = fetch(`${getEndpoint(entity as string)}${localStorage.getItem('query')}`, {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }
+            ).then(res => res.json().then(data => {
+                setData(data);
+            }))            
+        }
+    }, [query])
 
     if (entity == null) {
         return (
@@ -65,24 +109,79 @@ export default function DataManagement() {
                     </button>
                 </header>
 
-                {toggleForm && <AddForm type={entity} handleToggleEvent={()=>{
-                    setToogleForm(false)
-                    }}/>}
+                {toggleForm && (
+                    <AddForm
+                        type={entity}
+                        handleToggleEvent={() => {
+                            setToogleForm(false);
+                        }}
+                        handleOnClickAddButton={() => {
+                            setRefetch(!refetch);
+                            setTimeout(() => setToogleForm(false), 1000);
+                        }}
+                    />
+                )}
 
-                <fieldset>
-                    <legend>Filtros</legend>
+                <fieldset id="filters" className="my-4">
+                    <div className="flex flex-row gap-1 py-[auto] transition-all hover:gap-2 w-fit">
+                        <h2 className="text-2xl cursor-pointer">Filters</h2>
+                        <button onClick={() => setFilters(!toogleFilters)}>
+                            {!toogleFilters && <FaRegArrowAltCircleRight />}
+                            {toogleFilters && <FaRegArrowAltCircleDown />}
+                        </button>
+                    </div>
+                    {toogleFilters && (
+                        <div>
+                            <div className="overflow-hidden">
+                                <select
+                                    name="filtersSelect"
+                                    id="filtersSelect"
+                                    className="float-right mx-1
+                                border-2"
+                                onChange={getFilters}
+                                >                                   
+                                    <option value="">&nbsp;</option>
+                                    {getRelations(entity).map((relation, item) => (
+                                        <option key={item} value={relation.name}>
+                                            {relation.name}
+                                        </option>
+                                    ))}                                    
+                                </select>
+                                <label
+                                    htmlFor="filtersSelect"
+                                    className="float-right"
+                                >
+                                    Select a filter
+                                </label>
+                            </div>
+                            <div id="filterTable">
+
+                            </div>
+                            <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={()=>{applyFilters(); setQuery(!query)}}>Apply</button>
+                        </div>
+                    )}
                 </fieldset>
-                <section>
-                    {data != null && <CustomTable
-                        data={data}
-                        columnWidths={["20%", "10%", "60%", "10%"]}
-                    />}
-                    {data == null && <h2 className="text-2xl font-bold">
-                        No hay datos
-                    </h2>}
-                </section>
+                {isLoading && (
+                    <h2 className="text-2xl font-bold">Loading...</h2>
+                )}
+                {!isLoading && (
+                    <section>
+                        {data != null && (
+                            <CustomTable
+                                entity={entity}
+                                data={data}
+                                columnWidths={getTableWidths(entity)}
+                                handleOnClickDeleteButton={() => {
+                                    setRefetch(!refetch);
+                                }}
+                            />
+                        )}
+                        {data == null && (
+                            <h2 className="text-2xl font-bold">No hay datos</h2>
+                        )}
+                    </section>
+                )}
             </div>
         );
     }
 }
-

@@ -5,6 +5,8 @@ import reparaciones from "../../public/sistema.png";
 import aviones from "../../public/avion.png";
 import clientes from "../../public/cliente.png"
 import administradores from "../../public/adminstrador.png"
+import estancias from "../../public/estancia.png";
+import reparacionesNaves from "../../public/reparacionNave.png"
 
 import SideBarItem from "./SideBarItem";
 
@@ -16,9 +18,11 @@ export default function SideBar(){
                 <SideBarItem text="Aeropuertos" icon={aeropuertos}/>
                 <SideBarItem text="Instalaciones" icon={instalaciones}/>
                 <SideBarItem text="Servicios" icon={servicios}/>
-                <SideBarItem text="Reparciones" icon={reparaciones}/>
+                <SideBarItem text="Reparaciones" icon={reparaciones}/>
                 <SideBarItem text="Clientes" icon={clientes}/>
                 <SideBarItem text="Naves" icon={aviones}/>
+                <SideBarItem text="Estancias" icon={estancias}/>
+                <SideBarItem text="Reparaciones a Naves" icon={reparacionesNaves}/>
             </ul>
         </aside>
     );
