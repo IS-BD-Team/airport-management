@@ -60,13 +60,27 @@ export default function DataManagement() {
     }, [refetch]);
     
     useEffect(() => {
-        console.log('Entity changed');
         setFilters(false);        
     },[entity])
 
     useEffect(() => {
         setIsLoading(false);
     }, [data]);
+    const [query, setQuery] = useState(false);
+    useEffect(() => {
+        if (localStorage.getItem('query') != null) {
+            console.log('filtrando');
+            const resp:any = fetch(`${getEndpoint(entity as string)}${localStorage.getItem('query')}`, {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            }
+            ).then(res => res.json().then(data => {
+                setData(data);
+            }))            
+        }
+    }, [query])
 
     if (entity == null) {
         return (
@@ -139,7 +153,7 @@ export default function DataManagement() {
                             <div id="filterTable">
 
                             </div>
-                            <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={applyFilters}>Apply</button>
+                            <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={()=>{applyFilters(); setQuery(!query)}}>Apply</button>
                         </div>
                     )}
                 </fieldset>

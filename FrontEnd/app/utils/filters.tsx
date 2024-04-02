@@ -85,7 +85,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             selectName = 'RepairServices';
             break;
         case "Estancias":
-            
+            valid = false;
             labelText = 'Selecciona una estancia';
             selectName = 'PlaneStay';
             break;
