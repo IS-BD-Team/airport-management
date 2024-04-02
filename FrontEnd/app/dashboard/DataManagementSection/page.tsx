@@ -25,7 +25,7 @@ export default function DataManagement() {
     const entity = searchParams.get("entity");
     const relation = searchParams.get("relation");
     const id = searchParams.get("id");
-    
+
     const getEntitys = async (entity: string) => {
         try {
             const response = await fetch(
@@ -68,7 +68,9 @@ export default function DataManagement() {
     useEffect(() => {
         setIsLoading(false);
     }, [data]);
+
     const [query, setQuery] = useState(false);
+    
     useEffect(() => {
         if (localStorage.getItem('query') != null) {
             console.log('filtrando');
