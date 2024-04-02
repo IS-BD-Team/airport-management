@@ -26,7 +26,6 @@ public class Airplane(
 
     [Required] public int CrewMembers { get; set; } = crewMembers;
 
-    [Required] public bool HasReceivedMaintenance { get; set; } = false;
 
     public ICollection<AirplaneRepairService.AirplaneRepairService>? AirplaneRepairServices { get; set; }
 }

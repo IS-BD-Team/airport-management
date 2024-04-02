@@ -23,7 +23,6 @@ public class AirplaneRepository(AirportManagementDbContext dbContext) : IAirplan
             existingAirplane.ClientId = airplane.ClientId;
             existingAirplane.MaxLoad = airplane.MaxLoad;
             existingAirplane.CrewMembers = airplane.CrewMembers;
-            existingAirplane.HasReceivedMaintenance = airplane.HasReceivedMaintenance;
             dbContext.Update(existingAirplane);
         }
 
