@@ -48,11 +48,11 @@ export type Nave = {
     //picture: StaticImageData;
 }
 export type Estancia = {
-    matricula: string;
-    fechaInicio: string;
-    idA: string;
+    airplaneId: string;
+    arrivalDate: string;
+    airportId: string;
     valoracion: number;
-    fechaPropuestaFin: string;
+    departureDate: string;
     //picture: StaticImageData;
 }
 export type ReparacionNave = {

@@ -11,7 +11,7 @@ import { revalidateServerTag } from "@/app/utils/revalidate";
 import { Instance } from "@/app/utils/types";
 import { getRelations } from "@/app/utils/EntityConfigs";
 import { getFilters } from "@/app/utils/filters";
-import getRelationEndpoint from "@/app/utils/relations";
+import getRelationEndpoint from "@/app/utils/getRelationEndpoint";
 
 
 export default function DataManagement() {

@@ -140,7 +140,7 @@ export const allEntityConfigs = {
       {
         name: "Aeropuerto",
         icon: aeropuertos,
-        link: "/dashboard/InstanceViewSection?entity=Aeropuertos&relation=Instalaciones&id=",
+        link: "Aeropuertos,Instalaciones",
       },
       {
         name: "Servicios",
@@ -192,14 +192,14 @@ export const allEntityConfigs = {
         link: "/dashboard/DataManagementSection?entity=Naves&relation=Servicios&id=",
       },
       {
-        name: "Brindado en: Aeropuertos",
+        name: "Brindado en: Aeropuerto",
         icon: aeropuertos,
-        link: "/dashboard/DataManagementSection?entity=Aeropuertos&relation=Servicios&id=",
+        link: "Aeropuertos,Servicios",
       },
       {
-        name: "Brindado en: Instalaciones",
+        name: "Brindado en: Instalacion",
         icon: instalaciones,
-        link: "/dashboard/DataManagementSection?entity=Instalaciones&relation=Servicios&id=",
+        link: "Instalaciones,Servicios",
       },
     ],
     endPoint: "http://localhost:5258/Services",
@@ -247,14 +247,14 @@ export const allEntityConfigs = {
         link: "/dashboard/DataManagementSection?entity=Naves&relation=Reparaciones&id=",
       },
       {
-        name: "Brindado en: Aeropuertos",
+        name: "Brindado en: Aeropuerto",
         icon: aeropuertos,
-        link: "/dashboard/DataManagementSection?entity=Aeropuertos&relation=Reparaciones&id=",
+        link: "Aeropuertos,Reparaciones",
       },
       {
-        name: "Brindado en: Instalaciones",
+        name: "Brindado en: Instalacion",
         icon: instalaciones,
-        link: "/dashboard/DataManagementSection?entity=Instalaciones&relation=Reparaciones&id=",
+        link: "Instalaciones,Reparaciones",
       },
     ],
     endPoint: "http://localhost:5258/RepairServices",
@@ -361,7 +361,7 @@ export const allEntityConfigs = {
       {
         name: "Dueño",
         icon: clientes,
-        link: "/dashboard/InstanceViewSection?entity=Dueño&relation=Naves&id=",
+        link: "Clientes,Naves",
       },
     ],
     endPoint: "http://localhost:5258/Airplanes",
@@ -416,12 +416,12 @@ export const allEntityConfigs = {
       {
         name: "Nave",
         icon: aviones,
-        link: "/dashboard/InstanceViewSection?entity=Naves&relation=Estancias&id=",
+        link: "Naves,Estancias",
       },
       {
         name: "Aeropuerto",
         icon: aeropuertos,
-        link: "/dashboard/InstanceViewSection?entity=Aeropuertos&relation=Estancias&id=",
+        link: "Aeropuertos,Estancias",
       },
       {
         name: "Servicios",
@@ -486,12 +486,12 @@ export const allEntityConfigs = {
       {
         name: "Nave",
         icon: aviones,
-        link: "/dashboard/InstanceViewSection?entity=Naves&relation=Reparaciones a Naves&id=",
+        link: "Naves,Reparaciones a Naves",
       },
       {
         name: "Reparacion",
         icon: reparaciones,
-        link: "/dashboard/InstanceViewSection?entity=Reparaciones&relation=Reparaciones a Naves&id=",
+        link: "Reparaciones,Reparaciones a Naves",
       },
     ],
     endPoint: "http://localhost:5258/AirplaneRepairServices",
