@@ -18,5 +18,5 @@ public class PlaneStay(int airplaneId, int airportId, DateTime arrivalDate, Date
     [Required] public DateTime ArrivalDate { get; set; } = arrivalDate;
     [Required] public DateTime DepartureDate { get; set; } = departureDate;
 
-    public ICollection<ClientRating> Ratings { get; set; } = new List<ClientRating>();
+    public ICollection<ClientRating>? Ratings { get; set; }
 }
