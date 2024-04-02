@@ -81,7 +81,10 @@ export default function DataManagement() {
             }))            
         }
     }, [query])
-
+    const [fieldnames, setFieldnames] = useState<string[]>([]);
+    useEffect(() => {
+        setFieldnames([]);
+    },[toogleFilters])
     if (entity == null) {
         return (
             <div className="m-5 relative">
@@ -134,7 +137,10 @@ export default function DataManagement() {
                                     id="filtersSelect"
                                     className="float-right mx-1
                                 border-2"
-                                onChange={getFilters}
+                                onChange={async (event) => {
+                                    const fieldname = await getFilters(event);
+                                    setFieldnames(fieldnames.concat([fieldname]));
+                                }}
                                 >                                   
                                     <option value="">&nbsp;</option>
                                     {getRelations(entity).map((relation, item) => (
@@ -153,7 +159,7 @@ export default function DataManagement() {
                             <div id="filterTable">
 
                             </div>
-                            <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={()=>{applyFilters(); setQuery(!query)}}>Apply</button>
+                            <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={()=>{applyFilters(fieldnames); setQuery(!query)}}>Apply</button>
                         </div>
                     )}
                 </fieldset>

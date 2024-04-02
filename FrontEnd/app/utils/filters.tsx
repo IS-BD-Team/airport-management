@@ -4,6 +4,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
     let names: any[] = [];
     let labelText: string;
     let selectName:string;
+    let fieldname:string;
     let valid = true;
     const entry:string = event.currentTarget.value;
     console.log(entry);
@@ -23,6 +24,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona una instalacion';
             selectName = 'Facilities';
+            fieldname = 'Name';
             break;
         case "Brindado en: Instalaciones":
             data = await fetch(getEndpoint('Instalaciones'), {
@@ -38,6 +40,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona una instalacion';
             selectName = 'Facilities';
+            fieldname = 'Name';
             break;
         case "Servicios":
             data = await fetch(getEndpoint(entry), {
@@ -53,6 +56,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona un servicio';
             selectName = 'Services';
+            fieldname = 'Description';
             break;
         case "Reparaciones":
             data = await fetch(getEndpoint(entry), {
@@ -68,6 +72,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona una reparacion';
             selectName = 'RepairServices';
+            fieldname = 'Description';
             break;
         case "Reparaciones Impilcadas":
             data = await fetch(getEndpoint('Reparaciones'), {
@@ -83,11 +88,13 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona una reparacion';
             selectName = 'RepairServices';
+            fieldname = 'Description';
             break;
         case "Estancias":
             valid = false;
             labelText = 'Selecciona una estancia';
             selectName = 'PlaneStay';
+            fieldname = ''
             break;
         case "Clientes con naves":
             data = await fetch(getEndpoint('Clientes'), {
@@ -103,6 +110,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona un cliente con nave';
             selectName = 'Clients';
+            fieldname = 'Name';
             break;
         case "Aeropuerto":
             data = await fetch(getEndpoint('Aeropuertos'), {
@@ -118,6 +126,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona un aeropuerto';
             selectName = 'Airports';
+            fieldname = 'Name';
             break;
         case "Brindado en: Aeropuertos":
             data = await fetch(getEndpoint('Aeropuertos'), {
@@ -133,6 +142,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona un aeropuerto';
             selectName = 'Airports';
+            fieldname = 'Name';
             break;
         case "Naves":
             data = await fetch(getEndpoint(entry), {
@@ -148,6 +158,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona una nave';
             selectName = 'Airplanes';
+            fieldname = 'planePlate'
             break;
         case "Brindado a":
             data = await fetch(getEndpoint('Naves'), {
@@ -163,6 +174,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona una nave';
             selectName = 'Airplanes';
+            fieldname = 'planePlate'
             break;
         case "Dueño":
             data = await fetch(getEndpoint('Clientes'), {
@@ -178,11 +190,13 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             })
             labelText = 'Selecciona un cliente';
             selectName = 'Clients';
+            fieldname = 'Name'
             break;
         default:
             names = [];
             labelText = '';
             selectName = '';
+            fieldname = '';
             valid = false;
             console.log('Invalid');
             break;
@@ -213,4 +227,5 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
             filterContainer.appendChild(divElement);
         }
     }
+    return fieldname;
 }
