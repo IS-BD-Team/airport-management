@@ -43,7 +43,11 @@ public class PlaneStayController(ISender mediator, IMapper mapper) : ODataContro
     [HttpPost]
     public async Task<IActionResult> Create(PlaneStayRequest request)
     {
-        var command = new CreatePlaneStayCommand(request.AirplaneId, request.AirportId, request.ArrivalDate,
+        var command = new CreatePlaneStayCommand(
+            request.AirplaneId,
+            request.AirportId,
+            request.Rating,
+            request.ArrivalDate,
             request.DepartureDate);
         var createStayResult = await mediator.Send(command);
 
@@ -55,7 +59,11 @@ public class PlaneStayController(ISender mediator, IMapper mapper) : ODataContro
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, PlaneStayRequest request)
     {
-        var command = new UpdatePlaneStayCommand(id, request.AirplaneId, request.AirportId, request.ArrivalDate,
+        var command = new UpdatePlaneStayCommand(id,
+            request.AirplaneId,
+            request.AirportId,
+            request.Rating,
+            request.ArrivalDate,
             request.DepartureDate);
 
         var result = await mediator.Send(command);
