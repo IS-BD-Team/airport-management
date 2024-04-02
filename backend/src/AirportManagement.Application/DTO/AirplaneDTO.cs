@@ -8,6 +8,5 @@ public class AirplaneDto
     public int MaxLoad { get; set; }
     public int PassengersCapacity { get; set; }
     public int CrewMembers { get; set; }
-    public bool HasReceivedMaintenance { get; set; }
     public int ClientId { get; set; }
 }
