@@ -12,11 +12,11 @@ public class
     public async Task<ErrorOr<Domain.Clients.ClientRating>> Handle(UpdateClientRatingCommand request,
         CancellationToken cancellationToken)
     {
-        var existingClientRating = await clientRatingRepository.GetByIdAsync(request.RatingIid);
+        var existingClientRating = await clientRatingRepository.GetByIdAsync(request.RatingId);
 
         if (existingClientRating is null)
             return Error.NotFound(
-                $"Client rating with id {request.RatingIid} was not found.");
+                $"Client rating with id {request.RatingId} was not found.");
 
         existingClientRating.Rating = request.Rating;
 

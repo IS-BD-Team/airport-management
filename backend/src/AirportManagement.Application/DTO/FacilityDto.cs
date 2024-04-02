@@ -6,5 +6,5 @@ public class FacilityDto
     public string Name { get; set; } = default!;
     public string Location { get; set; } = default!;
     public string Type { get; set; }
-    public AirportDto Airport { get; set; } = default!;
+    public int AirportId { get; set; } = default!;
 }

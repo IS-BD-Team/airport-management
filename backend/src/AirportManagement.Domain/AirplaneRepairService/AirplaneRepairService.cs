@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AirportManagement.Domain.RepairServices;
-using AirportManagement.Domain.Services;
 
 namespace AirportManagement.Domain.AirplaneRepairService;
 
@@ -10,7 +9,7 @@ public class AirplaneRepairService(int airPlaneId, int repairServiceId, DateTime
     [Key] public int Id { get; init; }
 
     [Required] public int AirPlaneId { get; set; } = airPlaneId;
-    [ForeignKey(nameof(AirPlaneId))] public Airplane.Airplane? Plane { get; set; }
+    [ForeignKey(nameof(AirPlaneId))] public Airplane.Airplane? AirPlane { get; set; }
 
     [Required] public int RepairServiceId { get; set; } = repairServiceId;
     [ForeignKey(nameof(RepairServiceId))] public RepairService RepairService { get; set; } = null!;
@@ -20,6 +19,7 @@ public class AirplaneRepairService(int airPlaneId, int repairServiceId, DateTime
 
     [Required] public DateTime CreationDate { get; private init; } = DateTime.UtcNow;
 
+    public ICollection<AirplaneRepairService> AirplaneRepairServices { get; } = new List<AirplaneRepairService>();
 
     public decimal ElapsedHours => (decimal)(EndDate - StartDate).TotalHours;
 }

@@ -32,7 +32,7 @@ public class AirportsController(ISender mediator, IMapper mapper)
     }
 
     [HttpGet]
-    [EnableQuery]
+    [EnableQuery(MaxAnyAllExpressionDepth = 20, PageSize = 100)]
     public async Task<IActionResult> GetAirports()
     {
         var query = new GetAllAirportsQuery();
