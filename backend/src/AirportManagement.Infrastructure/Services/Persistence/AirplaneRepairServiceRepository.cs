@@ -54,7 +54,8 @@ public class AirplaneRepairServiceRepository(AirportManagementDbContext dbContex
         if (fatherAirplaneRepairService is null) throw new Exception("Service not found.");
         if (childAirplaneRepairService is null) throw new Exception("Service not found.");
 
-        fatherAirplaneRepairService.AirplaneRepairServices.Add(childAirplaneRepairService);
+        childAirplaneRepairService.FatherAirplaneRepairServiceId = fatherId;
+        dbContext.AirplaneRepairServices.Update(childAirplaneRepairService);
         return new Success();
     }
 }
