@@ -154,7 +154,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/Facilities",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["10%", "15%", "20%", "20%", "15%", "10%", "10%"],
   },
   Servicios: {
     formConfig: {
@@ -203,7 +203,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/Services",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["10%", "45%", "15%", "10%", "10%", "10%"],
   },
   Reparaciones: {
     formConfig: {
@@ -258,7 +258,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/RepairServices",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["10%", "45%", "15%", "10%", "10%", "10%"],
   },
   Clientes: {
     formConfig: {
@@ -299,7 +299,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/Clients",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["10%", "20%", "15%", "15%", "15%", "15%", "10%"],
   },
   Naves: {
     formConfig: {
@@ -495,7 +495,7 @@ export const allEntityConfigs = {
       },
     ],
     endPoint: "http://localhost:5258/AirplaneRepairServices",
-    tableWidths: ["5%", "25%", "60%", "10%"],
+    tableWidths: ["5%", "15%", "15%", "20%", "20%", "15%", "10%"],
   },
   default: {
     formConfig: {
@@ -608,4 +608,3 @@ export function getRelations(entity: string) {
       return allEntityConfigs.default.relations;
   }
 }
- 
