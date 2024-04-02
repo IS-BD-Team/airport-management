@@ -45,4 +45,16 @@ public class AirplaneRepairServiceRepository(AirportManagementDbContext dbContex
     {
         return Task.FromResult(dbContext.AirplaneRepairServices.AsQueryable());
     }
+
+    public async Task<Success> InsertAirplaneRepairServiceAsync(int fatherId, int childId)
+    {
+        var fatherAirplaneRepairService = await GetByIdAsync(fatherId);
+        var childAirplaneRepairService = await GetByIdAsync(childId);
+
+        if (fatherAirplaneRepairService is null) throw new Exception("Service not found.");
+        if (childAirplaneRepairService is null) throw new Exception("Service not found.");
+
+        fatherAirplaneRepairService.AirplaneRepairServices.Add(childAirplaneRepairService);
+        return new Success();
+    }
 }
