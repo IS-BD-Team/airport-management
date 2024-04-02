@@ -17,7 +17,7 @@ public class AirplaneRepairService(int airPlaneId, int repairServiceId, DateTime
     [Required] public DateTime StartDate { get; set; } = startDate;
     [Required] public DateTime EndDate { get; set; } = endDate;
 
-    public ICollection<AirplaneRepairService> AirplaneRepairServices { get; set; } = new List<AirplaneRepairService>();
+    public int? FatherAirplaneRepairServiceId { get; set; } = null;
 
     public decimal ElapsedHours => (decimal)(EndDate - StartDate).TotalHours;
 }

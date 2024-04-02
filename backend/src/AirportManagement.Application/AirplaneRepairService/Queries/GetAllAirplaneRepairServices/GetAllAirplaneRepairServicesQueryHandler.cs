@@ -14,8 +14,6 @@ public class GetAllAirplaneRepairServicesQueryHandler(IAirplaneRepairServiceRepo
     {
         var services = await repository.GetAllAsync();
 
-        //remove airplaneRepairServices from each service
-        foreach (var service in services) service.AirplaneRepairServices = null;
 
         return services.ToErrorOr();
     }
