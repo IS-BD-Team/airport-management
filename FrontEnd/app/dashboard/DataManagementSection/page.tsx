@@ -11,6 +11,7 @@ import { revalidateServerTag } from "@/app/utils/revalidate";
 import { Instance } from "@/app/utils/types";
 import { getRelations } from "@/app/utils/EntityConfigs";
 import { getFilters } from "@/app/utils/filters";
+import applyFilters from "@/app/utils/applyFilters";
 
 
 export default function DataManagement() {
@@ -138,7 +139,7 @@ export default function DataManagement() {
                             <div id="filterTable">
 
                             </div>
-                            <button className="bg-gray-200 px-3 py-1 rounded-md">Apply</button>
+                            <button className="bg-gray-200 px-3 py-1 rounded-md" onClick={applyFilters}>Apply</button>
                         </div>
                     )}
                 </fieldset>

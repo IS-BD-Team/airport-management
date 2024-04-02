@@ -87,6 +87,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
         case "Estancias":
             
             labelText = 'Selecciona una estancia';
+            selectName = 'PlaneStay';
             break;
         case "Clientes con naves":
             data = await fetch(getEndpoint('Clientes'), {
@@ -191,6 +192,7 @@ export async function getFilters(event: React.ChangeEvent<HTMLSelectElement>) {
         if (filterContainer) {
             const selectElement = document.createElement('select');
             selectElement.className = "border-2";
+            selectElement.name = selectName;
             names.forEach((val) => {
                 const optionElement = document.createElement('option');
                 optionElement.value = "";
