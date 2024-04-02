@@ -17,8 +17,6 @@ public class AirplaneRepairService(int airPlaneId, int repairServiceId, DateTime
     [Required] public DateTime StartDate { get; set; } = startDate;
     [Required] public DateTime EndDate { get; set; } = endDate;
 
-    [Required] public DateTime CreationDate { get; private init; } = DateTime.UtcNow;
-
     public ICollection<AirplaneRepairService> AirplaneRepairServices { get; } = new List<AirplaneRepairService>();
 
     public decimal ElapsedHours => (decimal)(EndDate - StartDate).TotalHours;
